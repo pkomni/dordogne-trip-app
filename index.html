@@ -151,7 +151,18 @@ style="
 🧠 Auto-Optimize Trip
 </button>
 
+<h2>
+📅 ${day.date} – ${day.title}
+</h2>
 
+<div style="margin-bottom:8px;">
+    ${badge}
+    <small style="margin-left:10px; color:#666;">
+        ⭐ Score: ${stats.totalScore} |
+        🚗 ${stats.drivingKm.toFixed(1)} km |
+        👶 Kid fit: ${stats.kid.toFixed(0)}
+    </small>
+</div>
 
 <div id="days-container"></div>
 
@@ -159,6 +170,98 @@ style="
 
 <script>
 
+    function suggestImprovements(day) {
+    const suggestions = [];
+    const stats = scoreDay(day);
+
+    if (stats.drivingKm > 50) {
+        suggestions.push("Reduce driving: cluster nearby activities in Dordogne valley.");
+    }
+
+    if (stats.kid > stats.effort + 8) {
+        suggestions.push("Too intense for kids: add rest or swimming break.");
+    }
+
+    if (stats.heat > 12) {
+        suggestions.push("High heat exposure: move outdoor activity to morning or replace with cave visit.");
+    }
+
+    return suggestions;
+}
+
+    // -----------------------------
+// TRIP INTELLIGENCE ENGINE
+// -----------------------------
+
+function getExperienceScore(id) {
+    const a = activities[id];
+
+    let scenic = 3;
+    let kid = a.kidEnergy === "high" ? 5 : a.kidEnergy === "medium" ? 7 : 9;
+    let effort = a.type === "outdoor" ? 6 : 8;
+
+    // default assumptions (can refine later per activity)
+    let crowd = 6;
+    let heatRisk = a.type === "outdoor" ? 7 : 3;
+
+    return {
+        scenic,
+        kid,
+        effort,
+        crowd,
+        heatRisk
+    };
+}
+
+    function scoreDay(day) {
+    let scenic = 0;
+    let kid = 0;
+    let effort = 0;
+    let crowd = 0;
+    let heat = 0;
+
+    day.activities.forEach(id => {
+        const s = getExperienceScore(id);
+
+        scenic += s.scenic;
+        kid += s.kid;
+        effort += s.effort;
+        crowd += s.crowd;
+        heat += s.heatRisk;
+    });
+
+    const drivingKm = calculateRouteDistance(day.activities);
+
+    const drivingPenalty = drivingKm * 0.4;
+
+    const totalScore =
+        (scenic * 1.5) +
+        (kid * 1.2) -
+        (effort * 0.8) -
+        (crowd * 0.3) -
+        (heat * 0.4) -
+        drivingPenalty;
+
+    return {
+        scenic,
+        kid,
+        effort,
+        crowd,
+        heat,
+        drivingKm,
+        totalScore: Math.round(totalScore)
+    };
+}
+
+    const stats = scoreDay(day);
+
+let badge = "🟢 Great Day";
+
+if (stats.totalScore < 25) badge = "🟡 OK Day";
+if (stats.totalScore < 18) badge = "⚠️ Tiring Day";
+if (stats.drivingKm > 60) badge = "🚗 Too Much Driving";
+
+    
     // -----------------------------
 // DISTANCE ENGINE (Haversine)
 // -----------------------------
@@ -433,27 +536,25 @@ function getActivityScore(activityId) {
     let zones = new Set();
     let travelLoad = 0;
 
-    day.activities.forEach(id => {
+    (day.activities || []).forEach(id => {
+        if (!activities[id]) return;
+
         const score = getActivityScore(id);
         totalEnergy += score.energy;
         travelLoad += score.travelWeight;
         zones.add(score.zone);
     });
 
-    const zoneSpread = zones.size;
-
-    let risk = "low";
-
-    if (totalEnergy >= 5) risk = "high";
-    else if (totalEnergy >= 3) risk = "medium";
-
-    if (zoneSpread >= 3) risk = "high";
-
     return {
         totalEnergy,
         travelLoad,
-        zoneSpread,
-        risk
+        zoneSpread: zones.size,
+        risk:
+            totalEnergy >= 5 || zones.size >= 3
+                ? "high"
+                : totalEnergy >= 3
+                ? "medium"
+                : "low"
     };
 }
 
@@ -548,11 +649,17 @@ function groupByZone(activityIds) {
 function autoOptimizeItinerary() {
     const all = Object.keys(activities);
 
-    const optimized = buildMapOptimizedDays(all);
+    const clusters = clusterByProximity(all);
+
+    const daysOptimized = clusters.map((cluster, i) => ({
+        date: "",
+        title: "Optimized Day " + (i + 1),
+        activities: cluster
+    }));
 
     const startDate = new Date("2026-06-23");
 
-    optimized.forEach((day, i) => {
+    daysOptimized.forEach((day, i) => {
         const d = new Date(startDate);
         d.setDate(startDate.getDate() + i);
 
@@ -562,7 +669,7 @@ function autoOptimizeItinerary() {
         });
     });
 
-    days = optimized;
+    days = daysOptimized;
     renderDays();
 }
 
@@ -573,98 +680,97 @@ function autoOptimizeItinerary() {
 // -----------------------------
 
 function renderDays() {
-
     const container = document.getElementById("days-container");
-
     container.innerHTML = "";
 
-
-
     days.forEach((day, index) => {
-
         const card = document.createElement("div");
-
         card.className = "day-card";
-
         card.draggable = true;
-
         card.dataset.index = index;
 
+        const analysis = analyzeDay(day);
+        const suggestions = suggestImprovements(day);
 
+        let badge = "🟢 Great Day";
+        if (analysis.totalEnergy >= 5) badge = "⚠️ Intense Day";
+        if (analysis.travelLoad > 6) badge = "🚗 Driving Heavy";
+        if (analysis.zoneSpread >= 3) badge = "🧭 Spread Out";
 
         card.innerHTML = `
+            <h2>📅 ${day.date || ""} – ${day.title}</h2>
 
-            const analysis = analyzeDay(day);
-
-card.innerHTML = `
-    <h2>📅 ${day.date} – ${day.title}</h2>
-    <div style="margin-bottom:8px;">
-        ${getRiskBadge(analysis.risk)}
-        <small style="margin-left:10px; color:#666;">
-            Energy: ${analysis.totalEnergy} | Zones: ${analysis.zoneSpread} | Travel load: ${analysis.travelLoad.toFixed(1)}
-        </small>
-    </div>
-`;
-
-            <div>
-
-                ${day.activities.map(id => `
-
-                    <div class="activity">
-
-                        <div class="activity-header">
-
-                            <span class="icon">${activities[id].icon}</span>
-
-                            <strong>${activities[id].name}</strong>
-
-                        </div>
-
-                        <div><strong>Duration:</strong> ${activities[id].duration}</div>
-<div><strong>Best time:</strong> ${activities[id].bestTime}</div>
-<div><strong>Price:</strong> ${activities[id].price}</div>
-
-                        Booking: ${
-
-                            activities[id].booking === "None"
-
-                            ? "No booking needed"
-
-                            : `<a href="${activities[id].booking}" target="_blank">${activities[id].booking}</a>`
-
-                        }<br>
-
-                        Map: <a href="${activities[id].map}" target="_blank">Open map</a><br>
-
-                        <em>${activities[id].notes}</em>
-
-                        ${activities[id].photo ? `<img src="${activities[id].photo}" alt="${activities[id].name}">` : ""}
-
-                    </div>
-
-                `).join("")}
-
-                ${day.activities.length === 0 ? "<em>Arrival, groceries, and pool time at the house.</em>" : ""}
-
+            <div style="margin-bottom:8px;">
+                ${badge}
+                <small style="margin-left:10px; color:#666;">
+                    Energy: ${analysis.totalEnergy} |
+                    Zones: ${analysis.zoneSpread} |
+                    Travel load: ${analysis.travelLoad.toFixed(1)}
+                </small>
             </div>
 
+            <div>
+                ${day.activities.map(id => {
+                    const a = activities[id];
+                    if (!a) return "";
+                    return `
+                        <div class="activity">
+                            <div class="activity-header">
+                                <span class="icon">${a.icon}</span>
+                                <strong>${a.name}</strong>
+                            </div>
+
+                            <div><strong>Duration:</strong> ${a.duration}</div>
+                            <div><strong>Best time:</strong> ${a.bestTime}</div>
+                            <div><strong>Price:</strong> ${a.price}</div>
+
+                            <div>
+                                Booking:
+                                ${a.booking === "None"
+                                    ? "No booking needed"
+                                    : `<a href="${a.booking}" target="_blank">Link</a>`
+                                }
+                            </div>
+
+                            <div>
+                                Map:
+                                <a href="${a.map}" target="_blank">Open map</a>
+                            </div>
+
+                            <em>${a.notes}</em>
+
+                            ${a.photo ? `<img src="${a.photo}" alt="${a.name}">` : ""}
+                        </div>
+                    `;
+                }).join("")}
+
+                ${day.activities.length === 0
+                    ? "<em>Arrival, groceries, pool time.</em>"
+                    : ""
+                }
+            </div>
+
+            ${
+                suggestions.length > 0
+                ? `
+                <div style="margin-top:10px; padding:8px; background:#fff3cd; border-radius:8px;">
+                    <strong>💡 Suggestions:</strong>
+                    <ul>
+                        ${suggestions.map(s => `<li>${s}</li>`).join("")}
+                    </ul>
+                </div>
+                `
+                : ""
+            }
         `;
 
-
-
-        // Drag events
-
         card.addEventListener("dragstart", dragStart);
-
         card.addEventListener("dragover", dragOver);
-
         card.addEventListener("drop", drop);
 
-
-
         container.appendChild(card);
-
     });
+});
 
 }
 
@@ -694,27 +800,15 @@ function drop(e) {
     const targetCard = e.target.closest(".day-card");
     if (!targetCard) return;
 
-    const targetIndex = targetCard.dataset.index;
+    const targetIndex = Number(targetCard.dataset.index);
+    const dragged = Number(draggedIndex);
+
+    if (dragged === targetIndex) return;
 
     const newDays = [...days];
-    const temp = newDays[draggedIndex];
-    newDays[draggedIndex] = newDays[targetIndex];
-    newDays[targetIndex] = temp;
 
-    // analyze risk after swap
-    const beforeRisk = analyzeDay(days[draggedIndex]).risk;
-    const afterRisk = analyzeDay(newDays[targetIndex]).risk;
-
-    const riskySwap =
-        beforeRisk === "high" || afterRisk === "high";
-
-    if (riskySwap) {
-        const ok = confirm(
-            "⚠️ This swap creates a very intense day for kids (long travel or packed schedule). Continue?"
-        );
-
-        if (!ok) return;
-    }
+    [newDays[dragged], newDays[targetIndex]] =
+    [newDays[targetIndex], newDays[dragged]];
 
     days = newDays;
     renderDays();
