@@ -159,13 +159,40 @@ style="
 
 <script>
 
+    // -----------------------------
+// DISTANCE ENGINE (Haversine)
+// -----------------------------
+
+function getDistanceKm(a, b) {
+    const R = 6371;
+
+    const dLat = (b.lat - a.lat) * Math.PI / 180;
+    const dLon = (b.lng - a.lng) * Math.PI / 180;
+
+    const lat1 = a.lat * Math.PI / 180;
+    const lat2 = b.lat * Math.PI / 180;
+
+    const x =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.sin(dLon / 2) *
+        Math.cos(lat1) *
+        Math.cos(lat2);
+
+    const y = 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+
+    return R * y;
+}
+
 // -----------------------------
 // ENHANCED ACTIVITIES (DORDOGNE-OPTIMIZED)
 // -----------------------------
+
 const activities = {
     beynac_castle: {
         name: "Château de Beynac",
         icon: "🏰",
+        lat: 44.8447,
+        lng: 1.1459,
         photo: "images/beynac.jpg",
         price: "€11 adult / €7 child",
         booking: "https://www.beynac.com",
@@ -180,6 +207,8 @@ const activities = {
     castelnaud_castle: {
         name: "Château de Castelnaud",
         icon: "🛡️",
+        lat: 44.8206,
+        lng: 1.1451,
         photo: "images/castelnaud.jpg",
         price: "€12 adult / €7.50 child",
         booking: "https://castelnaud.com",
@@ -194,6 +223,8 @@ const activities = {
     lascaux_iv: {
         name: "Lascaux IV – Cave Art Centre",
         icon: "🕳️",
+        lat: 45.0626,
+        lng: 1.1661,
         photo: "images/lascaux.jpg",
         price: "€22 adult / €14 child",
         booking: "https://lascaux.fr",
@@ -208,6 +239,8 @@ const activities = {
     gabare_boat: {
         name: "Gabare Boat Ride – La Roque-Gageac",
         icon: "⛵",
+        lat: 44.8239,
+        lng: 1.1864,
         photo: "images/gabare.jpg",
         price: "€11 adult / €8 child",
         booking: "https://gabare-norbert.com",
@@ -222,6 +255,8 @@ const activities = {
     canoe_dordogne: {
         name: "Canoe Dordogne – Family Route",
         icon: "🛶",
+        lat: 44.8320,
+        lng: 1.2010,
         photo: "images/canoe.jpg",
         price: "€20–25 per person",
         booking: "https://canoe-dordogne.com",
@@ -236,6 +271,8 @@ const activities = {
     marqueyssac: {
         name: "Jardins de Marqueyssac",
         icon: "🌿",
+        lat: 44.8335,
+        lng: 1.1872,
         photo: "images/marqueyssac.jpg",
         price: "€11 adult / €5 child",
         booking: "https://marqueyssac.com",
@@ -264,6 +301,8 @@ const activities = {
     market_sarlat: {
         name: "Sarlat Market",
         icon: "🛍️",
+        lat: 44.8890,
+        lng: 1.2160,
         photo: "images/market_sarlat.jpg",
         price: "Free",
         booking: "None",
@@ -507,18 +546,10 @@ function groupByZone(activityIds) {
 // -----------------------------
 
 function autoOptimizeItinerary() {
-    const allActivities = Object.keys(activities);
+    const all = Object.keys(activities);
 
-    // remove duplicates already assigned in current days
-    const used = new Set(days.flatMap(d => d.activities));
-    const remaining = allActivities.filter(a => !used.has(a));
+    const optimized = buildMapOptimizedDays(all);
 
-    // merge current + missing
-    const merged = [...used, ...remaining];
-
-    const optimized = buildOptimizedDays(merged);
-
-    // reassign proper dates (23–29 June)
     const startDate = new Date("2026-06-23");
 
     optimized.forEach((day, i) => {
@@ -687,6 +718,99 @@ function drop(e) {
 
     days = newDays;
     renderDays();
+}
+
+    // -----------------------------
+// MAP CLUSTERING ENGINE
+// -----------------------------
+
+function clusterByProximity(activityIds) {
+    const clusters = [];
+
+    const remaining = [...activityIds];
+
+    while (remaining.length > 0) {
+        const seed = remaining.shift();
+        const seedPos = activities[seed];
+
+        const cluster = [seed];
+
+        for (let i = remaining.length - 1; i >= 0; i--) {
+            const id = remaining[i];
+            const pos = activities[id];
+
+            const dist = getDistanceKm(seedPos, pos);
+
+            // 25km radius = same “day cluster”
+            if (dist <= 25) {
+                cluster.push(id);
+                remaining.splice(i, 1);
+            }
+        }
+
+        clusters.push(cluster);
+    }
+
+    return clusters;
+}
+
+    function calculateRouteDistance(activityList) {
+    if (activityList.length <= 1) return 0;
+
+    let total = 0;
+
+    for (let i = 0; i < activityList.length - 1; i++) {
+        const a = activities[activityList[i]];
+        const b = activities[activityList[i + 1]];
+
+        total += getDistanceKm(a, b);
+    }
+
+    return total;
+}
+
+    function buildMapOptimizedDays(activityIds) {
+    const clusters = clusterByProximity(activityIds);
+
+    const days = [];
+
+    clusters.forEach(cluster => {
+        // sort cluster to minimize travel path (simple greedy)
+        const sorted = [];
+
+        let current = cluster[0];
+        sorted.push(current);
+        cluster.splice(0, 1);
+
+        while (cluster.length > 0) {
+            let bestIndex = 0;
+            let bestDist = Infinity;
+
+            cluster.forEach((id, i) => {
+                const d = getDistanceKm(
+                    activities[current],
+                    activities[id]
+                );
+
+                if (d < bestDist) {
+                    bestDist = d;
+                    bestIndex = i;
+                }
+            });
+
+            current = cluster[bestIndex];
+            sorted.push(current);
+            cluster.splice(bestIndex, 1);
+        }
+
+        days.push({
+            date: null,
+            title: "Optimized route day",
+            activities: sorted
+        });
+    });
+
+    return days;
 }
 
 renderDays();
