@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dordogne Trip Planner</title>
+
+
+
+<style>
+
+    body {
+
+        font-family: Arial, sans-serif;
+
+        margin: 0;
+
+        background: #f5f5f5;
+
+    }
+
+    header {
+
+        background: #2c3e50;
+
+        color: white;
+
+        padding: 20px;
+
+        text-align: center;
+
+        font-size: 22px;
+
+    }
+
+    #days-container {
+
+        padding-bottom: 20px;
+
+    }
+
+    .day-card {
+
+        background: white;
+
+        margin: 12px;
+
+        padding: 15px;
+
+        border-radius: 12px;
+
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+        cursor: grab;
+
+    }
+
+    .day-card h2 {
+
+        margin: 0 0 10px 0;
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        font-size: 18px;
+
+    }
+
+    .activity {
+
+        margin: 10px 0;
+
+        padding: 12px;
+
+        background: #eef2f3;
+
+        border-radius: 8px;
+
+    }
+
+    .activity-header {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        margin-bottom: 4px;
+
+    }
+
+    .icon {
+
+        font-size: 22px;
+
+    }
+
+    .activity img {
+
+        width: 100%;
+
+        border-radius: 8px;
+
+        margin-top: 8px;
+
+        max-height: 200px;
+
+        object-fit: cover;
+
+    }
+
+    a {
+
+        color: #2980b9;
+
+        text-decoration: none;
+
+    }
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<header>Dordogne Trip Planner – 23–29 June</header>
+
+
+
+<div id="days-container"></div>
+
+
+
+<script>
+
+// -----------------------------
+
+// ACTIVITIES WITH ICONS + PHOTOS
+
+// -----------------------------
+
+const activities = {
+
+    "beynac_castle": {
+
+        name: "Château de Beynac",
+
+        icon: "🏰",
+
+        photo: "images/beynac.jpg",
+
+        price: "€11 adult / €7 child",
+
+        booking: "https://www.beynac.com",
+
+        map: "https://maps.app.goo.gl/",
+
+        notes: "Steep walk but spectacular. Kids love the ramparts."
+
+    },
+
+    "castelnaud_castle": {
+
+        name: "Château de Castelnaud",
+
+        icon: "🛡️",
+
+        photo: "images/castelnaud.jpg",
+
+        price: "€12 adult / €7.50 child",
+
+        booking: "https://castelnaud.com",
+
+        map: "https://maps.app.goo.gl/",
+
+        notes: "Weapons museum, catapults, armour. Perfect for ages 6–10."
+
+    },
+
+    "lascaux_iv": {
+
+        name: "Lascaux IV – International Cave Art Centre",
+
+        icon: "🕳️",
+
+        photo: "images/lascaux.jpg",
+
+        price: "€22 adult / €14 child",
+
+        booking: "https://lascaux.fr",
+
+        map: "https://maps.app.goo.gl/",
+
+        notes: "Book ahead. Interactive and very kid-friendly."
+
+    },
+
+    "gabare_boat": {
+
+        name: "Gabare Boat Ride – La Roque-Gageac",
+
+        icon: "⛵",
+
+        photo: "images/gabare.jpg",
+
+        price: "€11 adult / €8 child",
+
+        booking: "https://gabare-norbert.com",
+
+        map: "https://maps.app.goo.gl/",
+
+        notes: "Calm, safe, great castle views."
+
+    },
+
+    "canoe_dordogne": {
+
+        name: "Canoe Dordogne – Family Route",
+
+        icon: "🛶",
+
+        photo: "images/canoe.jpg",
+
+        price: "€20–25 per person",
+
+        booking: "https://canoe-dordogne.com",
+
+        map: "https://maps.app.goo.gl/",
+
+        notes: "Easy downstream route. Kids 6+ OK."
+
+    },
+
+    "marqueyssac": {
+
+        name: "Jardins de Marqueyssac",
+
+        icon: "🌿",
+
+        photo: "images/marqueyssac.jpg",
+
+        price: "€11 adult / €5 child",
+
+        booking: "https://marqueyssac.com",
+
+        map: "https://maps.app.goo.gl/",
+
+        notes: "Shaded paths, playground, amazing views."
+
+    },
+
+    "balloon": {
+
+        name: "Hot Air Balloon – Dordogne Valley",
+
+        icon: "🎈",
+
+        photo: "images/balloon.jpg",
+
+        price: "€200–250 per person",
+
+        booking: "https://montgolfiere-dordogne.com",
+
+        map: "https://maps.app.goo.gl/",
+
+        notes: "Kids must be ~1.20m tall to see over the basket."
+
+    },
+
+    "market_sarlat": {
+
+        name: "Sarlat Market",
+
+        icon: "🛍️",
+
+        photo: "images/market_sarlat.jpg",
+
+        price: "Free",
+
+        booking: "None",
+
+        map: "https://maps.app.goo.gl/",
+
+        notes: "Best on Wed & Sat. Great food and souvenirs."
+
+    },
+
+    "night_market": {
+
+        name: "Marché Gourmand – Night Food Market",
+
+        icon: "🍽️",
+
+        photo: "images/night_market.jpg",
+
+        price: "€10–15 per meal",
+
+        booking: "None",
+
+        map: "https://maps.app.goo.gl/",
+
+        notes: "Live music, communal tables, safe for kids."
+
+    }
+
+};
+
+
+
+// -----------------------------
+
+// DAY PLANS
+
+// -----------------------------
+
+let days = [
+
+    { date: "23 June", title: "Arrival & Pool", activities: [] },
+
+    { date: "24 June", title: "Sarlat Market + Pool", activities: ["market_sarlat"] },
+
+    { date: "25 June", title: "Castles & River", activities: ["beynac_castle", "gabare_boat"] },
+
+    { date: "26 June", title: "Caves & Prehistory", activities: ["lascaux_iv"] },
+
+    { date: "27 June", title: "Canoe + Adventure", activities: ["canoe_dordogne"] },
+
+    { date: "28 June", title: "Balloon & Gardens", activities: ["balloon", "marqueyssac"] },
+
+    { date: "29 June", title: "Local Market & Night Fest", activities: ["night_market"] }
+
+];
+
+
+
+// -----------------------------
+
+// RENDER DAYS
+
+// -----------------------------
+
+function renderDays() {
+
+    const container = document.getElementById("days-container");
+
+    container.innerHTML = "";
+
+
+
+    days.forEach((day, index) => {
+
+        const card = document.createElement("div");
+
+        card.className = "day-card";
+
+        card.draggable = true;
+
+        card.dataset.index = index;
+
+
+
+        card.innerHTML = `
+
+            <h2>📅 ${day.date} – ${day.title}</h2>
+
+            <div>
+
+                ${day.activities.map(id => `
+
+                    <div class="activity">
+
+                        <div class="activity-header">
+
+                            <span class="icon">${activities[id].icon}</span>
+
+                            <strong>${activities[id].name}</strong>
+
+                        </div>
+
+                        Price: ${activities[id].price}<br>
+
+                        Booking: ${
+
+                            activities[id].booking === "None"
+
+                            ? "No booking needed"
+
+                            : `<a href="${activities[id].booking}" target="_blank">${activities[id].booking}</a>`
+
+                        }<br>
+
+                        Map: <a href="${activities[id].map}" target="_blank">Open map</a><br>
+
+                        <em>${activities[id].notes}</em>
+
+                        ${activities[id].photo ? `<img src="${activities[id].photo}" alt="${activities[id].name}">` : ""}
+
+                    </div>
+
+                `).join("")}
+
+                ${day.activities.length === 0 ? "<em>Arrival, groceries, and pool time at the house.</em>" : ""}
+
+            </div>
+
+        `;
+
+
+
+        // Drag events
+
+        card.addEventListener("dragstart", dragStart);
+
+        card.addEventListener("dragover", dragOver);
+
+        card.addEventListener("drop", drop);
+
+
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+
+let draggedIndex = null;
+
+
+
+function dragStart(e) {
+
+    draggedIndex = e.target.dataset.index;
+
+}
+
+
+
+function dragOver(e) {
+
+    e.preventDefault();
+
+}
+
+
+
+function drop(e) {
+
+    const targetCard = e.target.closest(".day-card");
+
+    if (!targetCard) return;
+
+    const targetIndex = targetCard.dataset.index;
+
+    const temp = days[draggedIndex];
+
+    days[draggedIndex] = days[targetIndex];
+
+    days[targetIndex] = temp;
+
+    renderDays();
+
+}
+
+
+
+renderDays();
+
+</script>
+
+
+
+</body>
+
+</html>
