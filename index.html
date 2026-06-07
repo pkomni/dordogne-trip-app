@@ -164,25 +164,6 @@ style="
 
 <script>
 
-    function suggestImprovements(day) {
-    const suggestions = [];
-    const stats = scoreDay(day);
-
-    if (stats.drivingKm > 50) {
-        suggestions.push("Reduce driving: cluster nearby activities in Dordogne valley.");
-    }
-
-    if (stats.kid > stats.effort + 8) {
-        suggestions.push("Too intense for kids: add rest or swimming break.");
-    }
-
-    if (stats.heat > 12) {
-        suggestions.push("High heat exposure: move outdoor activity to morning or replace with cave visit.");
-    }
-
-    return suggestions;
-}
-
     // -----------------------------
 // TRIP INTELLIGENCE ENGINE
 // -----------------------------
@@ -665,17 +646,28 @@ function autoOptimizeItinerary() {
 
     days = daysOptimized;
     renderDays();
-    renderMap(0);
 }
 
-    let map = L.map('map').setView([44.85, 1.25], 10);
+    let map;
+  let markersLayer = L.layerGroup().addTo(map);
+let routeLayer = L.layerGroup().addTo(map);
+
+function initMap() {
+    map = L.map('map').setView([44.85, 1.25], 10);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    markersLayer.addTo(map);
+    routeLayer.addTo(map);
+}
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-let markersLayer = L.layerGroup().addTo(map);
-let routeLayer = L.layerGroup().addTo(map);
+
 
     function renderMap(dayIndex = 0) {
     markersLayer.clearLayers();
@@ -713,6 +705,25 @@ let routeLayer = L.layerGroup().addTo(map);
     } else if (coords.length === 1) {
         map.setView(coords[0], 11);
     }
+}
+
+  function suggestImprovements(day) {
+    const suggestions = [];
+    const stats = analyzeDay(day);
+
+    if (stats.travelLoad > 6) {
+        suggestions.push("High driving load: try clustering activities closer together.");
+    }
+
+    if (stats.totalEnergy >= 5) {
+        suggestions.push("Busy day for kids: consider adding rest break or removing one activity.");
+    }
+
+    if (stats.zoneSpread >= 3) {
+        suggestions.push("Too geographically spread: may involve long driving between stops.");
+    }
+
+    return suggestions;
 }
 
 // -----------------------------
@@ -810,14 +821,12 @@ function renderDays() {
         card.addEventListener("dragover", dragOver);
         card.addEventListener("drop", drop);
 
-        container.appendChild(card);
+                container.appendChild(card);
 
         card.addEventListener("click", () => {
-    renderMap(index);
-});
+            renderMap(index);
+        });
     });
-});
-
 }
 
 
@@ -828,7 +837,7 @@ let draggedIndex = null;
 
 function dragStart(e) {
 
-    draggedIndex = e.target.dataset.index;
+    draggedIndex = e.target.closest(".day-card")?.dataset.index;
 
 }
 
@@ -858,7 +867,6 @@ function drop(e) {
 
     days = newDays;
     renderDays();
-    renderMap(0);
 }
 
     // -----------------------------
@@ -954,8 +962,9 @@ function clusterByProximity(activityIds) {
     return days;
 }
 
+initMap();
 renderDays();
-    renderMap(0);
+renderMap(0);
 
 </script>
 
