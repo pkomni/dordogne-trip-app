@@ -10,7 +10,12 @@
 
 <title>Dordogne Trip Planner</title>
 
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <style>
 
@@ -151,18 +156,7 @@ style="
 🧠 Auto-Optimize Trip
 </button>
 
-<h2>
-📅 ${day.date} – ${day.title}
-</h2>
-
-<div style="margin-bottom:8px;">
-    ${badge}
-    <small style="margin-left:10px; color:#666;">
-        ⭐ Score: ${stats.totalScore} |
-        🚗 ${stats.drivingKm.toFixed(1)} km |
-        👶 Kid fit: ${stats.kid.toFixed(0)}
-    </small>
-</div>
+<div id="map" style="height: 400px; margin: 10px; border-radius: 12px;"></div>
 
 <div id="days-container"></div>
 
@@ -671,6 +665,54 @@ function autoOptimizeItinerary() {
 
     days = daysOptimized;
     renderDays();
+    renderMap(0);
+}
+
+    let map = L.map('map').setView([44.85, 1.25], 10);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+let markersLayer = L.layerGroup().addTo(map);
+let routeLayer = L.layerGroup().addTo(map);
+
+    function renderMap(dayIndex = 0) {
+    markersLayer.clearLayers();
+    routeLayer.clearLayers();
+
+    const day = days[dayIndex];
+    if (!day) return;
+
+    const coords = [];
+
+    day.activities.forEach(id => {
+        const a = activities[id];
+        if (!a || !a.lat || !a.lng) return;
+
+        const marker = L.marker([a.lat, a.lng])
+            .bindPopup(`<b>${a.name}</b><br>${a.notes}`);
+
+        markersLayer.addLayer(marker);
+
+        coords.push([a.lat, a.lng]);
+    });
+
+    // draw route line
+    if (coords.length > 1) {
+        const polyline = L.polyline(coords, {
+            color: '#2c3e50',
+            weight: 4
+        });
+
+        routeLayer.addLayer(polyline);
+
+        map.fitBounds(polyline.getBounds(), {
+            padding: [30, 30]
+        });
+    } else if (coords.length === 1) {
+        map.setView(coords[0], 11);
+    }
 }
 
 // -----------------------------
@@ -769,6 +811,10 @@ function renderDays() {
         card.addEventListener("drop", drop);
 
         container.appendChild(card);
+
+        card.addEventListener("click", () => {
+    renderMap(index);
+});
     });
 });
 
@@ -812,6 +858,7 @@ function drop(e) {
 
     days = newDays;
     renderDays();
+    renderMap(0);
 }
 
     // -----------------------------
@@ -908,6 +955,7 @@ function clusterByProximity(activityIds) {
 }
 
 renderDays();
+    renderMap(0);
 
 </script>
 
