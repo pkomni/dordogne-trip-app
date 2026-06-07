@@ -147,175 +147,134 @@
 <script>
 
 // -----------------------------
-
-// ACTIVITIES WITH ICONS + PHOTOS
-
+// ENHANCED ACTIVITIES (DORDOGNE-OPTIMIZED)
 // -----------------------------
-
 const activities = {
-
-    "beynac_castle": {
-
+    beynac_castle: {
         name: "Château de Beynac",
-
         icon: "🏰",
-
         photo: "images/beynac.jpg",
-
         price: "€11 adult / €7 child",
-
         booking: "https://www.beynac.com",
-
         map: "https://maps.app.goo.gl/",
-
-        notes: "Steep walk but spectacular. Kids love the ramparts."
-
+        notes: "Very steep medieval castle. Go early morning to avoid heat.",
+        duration: "1.5–2h",
+        type: "outdoor",
+        kidEnergy: "medium",
+        bestTime: "morning"
     },
 
-    "castelnaud_castle": {
-
+    castelnaud_castle: {
         name: "Château de Castelnaud",
-
         icon: "🛡️",
-
         photo: "images/castelnaud.jpg",
-
         price: "€12 adult / €7.50 child",
-
         booking: "https://castelnaud.com",
-
         map: "https://maps.app.goo.gl/",
-
-        notes: "Weapons museum, catapults, armour. Perfect for ages 6–10."
-
+        notes: "Best castle for kids: catapults, armor, live demos.",
+        duration: "2–3h",
+        type: "outdoor",
+        kidEnergy: "high",
+        bestTime: "morning"
     },
 
-    "lascaux_iv": {
-
-        name: "Lascaux IV – International Cave Art Centre",
-
+    lascaux_iv: {
+        name: "Lascaux IV – Cave Art Centre",
         icon: "🕳️",
-
         photo: "images/lascaux.jpg",
-
         price: "€22 adult / €14 child",
-
         booking: "https://lascaux.fr",
-
         map: "https://maps.app.goo.gl/",
-
-        notes: "Book ahead. Interactive and very kid-friendly."
-
+        notes: "Indoor, cool temperature, perfect midday escape.",
+        duration: "2h",
+        type: "indoor",
+        kidEnergy: "low",
+        bestTime: "afternoon"
     },
 
-    "gabare_boat": {
-
+    gabare_boat: {
         name: "Gabare Boat Ride – La Roque-Gageac",
-
         icon: "⛵",
-
         photo: "images/gabare.jpg",
-
         price: "€11 adult / €8 child",
-
         booking: "https://gabare-norbert.com",
-
         map: "https://maps.app.goo.gl/",
-
-        notes: "Calm, safe, great castle views."
-
+        notes: "Relaxing river cruise, great break from walking.",
+        duration: "1h",
+        type: "outdoor",
+        kidEnergy: "low",
+        bestTime: "afternoon"
     },
 
-    "canoe_dordogne": {
-
+    canoe_dordogne: {
         name: "Canoe Dordogne – Family Route",
-
         icon: "🛶",
-
         photo: "images/canoe.jpg",
-
         price: "€20–25 per person",
-
         booking: "https://canoe-dordogne.com",
-
         map: "https://maps.app.goo.gl/",
-
-        notes: "Easy downstream route. Kids 6+ OK."
-
+        notes: "Gentle downstream float. Kids 6+ OK. Bring water + hats.",
+        duration: "2–3h",
+        type: "outdoor",
+        kidEnergy: "high",
+        bestTime: "morning"
     },
 
-    "marqueyssac": {
-
+    marqueyssac: {
         name: "Jardins de Marqueyssac",
-
         icon: "🌿",
-
         photo: "images/marqueyssac.jpg",
-
         price: "€11 adult / €5 child",
-
         booking: "https://marqueyssac.com",
-
         map: "https://maps.app.goo.gl/",
-
-        notes: "Shaded paths, playground, amazing views."
-
+        notes: "Shaded paths, viewpoints, playground — perfect late afternoon.",
+        duration: "2h",
+        type: "outdoor",
+        kidEnergy: "medium",
+        bestTime: "late afternoon"
     },
 
-    "balloon": {
-
+    balloon: {
         name: "Hot Air Balloon – Dordogne Valley",
-
         icon: "🎈",
-
         photo: "images/balloon.jpg",
-
         price: "€200–250 per person",
-
         booking: "https://montgolfiere-dordogne.com",
-
         map: "https://maps.app.goo.gl/",
-
-        notes: "Kids must be ~1.20m tall to see over the basket."
-
+        notes: "Weather dependent sunrise experience.",
+        duration: "3h total",
+        type: "outdoor",
+        kidEnergy: "medium",
+        bestTime: "early morning"
     },
 
-    "market_sarlat": {
-
+    market_sarlat: {
         name: "Sarlat Market",
-
         icon: "🛍️",
-
         photo: "images/market_sarlat.jpg",
-
         price: "Free",
-
         booking: "None",
-
         map: "https://maps.app.goo.gl/",
-
-        notes: "Best on Wed & Sat. Great food and souvenirs."
-
+        notes: "Best early morning before crowds.",
+        duration: "2h",
+        type: "outdoor",
+        kidEnergy: "low",
+        bestTime: "morning"
     },
 
-    "night_market": {
-
-        name: "Marché Gourmand – Night Food Market",
-
+    night_market: {
+        name: "Night Food Market – Sarlat Region",
         icon: "🍽️",
-
         photo: "images/night_market.jpg",
-
         price: "€10–15 per meal",
-
         booking: "None",
-
         map: "https://maps.app.goo.gl/",
-
-        notes: "Live music, communal tables, safe for kids."
-
+        notes: "Casual dining, music, safe for kids.",
+        duration: "2h+",
+        type: "outdoor",
+        kidEnergy: "low",
+        bestTime: "evening"
     }
-
 };
 
 
@@ -326,22 +285,58 @@ const activities = {
 
 // -----------------------------
 
+// -----------------------------
+// ENHANCED DORDOGNE ITINERARY (KID-OPTIMIZED)
+// -----------------------------
 let days = [
+    {
+        date: "23 June",
+        title: "Arrival & Relax",
+        activities: ["market_sarlat"],
+        notes: "Arrival day. Keep it light, groceries, pool, recovery from travel."
+    },
 
-    { date: "23 June", title: "Arrival & Pool", activities: [] },
+    {
+        date: "24 June",
+        title: "Sarlat Morning + Easy Afternoon",
+        activities: ["market_sarlat", "marqueyssac"],
+        notes: "Slow start, explore town, shaded gardens in afternoon."
+    },
 
-    { date: "24 June", title: "Sarlat Market + Pool", activities: ["market_sarlat"] },
+    {
+        date: "25 June",
+        title: "Castles Day (Beynac & Castelnaud)",
+        activities: ["castelnaud_castle", "beynac_castle", "gabare_boat"],
+        notes: "Clustered medieval valley day. Short drives only."
+    },
 
-    { date: "25 June", title: "Castles & River", activities: ["beynac_castle", "gabare_boat"] },
+    {
+        date: "26 June",
+        title: "Caves & Cool Indoor Escape",
+        activities: ["lascaux_iv"],
+        notes: "Indoor day to avoid heat. Very kid-friendly."
+    },
 
-    { date: "26 June", title: "Caves & Prehistory", activities: ["lascaux_iv"] },
+    {
+        date: "27 June",
+        title: "River Adventure Day",
+        activities: ["canoe_dordogne"],
+        notes: "Active water day. Bring snacks, hats, sunscreen."
+    },
 
-    { date: "27 June", title: "Canoe + Adventure", activities: ["canoe_dordogne"] },
+    {
+        date: "28 June",
+        title: "Balloon or Backup Adventure + Gardens",
+        activities: ["balloon", "marqueyssac"],
+        notes: "Weather-dependent day. Swap balloon if wind/rain."
+    },
 
-    { date: "28 June", title: "Balloon & Gardens", activities: ["balloon", "marqueyssac"] },
-
-    { date: "29 June", title: "Local Market & Night Fest", activities: ["night_market"] }
-
+    {
+        date: "29 June",
+        title: "Food & Local Experience",
+        activities: ["night_market"],
+        notes: "Relaxed final day with food market and walking."
+    }
 ];
 
 
@@ -374,7 +369,17 @@ function renderDays() {
 
         card.innerHTML = `
 
-            <h2>📅 ${day.date} – ${day.title}</h2>
+            const analysis = analyzeDay(day);
+
+card.innerHTML = `
+    <h2>📅 ${day.date} – ${day.title}</h2>
+    <div style="margin-bottom:8px;">
+        ${getRiskBadge(analysis.risk)}
+        <small style="margin-left:10px; color:#666;">
+            Energy: ${analysis.totalEnergy} | Zones: ${analysis.zoneSpread} | Travel load: ${analysis.travelLoad.toFixed(1)}
+        </small>
+    </div>
+`;
 
             <div>
 
@@ -390,7 +395,9 @@ function renderDays() {
 
                         </div>
 
-                        Price: ${activities[id].price}<br>
+                        <div><strong>Duration:</strong> ${activities[id].duration}</div>
+<div><strong>Best time:</strong> ${activities[id].bestTime}</div>
+<div><strong>Price:</strong> ${activities[id].price}</div>
 
                         Booking: ${
 
@@ -459,24 +466,104 @@ function dragOver(e) {
 
 
 function drop(e) {
-
     const targetCard = e.target.closest(".day-card");
-
     if (!targetCard) return;
 
     const targetIndex = targetCard.dataset.index;
 
-    const temp = days[draggedIndex];
+    const newDays = [...days];
+    const temp = newDays[draggedIndex];
+    newDays[draggedIndex] = newDays[targetIndex];
+    newDays[targetIndex] = temp;
 
-    days[draggedIndex] = days[targetIndex];
+    // analyze risk after swap
+    const beforeRisk = analyzeDay(days[draggedIndex]).risk;
+    const afterRisk = analyzeDay(newDays[targetIndex]).risk;
 
-    days[targetIndex] = temp;
+    const riskySwap =
+        beforeRisk === "high" || afterRisk === "high";
 
+    if (riskySwap) {
+        const ok = confirm(
+            "⚠️ This swap creates a very intense day for kids (long travel or packed schedule). Continue?"
+        );
+
+        if (!ok) return;
+    }
+
+    days = newDays;
     renderDays();
-
 }
 
+// -----------------------------
+// DORDOGNE PLANNING ENGINE V2
+// -----------------------------
 
+const zoneMap = {
+    beynac_castle: "river_west",
+    castelnaud_castle: "river_west",
+    gabare_boat: "river_west",
+    marqueyssac: "river_west",
+    canoe_dordogne: "river_core",
+    lascaux_iv: "north_inland",
+    market_sarlat: "sarlat",
+    night_market: "sarlat",
+    balloon: "regional_air"
+};
+
+function getActivityScore(activityId) {
+    const a = activities[activityId];
+
+    let energy = 1;
+    if (a.kidEnergy === "low") energy = 1;
+    if (a.kidEnergy === "medium") energy = 2;
+    if (a.kidEnergy === "high") energy = 3;
+
+    let travelWeight = 1;
+    if (a.type === "outdoor") travelWeight += 1;
+    if (a.type === "indoor") travelWeight -= 0.5;
+
+    return {
+        energy,
+        travelWeight,
+        zone: zoneMap[activityId] || "unknown"
+    };
+}
+
+    function analyzeDay(day) {
+    let totalEnergy = 0;
+    let zones = new Set();
+    let travelLoad = 0;
+
+    day.activities.forEach(id => {
+        const score = getActivityScore(id);
+        totalEnergy += score.energy;
+        travelLoad += score.travelWeight;
+        zones.add(score.zone);
+    });
+
+    const zoneSpread = zones.size;
+
+    let risk = "low";
+
+    if (totalEnergy >= 5) risk = "high";
+    else if (totalEnergy >= 3) risk = "medium";
+
+    if (zoneSpread >= 3) risk = "high";
+
+    return {
+        totalEnergy,
+        travelLoad,
+        zoneSpread,
+        risk
+    };
+}
+
+    function getRiskBadge(risk) {
+    if (risk === "high") return "⚠️ Too intense for kids";
+    if (risk === "medium") return "🟡 Moderate day";
+    return "🟢 Relaxed day";
+}
 
 renderDays();
 
