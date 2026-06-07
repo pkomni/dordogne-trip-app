@@ -138,6 +138,19 @@
 
 <header>Dordogne Trip Planner – 23–29 June</header>
 
+    <button onclick="autoOptimizeItinerary()" 
+style="
+    margin: 10px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    background: #2c3e50;
+    color: white;
+    cursor: pointer;
+">
+🧠 Auto-Optimize Trip
+</button>
+
 
 
 <div id="days-container"></div>
@@ -342,6 +355,187 @@ let days = [
 
 
 // -----------------------------
+// DORDOGNE PLANNING ENGINE V2
+// -----------------------------
+
+const zoneMap = {
+    beynac_castle: "river_west",
+    castelnaud_castle: "river_west",
+    gabare_boat: "river_west",
+    marqueyssac: "river_west",
+    canoe_dordogne: "river_core",
+    lascaux_iv: "north_inland",
+    market_sarlat: "sarlat",
+    night_market: "sarlat",
+    balloon: "regional_air"
+};
+
+function getActivityScore(activityId) {
+    const a = activities[activityId];
+
+    let energy = 1;
+    if (a.kidEnergy === "low") energy = 1;
+    if (a.kidEnergy === "medium") energy = 2;
+    if (a.kidEnergy === "high") energy = 3;
+
+    let travelWeight = 1;
+    if (a.type === "outdoor") travelWeight += 1;
+    if (a.type === "indoor") travelWeight -= 0.5;
+
+    return {
+        energy,
+        travelWeight,
+        zone: zoneMap[activityId] || "unknown"
+    };
+}
+
+    function analyzeDay(day) {
+    let totalEnergy = 0;
+    let zones = new Set();
+    let travelLoad = 0;
+
+    day.activities.forEach(id => {
+        const score = getActivityScore(id);
+        totalEnergy += score.energy;
+        travelLoad += score.travelWeight;
+        zones.add(score.zone);
+    });
+
+    const zoneSpread = zones.size;
+
+    let risk = "low";
+
+    if (totalEnergy >= 5) risk = "high";
+    else if (totalEnergy >= 3) risk = "medium";
+
+    if (zoneSpread >= 3) risk = "high";
+
+    return {
+        totalEnergy,
+        travelLoad,
+        zoneSpread,
+        risk
+    };
+}
+
+    function getRiskBadge(risk) {
+    if (risk === "high") return "⚠️ Too intense for kids";
+    if (risk === "medium") return "🟡 Moderate day";
+    return "🟢 Relaxed day";
+}
+
+    // -----------------------------
+// AUTO ITINERARY OPTIMIZER V1
+// -----------------------------
+
+function calculateDayEnergy(activityList) {
+    return activityList.reduce((sum, id) => {
+        const a = activities[id];
+
+        let energy = 1;
+        if (a.kidEnergy === "medium") energy = 2;
+        if (a.kidEnergy === "high") energy = 3;
+
+        return sum + energy;
+    }, 0);
+}
+
+function groupByZone(activityIds) {
+    const zones = {};
+    activityIds.forEach(id => {
+        const z = zoneMap[id] || "unknown";
+        if (!zones[z]) zones[z] = [];
+        zones[z].push(id);
+    });
+    return zones;
+}
+
+    function buildOptimizedDays(allActivities) {
+    const zones = groupByZone(allActivities);
+
+    const days = [];
+
+    const zoneOrder = [
+        "sarlat",
+        "river_west",
+        "river_core",
+        "north_inland",
+        "regional_air"
+    ];
+
+    zoneOrder.forEach(zone => {
+        const zoneActivities = zones[zone];
+        if (!zoneActivities || zoneActivities.length === 0) return;
+
+        let currentDay = [];
+        let currentEnergy = 0;
+
+        zoneActivities.forEach(id => {
+            const energy = activities[id].kidEnergy === "high" ? 3 :
+                           activities[id].kidEnergy === "medium" ? 2 : 1;
+
+            // cap per day (prevents overload)
+            if (currentEnergy + energy > 4) {
+                days.push({
+                    date: null,
+                    title: zone + " day",
+                    activities: currentDay
+                });
+
+                currentDay = [];
+                currentEnergy = 0;
+            }
+
+            currentDay.push(id);
+            currentEnergy += energy;
+        });
+
+        if (currentDay.length > 0) {
+            days.push({
+                date: null,
+                title: zone + " day",
+                activities: currentDay
+            });
+        }
+    });
+
+    return days;
+}
+
+    // -----------------------------
+// MAIN AUTO-OPTIMIZER
+// -----------------------------
+
+function autoOptimizeItinerary() {
+    const allActivities = Object.keys(activities);
+
+    // remove duplicates already assigned in current days
+    const used = new Set(days.flatMap(d => d.activities));
+    const remaining = allActivities.filter(a => !used.has(a));
+
+    // merge current + missing
+    const merged = [...used, ...remaining];
+
+    const optimized = buildOptimizedDays(merged);
+
+    // reassign proper dates (23–29 June)
+    const startDate = new Date("2026-06-23");
+
+    optimized.forEach((day, i) => {
+        const d = new Date(startDate);
+        d.setDate(startDate.getDate() + i);
+
+        day.date = d.toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long"
+        });
+    });
+
+    days = optimized;
+    renderDays();
+}
+
+// -----------------------------
 
 // RENDER DAYS
 
@@ -493,76 +687,6 @@ function drop(e) {
 
     days = newDays;
     renderDays();
-}
-
-// -----------------------------
-// DORDOGNE PLANNING ENGINE V2
-// -----------------------------
-
-const zoneMap = {
-    beynac_castle: "river_west",
-    castelnaud_castle: "river_west",
-    gabare_boat: "river_west",
-    marqueyssac: "river_west",
-    canoe_dordogne: "river_core",
-    lascaux_iv: "north_inland",
-    market_sarlat: "sarlat",
-    night_market: "sarlat",
-    balloon: "regional_air"
-};
-
-function getActivityScore(activityId) {
-    const a = activities[activityId];
-
-    let energy = 1;
-    if (a.kidEnergy === "low") energy = 1;
-    if (a.kidEnergy === "medium") energy = 2;
-    if (a.kidEnergy === "high") energy = 3;
-
-    let travelWeight = 1;
-    if (a.type === "outdoor") travelWeight += 1;
-    if (a.type === "indoor") travelWeight -= 0.5;
-
-    return {
-        energy,
-        travelWeight,
-        zone: zoneMap[activityId] || "unknown"
-    };
-}
-
-    function analyzeDay(day) {
-    let totalEnergy = 0;
-    let zones = new Set();
-    let travelLoad = 0;
-
-    day.activities.forEach(id => {
-        const score = getActivityScore(id);
-        totalEnergy += score.energy;
-        travelLoad += score.travelWeight;
-        zones.add(score.zone);
-    });
-
-    const zoneSpread = zones.size;
-
-    let risk = "low";
-
-    if (totalEnergy >= 5) risk = "high";
-    else if (totalEnergy >= 3) risk = "medium";
-
-    if (zoneSpread >= 3) risk = "high";
-
-    return {
-        totalEnergy,
-        travelLoad,
-        zoneSpread,
-        risk
-    };
-}
-
-    function getRiskBadge(risk) {
-    if (risk === "high") return "⚠️ Too intense for kids";
-    if (risk === "medium") return "🟡 Moderate day";
-    return "🟢 Relaxed day";
 }
 
 renderDays();
