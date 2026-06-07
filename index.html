@@ -227,15 +227,6 @@ function getExperienceScore(id) {
         totalScore: Math.round(totalScore)
     };
 }
-
-    const stats = scoreDay(day);
-
-let badge = "🟢 Great Day";
-
-if (stats.totalScore < 25) badge = "🟡 OK Day";
-if (stats.totalScore < 18) badge = "⚠️ Tiring Day";
-if (stats.drivingKm > 60) badge = "🚗 Too Much Driving";
-
     
     // -----------------------------
 // DISTANCE ENGINE (Haversine)
@@ -649,8 +640,8 @@ function autoOptimizeItinerary() {
 }
 
     let map;
-  let markersLayer = L.layerGroup().addTo(map);
-let routeLayer = L.layerGroup().addTo(map);
+let markersLayer;
+let routeLayer;
 
 function initMap() {
     map = L.map('map').setView([44.85, 1.25], 10);
@@ -659,13 +650,9 @@ function initMap() {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    markersLayer.addTo(map);
-    routeLayer.addTo(map);
+    markersLayer = L.layerGroup().addTo(map);
+    routeLayer = L.layerGroup().addTo(map);
 }
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-}).addTo(map);
 
 
 
