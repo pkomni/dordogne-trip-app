@@ -1198,7 +1198,12 @@
             <input type="text" placeholder="Name" data-field="name" />
             <input type="text" placeholder="Town" data-field="town" />
             <input type="text" placeholder="Style" data-field="style" />
-            <input type="text" placeholder="URL (optional)" data-field="url" />
+            <input type="text" placeholder="URL" data-field="url" />
+            <input type="text" placeholder="Phone" data-field="phone" />
+            <input type="text" placeholder="Price range" data-field="price" />
+            <input type="number" placeholder="Review score" data-field="reviewScore" />
+            <input type="number" placeholder="Review count" data-field="reviewCount" />
+            <input type="text" placeholder="Photo URL" data-field="photo" />
             <button class="btn btn-primary" type="button" id="btnAddRestaurant">+ Add</button>
           </div>
         </div>
@@ -1286,21 +1291,20 @@
           <div class="item-main">
             <div class="item-title-row">
               <div class="item-title">${r.name}</div>
-              <span class="chip">
-                <span class="dot"></span>${r.town || "—"}
-              </span>
+              <span class="chip"><span class="dot"></span>${r.town || "—"}</span>
             </div>
             <div class="item-meta">
-              <span><strong style="font-weight:500;">Style:</strong> ${r.style || "—"}</span>
+              <span><strong>Style:</strong> ${r.style || "—"}</span>
+              <span><strong>Price:</strong> ${r.price || "—"}</span>
+              <span><strong>Phone:</strong> ${r.phone || "—"}</span>
+              <span><strong>Reviews:</strong> ⭐ ${r.reviewScore || "—"} (${r.reviewCount || 0})</span>
               <span>${r.notes || ""}</span>
             </div>
           </div>
           <div class="item-actions">
-            ${linkHtml}
+            ${r.url ? `<a class="link" href="${r.url}" target="_blank">🔗 Website</a>` : ""}
             <button class="btn-icon" data-edit="${r.id}">✎ Edit</button>
-            <button class="btn-icon danger" data-id="${r.id}" data-kind="restaurant">
-              ✕ Remove
-            </button>
+            <button class="btn-icon danger" data-id="${r.id}" data-kind="restaurant">✕ Remove</button>
           </div>
         `;
         listEl.appendChild(item);
@@ -1322,20 +1326,25 @@
           if (!rest) return;
 
           openModal(
-            "Edit Restaurant",
-            [
-              { label: "Name", key: "name", type: "text", value: rest.name },
-              { label: "Town", key: "town", type: "text", value: rest.town },
-              { label: "Style", key: "style", type: "text", value: rest.style },
-              { label: "URL", key: "url", type: "text", value: rest.url },
-              { label: "Notes", key: "notes", type: "textarea", value: rest.notes }
-            ],
-            updated => {
-              Object.assign(rest, updated);
-              saveToStorage();
-              renderRestaurants(day);
-            }
-          );
+  "Edit Restaurant",
+  [
+    { label: "Name", key: "name", type: "text", value: rest.name },
+    { label: "Town", key: "town", type: "text", value: rest.town },
+    { label: "Style", key: "style", type: "text", value: rest.style },
+    { label: "URL", key: "url", type: "text", value: rest.url },
+    { label: "Phone", key: "phone", type: "text", value: rest.phone },
+    { label: "Price range", key: "price", type: "text", value: rest.price },
+    { label: "Review score", key: "reviewScore", type: "number", value: rest.reviewScore },
+    { label: "Review count", key: "reviewCount", type: "number", value: rest.reviewCount },
+    { label: "Photo URL", key: "photo", type: "text", value: rest.photo },
+    { label: "Notes", key: "notes", type: "textarea", value: rest.notes }
+  ],
+  updated => {
+    Object.assign(rest, updated);
+    saveToStorage();
+    renderRestaurants(day);
+  }
+);
         };
       });
     }
@@ -1368,25 +1377,35 @@
       };
 
       document.getElementById("btnAddRestaurant").onclick = () => {
-        const payload = {};
-        restInputs.forEach(inp => {
-          payload[inp.getAttribute("data-field")] = inp.value.trim();
-        });
-        if (!payload.name) return;
-        const newRest = {
-          id: "r_" + Date.now() + "_" + Math.random().toString(16).slice(2),
-          name: payload.name,
-          town: payload.town || "",
-          style: payload.style || "",
-          url: payload.url || "",
-          notes: ""
-        };
-        day.restaurants = day.restaurants || [];
-        day.restaurants.push(newRest);
-        restInputs.forEach(inp => (inp.value = ""));
-        saveToStorage();
-        renderRestaurants(day);
-      };
+  const payload = {};
+  restInputs.forEach(inp => {
+    payload[inp.getAttribute("data-field")] = inp.value.trim();
+  });
+
+  if (!payload.name) return;
+
+  const newRest = {
+    id: "r_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+    name: payload.name,
+    town: payload.town || "",
+    style: payload.style || "",
+    url: payload.url || "",
+    phone: payload.phone || "",
+    price: payload.price || "",
+    reviewScore: payload.reviewScore || "",
+    reviewCount: payload.reviewCount || "",
+    photo: payload.photo || "",
+    notes: ""
+  };
+
+  day.restaurants = day.restaurants || [];
+  day.restaurants.push(newRest);
+
+  restInputs.forEach(inp => (inp.value = ""));
+  saveToStorage();
+  renderRestaurants(day);
+};
+
     }
 
     function renderHistory() {
