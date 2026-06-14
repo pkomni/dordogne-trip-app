@@ -2,29 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dordogne Trip Planner – Modern Green</title>
+  <title>Dordogne Trip Planner – Clean White</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg: #050b0a;
-      --bg-elevated: #0b1512;
-      --bg-soft: #101d18;
-      --primary: #4caf50;
-      --primary-soft: #66bb6a;
-      --primary-strong: #2e7d32;
-      --accent: #a5d6a7;
-      --danger: #ff5252;
-      --text: #f5fff7;
-      --text-soft: #cfe7d4;
-      --border-subtle: rgba(255, 255, 255, 0.06);
+      --bg: #f5f5f7;
+      --bg-elevated: #ffffff;
+      --bg-soft: #f0f2f5;
+      --primary: #2563eb;
+      --primary-soft: #dbeafe;
+      --primary-strong: #1d4ed8;
+      --accent: #0f172a;
+      --danger: #dc2626;
+      --text: #0f172a;
+      --text-soft: #4b5563;
+      --border-subtle: #e5e7eb;
       --radius-xl: 24px;
       --radius-lg: 18px;
       --radius-md: 12px;
       --radius-pill: 999px;
-      --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.7);
-      --shadow-card: 0 14px 32px rgba(0, 0, 0, 0.75);
-      --transition-fast: 0.18s ease-out;
-      --transition-med: 0.25s ease-out;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.12);
+      --shadow-card: 0 10px 24px rgba(15, 23, 42, 0.08);
+      --transition-fast: 0.16s ease-out;
+      --transition-med: 0.22s ease-out;
       --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
     }
@@ -38,7 +38,7 @@
       margin: 0;
       padding: 0;
       font-family: var(--font-sans);
-      background: radial-gradient(circle at top, #10281f 0, #050b0a 45%, #000 100%);
+      background: radial-gradient(circle at top, #e5f0ff 0, #f5f5f7 40%, #f3f4f6 100%);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
     }
@@ -53,36 +53,15 @@
 
     .app-shell {
       width: 100%;
-      max-width: 1120px;
-      background: linear-gradient(145deg, #050b0a 0, #020605 40%, #050b0a 100%);
+      max-width: 1180px;
+      background: var(--bg-elevated);
       border-radius: var(--radius-xl);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
       overflow: hidden;
-      position: relative;
-    }
-
-    .app-shell::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(76, 175, 80, 0.18), transparent 55%),
-        radial-gradient(circle at 100% 0%, rgba(129, 199, 132, 0.12), transparent 55%);
-      opacity: 0.9;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .app-inner {
-      position: relative;
-      z-index: 1;
       display: flex;
       flex-direction: column;
-      height: 100%;
     }
-
-    /* Top bar */
 
     .top-bar {
       display: flex;
@@ -90,12 +69,8 @@
       justify-content: space-between;
       padding: 14px 18px 10px;
       border-bottom: 1px solid var(--border-subtle);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(18px);
-      background: linear-gradient(
-        to bottom,
-        rgba(5, 11, 10, 0.96),
-        rgba(5, 11, 10, 0.9)
-      );
     }
 
     .top-bar-left {
@@ -107,15 +82,15 @@
     .app-icon {
       width: 40px;
       height: 40px;
-      border-radius: 18px;
-      background: radial-gradient(circle at 30% 0, #a5d6a7 0, #2e7d32 40%, #050b0a 100%);
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 0, #bfdbfe 0, #2563eb 40%, #1e293b 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #e8f5e9;
+      color: #eff6ff;
       font-weight: 700;
       font-size: 18px;
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.25);
     }
 
     .app-title-block {
@@ -131,15 +106,16 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      color: var(--accent);
     }
 
     .badge {
       font-size: 11px;
       padding: 2px 8px;
       border-radius: var(--radius-pill);
-      background: rgba(76, 175, 80, 0.18);
-      color: var(--accent);
-      border: 1px solid rgba(165, 214, 167, 0.35);
+      background: var(--primary-soft);
+      color: var(--primary-strong);
+      border: 1px solid #bfdbfe;
     }
 
     .app-subtitle {
@@ -154,10 +130,10 @@
     .pill {
       padding: 2px 8px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-subtle);
       font-size: 11px;
       color: var(--text-soft);
-      background: rgba(11, 21, 18, 0.9);
+      background: #f9fafb;
     }
 
     .top-bar-right {
@@ -178,7 +154,7 @@
       align-items: center;
       gap: 6px;
       cursor: pointer;
-      background: rgba(11, 21, 18, 0.9);
+      background: #f9fafb;
       color: var(--text-soft);
       transition: background var(--transition-fast), transform var(--transition-fast),
         box-shadow var(--transition-fast), border-color var(--transition-fast),
@@ -190,38 +166,39 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary-soft), var(--primary));
-      color: #050b0a;
-      box-shadow: 0 10px 24px rgba(76, 175, 80, 0.45);
+      background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+      color: #f9fafb;
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+      border-color: transparent;
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(76, 175, 80, 0.55);
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.45);
     }
 
     .btn-ghost {
-      border-color: rgba(255, 255, 255, 0.12);
-      background: rgba(5, 11, 10, 0.9);
+      border-color: var(--border-subtle);
+      background: #ffffff;
     }
 
     .btn-ghost:hover {
-      background: rgba(16, 29, 24, 0.96);
-      border-color: rgba(165, 214, 167, 0.5);
+      background: #f3f4f6;
+      border-color: #cbd5f5;
     }
 
     .btn-danger {
-      border-color: rgba(255, 82, 82, 0.6);
-      color: #ffb3b3;
-      background: rgba(40, 0, 0, 0.7);
+      border-color: #fecaca;
+      color: #b91c1c;
+      background: #fef2f2;
     }
 
     .btn-danger:hover {
-      background: rgba(60, 0, 0, 0.9);
+      background: #fee2e2;
     }
 
     .btn-small {
-      padding: 5px 10px;
+      padding: 5px 11px;
       font-size: 11px;
     }
 
@@ -236,12 +213,69 @@
       font-size: 15px;
     }
 
-    /* Day strip */
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 0;
+      height: calc(100vh - 80px);
+      max-height: 900px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+        height: auto;
+        max-height: none;
+      }
+    }
+
+    /* Left column: days + map */
+
+    .left-column {
+      border-right: 1px solid var(--border-subtle);
+      background: #f9fafb;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .map-wrapper {
+      padding: 10px 12px 6px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: #ffffff;
+    }
+
+    .map-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .map-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+    }
+
+    .map-iframe-wrapper {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+      background: #e5e7eb;
+    }
+
+    .map-iframe-wrapper iframe {
+      width: 100%;
+      height: 180px;
+      border: 0;
+    }
 
     .day-strip-wrapper {
-      padding: 8px 16px 10px;
+      padding: 10px 12px 10px;
       border-bottom: 1px solid var(--border-subtle);
-      background: radial-gradient(circle at top, rgba(76, 175, 80, 0.12), transparent 55%);
+      background: #f9fafb;
     }
 
     .day-strip-label {
@@ -253,12 +287,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      opacity: 0.9;
     }
 
     .muted {
       opacity: 0.8;
       font-size: 11px;
+      color: var(--text-soft);
     }
 
     .day-strip {
@@ -272,34 +306,35 @@
 
     .day-chip {
       scroll-snap-align: start;
-      min-width: 130px;
-      max-width: 170px;
+      min-width: 150px;
+      max-width: 200px;
       padding: 8px 10px;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: radial-gradient(circle at top left, #101d18 0, #050b0a 55%, #020605 100%);
+      border-radius: 14px;
+      border: 1px solid var(--border-subtle);
+      background: #ffffff;
       color: var(--text-soft);
       font-size: 11px;
       display: flex;
       flex-direction: column;
       gap: 2px;
       cursor: pointer;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.06);
       transition: transform var(--transition-fast), box-shadow var(--transition-fast),
-        border-color var(--transition-fast), background var(--transition-fast);
+        border-color var(--transition-fast), background var(--transition-fast),
+        color var(--transition-fast);
       position: relative;
     }
 
     .day-chip:hover {
       transform: translateY(-1px);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.8);
-      border-color: rgba(165, 214, 167, 0.6);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+      border-color: #bfdbfe;
     }
 
     .day-chip.active {
-      border-color: rgba(165, 214, 167, 0.9);
-      background: linear-gradient(135deg, #1b5e20, #4caf50);
-      color: #050b0a;
+      border-color: var(--primary);
+      background: #eff6ff;
+      color: var(--accent);
     }
 
     .day-chip-title {
@@ -317,7 +352,7 @@
 
     .day-chip-meta {
       font-size: 10px;
-      opacity: 0.8;
+      opacity: 0.9;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -328,25 +363,56 @@
       width: 6px;
       height: 6px;
       border-radius: 999px;
-      background: rgba(165, 214, 167, 0.9);
+      background: var(--primary);
     }
 
-    /* Main content */
+    .left-footer {
+      padding: 8px 12px 10px;
+      margin-top: auto;
+      border-top: 1px solid var(--border-subtle);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .left-footer-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+    }
+
+    .left-footer-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* Right column: details */
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+    }
 
     .content {
       padding: 12px 16px 16px;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      overflow: auto;
     }
 
     .section {
-      background: radial-gradient(circle at top left, #101d18 0, #050b0a 55%, #020605 100%);
+      background: #ffffff;
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-subtle);
       padding: 12px 14px 10px;
       position: relative;
       overflow: hidden;
+      box-shadow: var(--shadow-card);
     }
 
     .section-header {
@@ -364,17 +430,15 @@
     }
 
     .section-title {
-      font-size: 13px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
       color: var(--text-soft);
-      opacity: 0.9;
     }
 
     .section-subtitle {
       font-size: 12px;
       color: var(--text-soft);
-      opacity: 0.9;
     }
 
     .section-actions {
@@ -396,6 +460,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      color: var(--accent);
     }
 
     .day-summary-tags {
@@ -409,9 +474,9 @@
       font-size: 11px;
       padding: 3px 8px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(165, 214, 167, 0.4);
-      background: rgba(11, 21, 18, 0.9);
-      color: var(--accent);
+      border: 1px solid var(--border-subtle);
+      background: #f3f4f6;
+      color: var(--text-soft);
     }
 
     .day-summary-desc {
@@ -443,8 +508,8 @@
 
     .card {
       border-radius: var(--radius-md);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: radial-gradient(circle at top left, #13231d 0, #050b0a 55%, #020605 100%);
+      border: 1px solid var(--border-subtle);
+      background: #ffffff;
       padding: 10px 10px 8px;
       display: flex;
       flex-direction: column;
@@ -456,24 +521,14 @@
       box-shadow: var(--shadow-card);
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at 0 0, rgba(165, 214, 167, 0.16), transparent 55%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
     .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
-      border-color: rgba(165, 214, 167, 0.7);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
+      border-color: #bfdbfe;
     }
 
     .card-inner {
       position: relative;
-      z-index: 1;
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -495,6 +550,7 @@
     .card-title {
       font-size: 13px;
       font-weight: 600;
+      color: var(--accent);
     }
 
     .card-subtitle {
@@ -510,14 +566,15 @@
       font-size: 10px;
       padding: 2px 7px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(5, 11, 10, 0.9);
+      border: 1px solid var(--border-subtle);
+      background: #f9fafb;
       color: var(--text-soft);
     }
 
     .chip-type {
-      border-color: rgba(165, 214, 167, 0.6);
-      color: var(--accent);
+      border-color: #bfdbfe;
+      background: #eff6ff;
+      color: var(--primary-strong);
     }
 
     .card-body {
@@ -540,8 +597,8 @@
       gap: 4px;
       padding: 2px 7px;
       border-radius: var(--radius-pill);
-      background: rgba(5, 11, 10, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #f9fafb;
+      border: 1px solid var(--border-subtle);
     }
 
     .meta-item span.icon {
@@ -566,7 +623,7 @@
 
     .link {
       font-size: 11px;
-      color: var(--accent);
+      color: var(--primary-strong);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -587,8 +644,8 @@
       padding: 3px 7px;
       font-size: 10px;
       border-radius: var(--radius-pill);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(5, 11, 10, 0.9);
+      border: 1px solid var(--border-subtle);
+      background: #f9fafb;
       color: var(--text-soft);
       cursor: pointer;
       display: inline-flex;
@@ -597,12 +654,13 @@
     }
 
     .btn-xxs:hover {
-      background: rgba(16, 29, 24, 0.96);
+      background: #e5e7eb;
     }
 
     .btn-xxs-danger {
-      border-color: rgba(255, 82, 82, 0.7);
-      color: #ffb3b3;
+      border-color: #fecaca;
+      color: #b91c1c;
+      background: #fef2f2;
     }
 
     /* Restaurant card layout */
@@ -624,12 +682,12 @@
       height: 90px;
       border-radius: 12px;
       overflow: hidden;
-      background: linear-gradient(135deg, #1b5e20, #4caf50);
+      background: #e5e7eb;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 11px;
-      color: #e8f5e9;
+      color: var(--text-soft);
       position: relative;
     }
 
@@ -643,7 +701,7 @@
     .restaurant-image-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent);
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.4), transparent);
     }
 
     .restaurant-image-label {
@@ -653,7 +711,8 @@
       font-size: 10px;
       padding: 2px 6px;
       border-radius: 999px;
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(15, 23, 42, 0.8);
+      color: #f9fafb;
     }
 
     /* FAB row */
@@ -669,9 +728,9 @@
       border-radius: var(--radius-pill);
       padding: 6px 10px;
       font-size: 11px;
-      border: 1px solid rgba(165, 214, 167, 0.6);
-      background: rgba(16, 29, 24, 0.96);
-      color: var(--accent);
+      border: 1px solid var(--border-subtle);
+      background: #f9fafb;
+      color: var(--primary-strong);
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -687,7 +746,7 @@
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(15, 23, 42, 0.35);
       display: none;
       align-items: center;
       justify-content: center;
@@ -698,10 +757,10 @@
     .modal {
       width: 100%;
       max-width: 560px;
-      background: radial-gradient(circle at top left, #13231d 0, #050b0a 55%, #020605 100%);
+      background: #ffffff;
       border-radius: 22px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
       padding: 14px 16px 12px;
       max-height: 90vh;
       overflow: auto;
@@ -718,6 +777,7 @@
     .modal-title {
       font-size: 15px;
       font-weight: 600;
+      color: var(--accent);
     }
 
     .modal-body {
@@ -749,8 +809,8 @@
     .form-group textarea,
     .form-group select {
       border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(5, 11, 10, 0.95);
+      border: 1px solid var(--border-subtle);
+      background: #f9fafb;
       color: var(--text);
       padding: 6px 8px;
       font-size: 12px;
@@ -781,8 +841,8 @@
 
     .history-item {
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(5, 11, 10, 0.9);
+      border: 1px solid var(--border-subtle);
+      background: #f9fafb;
       padding: 6px 8px;
       display: flex;
       justify-content: space-between;
@@ -823,115 +883,147 @@
 </head>
 <body>
   <div class="app-shell">
-    <div class="app-inner">
-      <header class="top-bar">
-        <div class="top-bar-left">
-          <div class="app-icon">D</div>
-          <div class="app-title-block">
-            <div class="app-title">
-              Dordogne Trip Planner
-              <span class="badge">Modern · Green Forest</span>
-            </div>
-            <div class="app-subtitle">
-              <span>Saint-Julien · Sarlat base · 23–29 June 2026</span>
-              <span class="pill">Family · 2 adults + kids 6, 9, 9</span>
-            </div>
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <div class="app-icon">D</div>
+        <div class="app-title-block">
+          <div class="app-title">
+            Dordogne Trip Planner
+            <span class="badge">Family · June 23–29, 2026</span>
+          </div>
+          <div class="app-subtitle">
+            <span>Base: Sarlat / Saint-Julien-de-Lampon</span>
+            <span class="pill">2 adults + kids (6, 9, 9)</span>
           </div>
         </div>
-        <div class="top-bar-right">
-          <button class="btn btn-ghost btn-small" id="btnHistory">
-            <span class="icon">🕒</span>
-            Versions
-          </button>
-          <button class="btn btn-danger btn-small" id="btnReset">
-            <span class="icon">↺</span>
-            Reset to default
-          </button>
-          <button class="btn btn-primary btn-small" id="btnSaveSnapshot">
-            <span class="icon">💾</span>
-            Save snapshot
-          </button>
-        </div>
-      </header>
+      </div>
+      <div class="top-bar-right">
+        <button class="btn btn-ghost btn-small" id="btnHistory">
+          <span class="icon">🕒</span>
+          Versions
+        </button>
+        <button class="btn btn-danger btn-small" id="btnReset">
+          <span class="icon">↺</span>
+          Reset to default
+        </button>
+        <button class="btn btn-primary btn-small" id="btnSaveSnapshot">
+          <span class="icon">💾</span>
+          Save snapshot
+        </button>
+      </div>
+    </header>
 
-      <section class="day-strip-wrapper">
-        <div class="day-strip-label">
-          <span>Trip days</span>
-          <span class="muted">Swipe / scroll to browse days</span>
+    <div class="layout">
+      <aside class="left-column">
+        <div class="map-wrapper">
+          <div class="map-label-row">
+            <div class="map-label">Trip map</div>
+            <div class="muted">Centered on Sarlat & Dordogne valley</div>
+          </div>
+          <div class="map-iframe-wrapper">
+            <!-- Simple static map centered on Sarlat area -->
+            <iframe
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22263.78206759013!2d1.202!3d44.889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aa9f0a7b9e0a2b%3A0x408ab2ae4bb1e20!2sSarlat-la-Can%C3%A9da!5e0!3m2!1sen!2sfr!4v1700000000000"
+              allowfullscreen
+            ></iframe>
+          </div>
         </div>
-        <div class="day-strip" id="dayStrip"></div>
-      </section>
 
-      <main class="content">
-        <section class="section">
-          <div class="section-header">
-            <div class="section-title-block">
-              <div class="section-title">Today overview</div>
-              <div class="section-subtitle" id="dayOverviewSubtitle"></div>
-            </div>
-            <div class="section-actions">
-              <button class="btn btn-ghost btn-small" id="btnSoftDay">
-                <span class="icon">🌿</span>
-                Make it softer
-              </button>
-            </div>
+        <section class="day-strip-wrapper">
+          <div class="day-strip-label">
+            <span>Days</span>
+            <span class="muted">Swipe / scroll</span>
           </div>
-          <div class="day-summary">
-            <div class="day-summary-title" id="daySummaryTitle"></div>
-            <div class="day-summary-tags" id="daySummaryTags"></div>
-            <div class="day-summary-desc" id="daySummaryDesc"></div>
-          </div>
+          <div class="day-strip" id="dayStrip"></div>
         </section>
 
-        <section class="two-column">
+        <div class="left-footer">
+          <div class="left-footer-title">Quick actions</div>
+          <div class="left-footer-row">
+            <button class="btn btn-ghost btn-small" id="btnSoftDay">
+              <span class="icon">🌿</span>
+              Soften today
+            </button>
+            <button class="btn btn-ghost btn-small" id="btnAddActivityLeft">
+              <span class="icon">➕</span>
+              Add activity
+            </button>
+            <button class="btn btn-ghost btn-small" id="btnAddRestaurantLeft">
+              <span class="icon">➕</span>
+              Add restaurant
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="right-column">
+        <div class="content">
           <section class="section">
             <div class="section-header">
               <div class="section-title-block">
-                <div class="section-title">Activities</div>
-                <div class="section-subtitle">
-                  Day-by-day experiences with booking links & costs per adult / child
-                </div>
-              </div>
-              <div class="section-actions">
-                <button class="btn btn-ghost btn-small" id="btnAddActivity">
-                  <span class="icon">＋</span>
-                  Add activity
-                </button>
+                <div class="section-title">Today overview</div>
+                <div class="section-subtitle" id="dayOverviewSubtitle"></div>
               </div>
             </div>
-            <div class="card-list" id="activitiesList"></div>
-            <div class="fab-row">
-              <button class="fab" id="btnAddActivityFab">
-                <span class="icon">➕</span>
-                New activity for this day
-              </button>
+            <div class="day-summary">
+              <div class="day-summary-title" id="daySummaryTitle"></div>
+              <div class="day-summary-tags" id="daySummaryTags"></div>
+              <div class="day-summary-desc" id="daySummaryDesc"></div>
             </div>
           </section>
 
-          <section class="section">
-            <div class="section-header">
-              <div class="section-title-block">
-                <div class="section-title">Restaurants & food</div>
-                <div class="section-subtitle">
-                  Images, prices, reviews, menu info & your own notes
+          <section class="two-column">
+            <section class="section">
+              <div class="section-header">
+                <div class="section-title-block">
+                  <div class="section-title">Activities</div>
+                  <div class="section-subtitle">
+                    Day-by-day experiences with booking links & costs per adult / child
+                  </div>
+                </div>
+                <div class="section-actions">
+                  <button class="btn btn-ghost btn-small" id="btnAddActivity">
+                    <span class="icon">＋</span>
+                    Add activity
+                  </button>
                 </div>
               </div>
-              <div class="section-actions">
-                <button class="btn btn-ghost btn-small" id="btnAddRestaurant">
-                  <span class="icon">＋</span>
-                  Add restaurant
+              <div class="card-list" id="activitiesList"></div>
+              <div class="fab-row">
+                <button class="fab" id="btnAddActivityFab">
+                  <span class="icon">➕</span>
+                  New activity for this day
                 </button>
               </div>
-            </div>
-            <div class="card-list" id="restaurantsList"></div>
-            <div class="fab-row">
-              <button class="fab" id="btnAddRestaurantFab">
-                <span class="icon">➕</span>
-                New restaurant for this day
-              </button>
-            </div>
+            </section>
+
+            <section class="section">
+              <div class="section-header">
+                <div class="section-title-block">
+                  <div class="section-title">Restaurants & food</div>
+                  <div class="section-subtitle">
+                    Images, prices, reviews, menu info & your own notes
+                  </div>
+                </div>
+                <div class="section-actions">
+                  <button class="btn btn-ghost btn-small" id="btnAddRestaurant">
+                    <span class="icon">＋</span>
+                    Add restaurant
+                  </button>
+                </div>
+              </div>
+              <div class="card-list" id="restaurantsList"></div>
+              <div class="fab-row">
+                <button class="fab" id="btnAddRestaurantFab">
+                  <span class="icon">➕</span>
+                  New restaurant for this day
+                </button>
+              </div>
+            </section>
           </section>
-        </section>
+        </div>
       </main>
     </div>
   </div>
@@ -1121,10 +1213,8 @@
   </div>
 
   <script>
-    // ---------- Data model & persistence ----------
-
-    const STORAGE_KEY = "dordogneTripDataV4";
-    const HISTORY_KEY = "dordogneTripHistoryV4";
+    const STORAGE_KEY = "dordogneTripDataV5";
+    const HISTORY_KEY = "dordogneTripHistoryV5";
 
     const defaultTripData = {
       days: [
@@ -1161,7 +1251,7 @@
               description:
                 "Stroll the narrow streets, golden stone houses, the Lantern of the Dead and Saint-Sacerdos cathedral. Let the kids explore passages and squares at their own pace.",
               bookingUrl:
-                "https://www.google.com/maps/search/Sarlat+centre+historique",
+                "https://www.google.com/maps/place/Centre+Historique+de+Sarlat-la-Can%C3%A9da",
               priceAdult: 0,
               priceChild: 0,
               notes: "Mostly free; just parking costs. Great low-pressure way to stretch legs after travel."
@@ -1175,7 +1265,7 @@
               description:
                 "Take the glass elevator up the former church tower for panoramic views over Sarlat. Kids usually love the ‘tower ride’.",
               bookingUrl:
-                "https://www.google.com/maps/search/ascenseur+panoramique+Sarlat",
+                "https://www.google.com/maps/place/Ascenseur+Panoramique+de+Sarlat",
               priceAdult: 5,
               priceChild: 3,
               notes: "Check opening times; sometimes combined with market hours."
@@ -1235,7 +1325,7 @@
               description:
                 "Explore the medieval fortress, war machines and hands-on exhibits. Great for 9-year-olds who like ‘weapons and knights’.",
               bookingUrl:
-                "https://www.google.com/maps/search/Ch%C3%A2teau+de+Castelnaud",
+                "https://www.google.com/maps/place/Ch%C3%A2teau+de+Castelnaud",
               priceAdult: 13,
               priceChild: 8,
               notes:
@@ -1250,7 +1340,7 @@
               description:
                 "Short walk through the cliffside village, with an ice cream stop if the kids still have energy after the canoe and castle.",
               bookingUrl:
-                "https://www.google.com/maps/search/La+Roque-Gageac+village",
+                "https://www.google.com/maps/place/La+Roque-Gageac",
               priceAdult: 0,
               priceChild: 0,
               notes: "Keep this flexible; you can always skip if everyone is tired."
@@ -1312,7 +1402,7 @@
               description:
                 "Walk the shaded topiary paths with huge views over the Dordogne valley and castles. There are play areas and small adventure paths kids love.",
               bookingUrl:
-                "https://www.google.com/maps/search/Jardins+de+Marqueyssac",
+                "https://www.google.com/maps/place/Jardins+de+Marqueyssac",
               priceAdult: 12,
               priceChild: 6,
               notes:
@@ -1327,7 +1417,7 @@
               description:
                 "Explore the bastide village, viewpoint over the valley and, if open, the caves under the main square.",
               bookingUrl:
-                "https://www.google.com/maps/search/grotte+de+Domme",
+                "https://www.google.com/maps/place/Grotte+de+Domme",
               priceAdult: 9,
               priceChild: 6,
               notes:
@@ -1405,7 +1495,7 @@
               description:
                 "Lascaux IV offers a spectacular reproduction of the prehistoric cave with multimedia and guided tours. Rouffignac is a real cave with a small train and engravings—more ‘adventurous’.",
               bookingUrl:
-                "https://www.google.com/maps/search/Lascaux+IV+Montignac",
+                "https://www.google.com/maps/place/Lascaux+IV",
               priceAdult: 22,
               priceChild: 14,
               notes:
@@ -1420,7 +1510,7 @@
               description:
                 "Le Thot combines a small prehistory park, animals and workshops. Roque Saint-Christophe is a dramatic troglodyte cliff village explaining life in prehistoric and medieval times.",
               bookingUrl:
-                "https://www.google.com/maps/search/Le+Thot+parc+pr%C3%A9histoire",
+                "https://www.google.com/maps/place/Le+Thot",
               priceAdult: 11,
               priceChild: 7,
               notes:
@@ -1497,7 +1587,7 @@
               description:
                 "Huge chasm with stairs/lifts down to an underground river boat ride and impressive chambers. Very memorable for kids.",
               bookingUrl:
-                "https://www.google.com/maps/search/Gouffre+de+Padirac",
+                "https://www.google.com/maps/place/Gouffre+de+Padirac",
               priceAdult: 22,
               priceChild: 16,
               notes:
@@ -1512,7 +1602,7 @@
               description:
                 "Explore the pilgrimage village with lifts/stairs and viewpoints. Optionally add Monkey Forest or a bird of prey show if your kids like animals.",
               bookingUrl:
-                "https://www.google.com/maps/search/Rocamadour+village",
+                "https://www.google.com/maps/place/Rocamadour",
               priceAdult: 0,
               priceChild: 0,
               notes:
@@ -1527,7 +1617,7 @@
               description:
                 "Walk among free-roaming Barbary macaques in a forest setting—usually a big hit with kids.",
               bookingUrl:
-                "https://www.google.com/maps/search/La+For%C3%AAt+des+Singes+Rocamadour",
+                "https://www.google.com/maps/place/La+For%C3%AAt+des+Singes",
               priceAdult: 11.5,
               priceChild: 7.5,
               notes: "Check feeding times and opening hours; can be combined with Rocamadour visit."
@@ -1589,7 +1679,7 @@
               description:
                 "Browse stalls with local cheeses, strawberries, foie gras and nuts. Fun for kids to choose picnic supplies and small souvenirs.",
               bookingUrl:
-                "https://www.google.com/maps/search/march%C3%A9+Sarlat-la-Can%C3%A9da",
+                "https://www.google.com/maps/place/March%C3%A9+de+Sarlat",
               priceAdult: 0,
               priceChild: 0,
               notes: "Arrive early for easier parking and less heat."
@@ -1618,7 +1708,7 @@
               description:
                 "Gentle evening wander with street performers often appearing in high season. Perfect last full night vibe.",
               bookingUrl:
-                "https://www.google.com/maps/search/Sarlat+centre+historique",
+                "https://www.google.com/maps/place/Centre+Historique+de+Sarlat-la-Can%C3%A9da",
               priceAdult: 0,
               priceChild: 0,
               notes: "Keep bedtime flexible depending on how tired everyone is after the week."
@@ -1762,8 +1852,6 @@
     let editingActivity = { dayIndex: null, activityIndex: null, isNew: false };
     let editingRestaurant = { dayIndex: null, restaurantIndex: null, isNew: false };
 
-    // ---------- DOM refs ----------
-
     const dayStripEl = document.getElementById("dayStrip");
     const dayOverviewSubtitleEl = document.getElementById("dayOverviewSubtitle");
     const daySummaryTitleEl = document.getElementById("daySummaryTitle");
@@ -1773,8 +1861,6 @@
     const restaurantsListEl = document.getElementById("restaurantsList");
     const historyListEl = document.getElementById("historyList");
     const historyEmptyMessageEl = document.getElementById("historyEmptyMessage");
-
-    // ---------- Rendering ----------
 
     function renderDayStrip() {
       dayStripEl.innerHTML = "";
@@ -1895,7 +1981,7 @@
               ${
                 restaurant.imageUrl
                   ? `<img src="${restaurant.imageUrl}" alt="${restaurant.name}" />`
-                  : ""
+                  : "Add an image URL"
               }
               <div class="restaurant-image-overlay"></div>
               <div class="restaurant-image-label">Restaurant</div>
@@ -2043,7 +2129,7 @@
       renderRestaurants();
     }
 
-    // ---------- Activity modal logic ----------
+    // Activity modal
 
     const activityModalBackdrop = document.getElementById("activityModalBackdrop");
     const activityModalClose = document.getElementById("activityModalClose");
@@ -2151,7 +2237,7 @@
       renderActivities();
     }
 
-    // ---------- Restaurant modal logic ----------
+    // Restaurant modal
 
     const restaurantModalBackdrop = document.getElementById("restaurantModalBackdrop");
     const restaurantModalClose = document.getElementById("restaurantModalClose");
@@ -2291,7 +2377,7 @@
       renderRestaurants();
     }
 
-    // ---------- History modal logic ----------
+    // History modal
 
     const historyModalBackdrop = document.getElementById("historyModalBackdrop");
     const historyModalClose = document.getElementById("historyModalClose");
@@ -2310,7 +2396,7 @@
       if (e.target === historyModalBackdrop) closeHistoryModal();
     });
 
-    // ---------- Top bar actions ----------
+    // Top bar & quick actions
 
     document.getElementById("btnAddActivity").addEventListener("click", () =>
       openActivityModal(selectedDayIndex, null)
@@ -2318,10 +2404,17 @@
     document.getElementById("btnAddActivityFab").addEventListener("click", () =>
       openActivityModal(selectedDayIndex, null)
     );
+    document.getElementById("btnAddActivityLeft").addEventListener("click", () =>
+      openActivityModal(selectedDayIndex, null)
+    );
+
     document.getElementById("btnAddRestaurant").addEventListener("click", () =>
       openRestaurantModal(selectedDayIndex, null)
     );
     document.getElementById("btnAddRestaurantFab").addEventListener("click", () =>
+      openRestaurantModal(selectedDayIndex, null)
+    );
+    document.getElementById("btnAddRestaurantLeft").addEventListener("click", () =>
       openRestaurantModal(selectedDayIndex, null)
     );
 
@@ -2361,8 +2454,6 @@
       saveTripData();
       renderDayOverview();
     });
-
-    // ---------- Init ----------
 
     renderAll();
   </script>
