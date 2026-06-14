@@ -627,61 +627,99 @@
       resize: vertical;
     }
 
-    .restaurant-card {
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
-  gap: 10px;
-  padding: 10px;
-  border-radius: 14px;
-  border: 1px solid rgba(31,41,55,0.9);
-  background: rgba(15,23,42,0.95);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    .rest-card {
+  background: #1e293b;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  margin-bottom: 14px;
 }
 
-.restaurant-photo {
-  width: 80px;
-  height: 80px;
-  border-radius: 10px;
+.rest-photo {
+  width: 100%;
+  height: 160px;
   object-fit: cover;
-  background: #1f2937;
 }
 
-.restaurant-main {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.rest-body {
+  padding: 12px 14px;
 }
 
-.restaurant-title {
-  font-size: 0.95rem;
+.rest-title {
+  font-size: 1.1rem;
   font-weight: 600;
+  margin-bottom: 4px;
 }
 
-.restaurant-sub {
-  font-size: 0.75rem;
-  color: #9ca3af;
+.rest-town {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-bottom: 8px;
 }
 
-.restaurant-info-row {
+.rest-info {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: #cbd5e1;
+  margin-bottom: 8px;
 }
 
-.restaurant-notes {
-  font-size: 0.72rem;
+.rest-notes {
+  font-size: 0.8rem;
   color: #94a3b8;
   margin-top: 4px;
 }
 
-.restaurant-actions {
+.rest-actions {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  align-items: flex-end;
+  gap: 8px;
+  padding: 12px 14px;
+  background: #0f172a;
 }
+
+.rest-btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #334155;
+  color: #e2e8f0;
+  border: none;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.rest-btn:hover {
+  background: #475569;
+}
+
+.rest-btn.danger {
+  background: #7f1d1d;
+}
+
+.rest-btn.danger:hover {
+  background: #991b1b;
+}
+
+    .day-tab {
+  padding: 10px 16px;
+  border-radius: 14px;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+
+.day-tab.active {
+  background: #22c55e;
+  color: #022c22;
+  font-weight: 600;
+}
+
+
 
   </style>
 </head>
@@ -1175,7 +1213,7 @@
       tabsEl.innerHTML = "";
       state.days.forEach(day => {
         const btn = document.createElement("button");
-        btn.className = "tab" + (day.id === state.activeDayId ? " active" : "");
+        btn.className = "day-tab" + (day.id === state.activeDayId ? " active" : "");
         btn.innerHTML = `
           <span class="day-label">${day.label}</span>
           <span class="date">${day.id}</span>
@@ -1345,33 +1383,31 @@
              </a>`
           : `<span style="font-size:0.7rem;color:var(--muted);">No link</span>`;
         item.innerHTML = `
-  <div class="restaurant-card">
-    
-    <img class="restaurant-photo" 
-         src="${r.photo || 'https://via.placeholder.com/80'}" 
-         alt="${r.name}">
+  <div class="rest-card">
+    <img class="rest-photo" src="${r.photo || 'https://via.placeholder.com/300'}" alt="${r.name}">
 
-    <div class="restaurant-main">
-      <div class="restaurant-title">${r.name}</div>
-      <div class="restaurant-sub">${r.town || "—"} · ${r.style || "—"}</div>
+    <div class="rest-body">
+      <div class="rest-title">${r.name}</div>
+      <div class="rest-town">${r.town || "—"}</div>
 
-      <div class="restaurant-info-row">
+      <div class="rest-info">
+        ${r.style ? `<span>${r.style}</span>` : ""}
         ${r.price ? `<span>💶 ${r.price}</span>` : ""}
         ${r.phone ? `<span>📞 ${r.phone}</span>` : ""}
         ${r.reviewScore ? `<span>⭐ ${r.reviewScore} (${r.reviewCount})</span>` : ""}
       </div>
 
-      ${r.notes ? `<div class="restaurant-notes">${r.notes}</div>` : ""}
+      ${r.notes ? `<div class="rest-notes">${r.notes}</div>` : ""}
     </div>
 
-    <div class="restaurant-actions">
-      ${r.url ? `<a class="link" href="${r.url}" target="_blank">🔗</a>` : ""}
-      <button class="btn-icon" data-edit="${r.id}">✎</button>
-      <button class="btn-icon danger" data-id="${r.id}" data-kind="restaurant">✕</button>
+    <div class="rest-actions">
+      ${r.url ? `<button class="rest-btn" onclick="window.open('${r.url}', '_blank')">🌐 Website</button>` : ""}
+      <button class="rest-btn" data-edit="${r.id}">✏️ Edit</button>
+      <button class="rest-btn danger" data-id="${r.id}" data-kind="restaurant">🗑 Remove</button>
     </div>
-
   </div>
 `;
+
 
         listEl.appendChild(item);
       });
