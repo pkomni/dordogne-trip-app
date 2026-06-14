@@ -2,27 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dordogne Trip Planner – Green Forest</title>
+  <title>Dordogne Trip Planner – Modern Green</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --color-bg: #04130b;
-      --color-bg-elevated: #071a10;
-      --color-surface: #0c2415;
-      --color-surface-soft: #12301f;
-      --color-primary: #4caf50;
-      --color-primary-soft: #66bb6a;
-      --color-primary-strong: #2e7d32;
-      --color-accent: #a5d6a7;
-      --color-danger: #ff5252;
-      --color-text: #f5fff7;
-      --color-text-soft: #cfe7d4;
-      --color-border-subtle: rgba(255, 255, 255, 0.06);
+      --bg: #050b0a;
+      --bg-elevated: #0b1512;
+      --bg-soft: #101d18;
+      --primary: #4caf50;
+      --primary-soft: #66bb6a;
+      --primary-strong: #2e7d32;
+      --accent: #a5d6a7;
+      --danger: #ff5252;
+      --text: #f5fff7;
+      --text-soft: #cfe7d4;
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --radius-xl: 24px;
       --radius-lg: 18px;
       --radius-md: 12px;
       --radius-pill: 999px;
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
-      --shadow-chip: 0 6px 18px rgba(0, 0, 0, 0.45);
+      --shadow-soft: 0 20px 50px rgba(0, 0, 0, 0.7);
+      --shadow-card: 0 14px 32px rgba(0, 0, 0, 0.75);
       --transition-fast: 0.18s ease-out;
       --transition-med: 0.25s ease-out;
       --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
@@ -38,8 +38,8 @@
       margin: 0;
       padding: 0;
       font-family: var(--font-sans);
-      background: radial-gradient(circle at top, #0b2a18 0, #020806 55%, #000 100%);
-      color: var(--color-text);
+      background: radial-gradient(circle at top, #10281f 0, #050b0a 45%, #000 100%);
+      color: var(--text);
       -webkit-font-smoothing: antialiased;
     }
 
@@ -53,13 +53,11 @@
 
     .app-shell {
       width: 100%;
-      max-width: 1240px;
-      background: linear-gradient(145deg, #04130b 0, #020806 40%, #04130b 100%);
-      border-radius: 28px;
+      max-width: 1120px;
+      background: linear-gradient(145deg, #050b0a 0, #020605 40%, #050b0a 100%);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      display: flex;
-      flex-direction: column;
       overflow: hidden;
       position: relative;
     }
@@ -90,27 +88,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 20px 10px;
-      border-bottom: 1px solid var(--color-border-subtle);
+      padding: 14px 18px 10px;
+      border-bottom: 1px solid var(--border-subtle);
       backdrop-filter: blur(18px);
       background: linear-gradient(
         to bottom,
-        rgba(4, 19, 11, 0.95),
-        rgba(4, 19, 11, 0.85)
+        rgba(5, 11, 10, 0.96),
+        rgba(5, 11, 10, 0.9)
       );
     }
 
     .top-bar-left {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .app-icon {
       width: 40px;
       height: 40px;
       border-radius: 18px;
-      background: radial-gradient(circle at 30% 0, #a5d6a7 0, #2e7d32 40%, #04130b 100%);
+      background: radial-gradient(circle at 30% 0, #a5d6a7 0, #2e7d32 40%, #050b0a 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -135,18 +133,18 @@
       gap: 8px;
     }
 
-    .app-title span.badge {
+    .badge {
       font-size: 11px;
       padding: 2px 8px;
-      border-radius: 999px;
+      border-radius: var(--radius-pill);
       background: rgba(76, 175, 80, 0.18);
-      color: var(--color-accent);
+      color: var(--accent);
       border: 1px solid rgba(165, 214, 167, 0.35);
     }
 
     .app-subtitle {
       font-size: 12px;
-      color: var(--color-text-soft);
+      color: var(--text-soft);
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
@@ -158,14 +156,15 @@
       border-radius: var(--radius-pill);
       border: 1px solid rgba(255, 255, 255, 0.08);
       font-size: 11px;
-      color: var(--color-text-soft);
-      background: rgba(12, 36, 21, 0.9);
+      color: var(--text-soft);
+      background: rgba(11, 21, 18, 0.9);
     }
 
     .top-bar-right {
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .btn {
@@ -179,8 +178,8 @@
       align-items: center;
       gap: 6px;
       cursor: pointer;
-      background: rgba(12, 36, 21, 0.9);
-      color: var(--color-text-soft);
+      background: rgba(11, 21, 18, 0.9);
+      color: var(--text-soft);
       transition: background var(--transition-fast), transform var(--transition-fast),
         box-shadow var(--transition-fast), border-color var(--transition-fast),
         color var(--transition-fast);
@@ -191,8 +190,8 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--color-primary-soft), var(--color-primary));
-      color: #04130b;
+      background: linear-gradient(135deg, var(--primary-soft), var(--primary));
+      color: #050b0a;
       box-shadow: 0 10px 24px rgba(76, 175, 80, 0.45);
     }
 
@@ -203,11 +202,11 @@
 
     .btn-ghost {
       border-color: rgba(255, 255, 255, 0.12);
-      background: rgba(4, 19, 11, 0.85);
+      background: rgba(5, 11, 10, 0.9);
     }
 
     .btn-ghost:hover {
-      background: rgba(12, 36, 21, 0.95);
+      background: rgba(16, 29, 24, 0.96);
       border-color: rgba(165, 214, 167, 0.5);
     }
 
@@ -221,11 +220,27 @@
       background: rgba(60, 0, 0, 0.9);
     }
 
+    .btn-small {
+      padding: 5px 10px;
+      font-size: 11px;
+    }
+
+    .btn-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-size: 15px;
+    }
+
     /* Day strip */
 
     .day-strip-wrapper {
-      padding: 6px 18px 10px;
-      border-bottom: 1px solid var(--color-border-subtle);
+      padding: 8px 16px 10px;
+      border-bottom: 1px solid var(--border-subtle);
       background: radial-gradient(circle at top, rgba(76, 175, 80, 0.12), transparent 55%);
     }
 
@@ -233,12 +248,17 @@
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      color: var(--color-text-soft);
+      color: var(--text-soft);
       margin-bottom: 6px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       opacity: 0.9;
+    }
+
+    .muted {
+      opacity: 0.8;
+      font-size: 11px;
     }
 
     .day-strip {
@@ -252,19 +272,19 @@
 
     .day-chip {
       scroll-snap-align: start;
-      min-width: 120px;
-      max-width: 160px;
+      min-width: 130px;
+      max-width: 170px;
       padding: 8px 10px;
       border-radius: 16px;
       border: 1px solid rgba(255, 255, 255, 0.08);
-      background: radial-gradient(circle at top left, #12301f 0, #071a10 55%, #020806 100%);
-      color: var(--color-text-soft);
+      background: radial-gradient(circle at top left, #101d18 0, #050b0a 55%, #020605 100%);
+      color: var(--text-soft);
       font-size: 11px;
       display: flex;
       flex-direction: column;
       gap: 2px;
       cursor: pointer;
-      box-shadow: var(--shadow-chip);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
       transition: transform var(--transition-fast), box-shadow var(--transition-fast),
         border-color var(--transition-fast), background var(--transition-fast);
       position: relative;
@@ -272,14 +292,14 @@
 
     .day-chip:hover {
       transform: translateY(-1px);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.8);
       border-color: rgba(165, 214, 167, 0.6);
     }
 
     .day-chip.active {
       border-color: rgba(165, 214, 167, 0.9);
       background: linear-gradient(135deg, #1b5e20, #4caf50);
-      color: #04130b;
+      color: #050b0a;
     }
 
     .day-chip-title {
@@ -311,33 +331,19 @@
       background: rgba(165, 214, 167, 0.9);
     }
 
-    /* Layout */
+    /* Main content */
 
     .content {
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
-      gap: 14px;
       padding: 12px 16px 16px;
-    }
-
-    @media (max-width: 960px) {
-      .content {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    /* Left column */
-
-    .column {
       display: flex;
       flex-direction: column;
       gap: 12px;
     }
 
     .section {
-      background: radial-gradient(circle at top left, #12301f 0, #071a10 55%, #020806 100%);
+      background: radial-gradient(circle at top left, #101d18 0, #050b0a 55%, #020605 100%);
       border-radius: var(--radius-lg);
-      border: 1px solid var(--color-border-subtle);
+      border: 1px solid var(--border-subtle);
       padding: 12px 14px 10px;
       position: relative;
       overflow: hidden;
@@ -361,13 +367,13 @@
       font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 0.16em;
-      color: var(--color-text-soft);
+      color: var(--text-soft);
       opacity: 0.9;
     }
 
     .section-subtitle {
       font-size: 12px;
-      color: var(--color-text-soft);
+      color: var(--text-soft);
       opacity: 0.9;
     }
 
@@ -377,24 +383,6 @@
       flex-wrap: wrap;
     }
 
-    .btn-small {
-      padding: 5px 10px;
-      font-size: 11px;
-    }
-
-    .btn-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      font-size: 15px;
-    }
-
-    /* Day summary */
-
     .day-summary {
       display: flex;
       flex-direction: column;
@@ -403,7 +391,7 @@
     }
 
     .day-summary-title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -422,21 +410,33 @@
       padding: 3px 8px;
       border-radius: var(--radius-pill);
       border: 1px solid rgba(165, 214, 167, 0.4);
-      background: rgba(12, 36, 21, 0.9);
-      color: var(--color-accent);
+      background: rgba(11, 21, 18, 0.9);
+      color: var(--accent);
     }
 
     .day-summary-desc {
       font-size: 12px;
-      color: var(--color-text-soft);
+      color: var(--text-soft);
       line-height: 1.5;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .two-column {
+        grid-template-columns: minmax(0, 1fr);
+      }
     }
 
     /* Cards */
 
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    .card-list {
+      display: flex;
+      flex-direction: column;
       gap: 10px;
       margin-top: 4px;
     }
@@ -444,7 +444,7 @@
     .card {
       border-radius: var(--radius-md);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      background: radial-gradient(circle at top left, #163824 0, #071a10 55%, #020806 100%);
+      background: radial-gradient(circle at top left, #13231d 0, #050b0a 55%, #020605 100%);
       padding: 10px 10px 8px;
       display: flex;
       flex-direction: column;
@@ -453,6 +453,7 @@
       overflow: hidden;
       transition: transform var(--transition-fast), box-shadow var(--transition-fast),
         border-color var(--transition-fast), background var(--transition-fast);
+      box-shadow: var(--shadow-card);
     }
 
     .card::before {
@@ -466,7 +467,7 @@
 
     .card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.75);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
       border-color: rgba(165, 214, 167, 0.7);
     }
 
@@ -498,7 +499,7 @@
 
     .card-subtitle {
       font-size: 11px;
-      color: var(--color-text-soft);
+      color: var(--text-soft);
       display: flex;
       gap: 6px;
       align-items: center;
@@ -510,18 +511,18 @@
       padding: 2px 7px;
       border-radius: var(--radius-pill);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(4, 19, 11, 0.9);
-      color: var(--color-text-soft);
+      background: rgba(5, 11, 10, 0.9);
+      color: var(--text-soft);
     }
 
     .chip-type {
       border-color: rgba(165, 214, 167, 0.6);
-      color: var(--color-accent);
+      color: var(--accent);
     }
 
     .card-body {
       font-size: 12px;
-      color: var(--color-text-soft);
+      color: var(--text-soft);
       line-height: 1.5;
     }
 
@@ -530,7 +531,7 @@
       flex-wrap: wrap;
       gap: 6px;
       font-size: 11px;
-      color: var(--color-text-soft);
+      color: var(--text-soft);
     }
 
     .meta-item {
@@ -539,7 +540,7 @@
       gap: 4px;
       padding: 2px 7px;
       border-radius: var(--radius-pill);
-      background: rgba(4, 19, 11, 0.9);
+      background: rgba(5, 11, 10, 0.9);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
@@ -553,6 +554,7 @@
       align-items: center;
       gap: 6px;
       margin-top: 2px;
+      flex-wrap: wrap;
     }
 
     .card-footer-left {
@@ -564,7 +566,7 @@
 
     .link {
       font-size: 11px;
-      color: var(--color-accent);
+      color: var(--accent);
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -586,8 +588,8 @@
       font-size: 10px;
       border-radius: var(--radius-pill);
       border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(4, 19, 11, 0.9);
-      color: var(--color-text-soft);
+      background: rgba(5, 11, 10, 0.9);
+      color: var(--text-soft);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
@@ -595,7 +597,7 @@
     }
 
     .btn-xxs:hover {
-      background: rgba(12, 36, 21, 0.95);
+      background: rgba(16, 29, 24, 0.96);
     }
 
     .btn-xxs-danger {
@@ -603,53 +605,63 @@
       color: #ffb3b3;
     }
 
-    /* Right column */
+    /* Restaurant card layout */
 
-    .map-section {
-      min-height: 220px;
+    .restaurant-card {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 8px;
     }
 
-    .map-frame {
-      border-radius: 16px;
+    @media (max-width: 640px) {
+      .restaurant-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .restaurant-image {
+      width: 100%;
+      height: 90px;
+      border-radius: 12px;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      margin-top: 6px;
-      background: #000;
-      height: 260px;
+      background: linear-gradient(135deg, #1b5e20, #4caf50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #e8f5e9;
+      position: relative;
     }
 
-    .map-frame iframe {
+    .restaurant-image img {
       width: 100%;
       height: 100%;
-      border: 0;
+      object-fit: cover;
+      display: block;
     }
 
-    .info-list {
-      margin-top: 6px;
-      font-size: 12px;
-      color: var(--color-text-soft);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+    .restaurant-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent);
     }
 
-    .info-item {
-      display: flex;
-      gap: 6px;
-      align-items: flex-start;
+    .restaurant-image-label {
+      position: absolute;
+      left: 8px;
+      bottom: 6px;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.6);
     }
 
-    .info-item span.icon {
-      font-size: 14px;
-      margin-top: 1px;
-    }
-
-    /* Floating add buttons (mobile emphasis) */
+    /* FAB row */
 
     .fab-row {
       display: flex;
       gap: 8px;
-      margin-top: 4px;
+      margin-top: 6px;
       flex-wrap: wrap;
     }
 
@@ -658,8 +670,8 @@
       padding: 6px 10px;
       font-size: 11px;
       border: 1px solid rgba(165, 214, 167, 0.6);
-      background: rgba(12, 36, 21, 0.95);
-      color: var(--color-accent);
+      background: rgba(16, 29, 24, 0.96);
+      color: var(--accent);
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -685,8 +697,8 @@
 
     .modal {
       width: 100%;
-      max-width: 520px;
-      background: radial-gradient(circle at top left, #163824 0, #071a10 55%, #020806 100%);
+      max-width: 560px;
+      background: radial-gradient(circle at top left, #13231d 0, #050b0a 55%, #020605 100%);
       border-radius: 22px;
       border: 1px solid rgba(255, 255, 255, 0.12);
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
@@ -713,7 +725,7 @@
       flex-direction: column;
       gap: 8px;
       font-size: 12px;
-      color: var(--color-text-soft);
+      color: var(--text-soft);
     }
 
     .form-grid {
@@ -730,7 +742,7 @@
 
     .form-group label {
       font-size: 11px;
-      color: var(--color-text-soft);
+      color: var(--text-soft);
     }
 
     .form-group input,
@@ -738,8 +750,8 @@
     .form-group select {
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.16);
-      background: rgba(4, 19, 11, 0.95);
-      color: var(--color-text);
+      background: rgba(5, 11, 10, 0.95);
+      color: var(--text);
       padding: 6px 8px;
       font-size: 12px;
       font-family: var(--font-sans);
@@ -770,7 +782,7 @@
     .history-item {
       border-radius: 12px;
       border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(4, 19, 11, 0.9);
+      background: rgba(5, 11, 10, 0.9);
       padding: 6px 8px;
       display: flex;
       justify-content: space-between;
@@ -787,22 +799,12 @@
 
     .history-label {
       font-weight: 500;
-      color: var(--color-accent);
+      color: var(--accent);
     }
 
     .history-time {
-      color: var(--color-text-soft);
+      color: var(--text-soft);
       opacity: 0.9;
-    }
-
-    /* Small helpers */
-
-    .muted {
-      opacity: 0.8;
-    }
-
-    .nowrap {
-      white-space: nowrap;
     }
 
     @media (max-width: 720px) {
@@ -828,7 +830,7 @@
           <div class="app-title-block">
             <div class="app-title">
               Dordogne Trip Planner
-              <span class="badge">Material You · Green Forest</span>
+              <span class="badge">Modern · Green Forest</span>
             </div>
             <div class="app-subtitle">
               <span>Saint-Julien · Sarlat base · 23–29 June 2026</span>
@@ -837,10 +839,6 @@
           </div>
         </div>
         <div class="top-bar-right">
-          <button class="btn btn-ghost btn-small" id="btnMapFocus">
-            <span class="icon">🗺️</span>
-            Map today
-          </button>
           <button class="btn btn-ghost btn-small" id="btnHistory">
             <span class="icon">🕒</span>
             Versions
@@ -859,39 +857,39 @@
       <section class="day-strip-wrapper">
         <div class="day-strip-label">
           <span>Trip days</span>
-          <span class="muted" id="dayStripHint">Swipe / scroll to browse days</span>
+          <span class="muted">Swipe / scroll to browse days</span>
         </div>
         <div class="day-strip" id="dayStrip"></div>
       </section>
 
       <main class="content">
-        <section class="column">
-          <div class="section">
-            <div class="section-header">
-              <div class="section-title-block">
-                <div class="section-title">Today overview</div>
-                <div class="section-subtitle" id="dayOverviewSubtitle"></div>
-              </div>
-              <div class="section-actions">
-                <button class="btn btn-ghost btn-small" id="btnSoftDay">
-                  <span class="icon">🌿</span>
-                  Make it softer
-                </button>
-              </div>
+        <section class="section">
+          <div class="section-header">
+            <div class="section-title-block">
+              <div class="section-title">Today overview</div>
+              <div class="section-subtitle" id="dayOverviewSubtitle"></div>
             </div>
-            <div class="day-summary">
-              <div class="day-summary-title" id="daySummaryTitle"></div>
-              <div class="day-summary-tags" id="daySummaryTags"></div>
-              <div class="day-summary-desc" id="daySummaryDesc"></div>
+            <div class="section-actions">
+              <button class="btn btn-ghost btn-small" id="btnSoftDay">
+                <span class="icon">🌿</span>
+                Make it softer
+              </button>
             </div>
           </div>
+          <div class="day-summary">
+            <div class="day-summary-title" id="daySummaryTitle"></div>
+            <div class="day-summary-tags" id="daySummaryTags"></div>
+            <div class="day-summary-desc" id="daySummaryDesc"></div>
+          </div>
+        </section>
 
-          <div class="section">
+        <section class="two-column">
+          <section class="section">
             <div class="section-header">
               <div class="section-title-block">
                 <div class="section-title">Activities</div>
                 <div class="section-subtitle">
-                  Bookable experiences with links & costs per adult / child
+                  Day-by-day experiences with booking links & costs per adult / child
                 </div>
               </div>
               <div class="section-actions">
@@ -901,23 +899,21 @@
                 </button>
               </div>
             </div>
-            <div class="card-grid" id="activitiesGrid"></div>
+            <div class="card-list" id="activitiesList"></div>
             <div class="fab-row">
               <button class="fab" id="btnAddActivityFab">
                 <span class="icon">➕</span>
                 New activity for this day
               </button>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section class="column">
-          <div class="section">
+          <section class="section">
             <div class="section-header">
               <div class="section-title-block">
                 <div class="section-title">Restaurants & food</div>
                 <div class="section-subtitle">
-                  Family-friendly options near today’s plan (with working links)
+                  Images, prices, reviews, menu info & your own notes
                 </div>
               </div>
               <div class="section-actions">
@@ -927,53 +923,14 @@
                 </button>
               </div>
             </div>
-            <div class="card-grid" id="restaurantsGrid"></div>
+            <div class="card-list" id="restaurantsList"></div>
             <div class="fab-row">
               <button class="fab" id="btnAddRestaurantFab">
                 <span class="icon">➕</span>
                 New restaurant for this day
               </button>
             </div>
-          </div>
-
-          <div class="section map-section">
-            <div class="section-header">
-              <div class="section-title-block">
-                <div class="section-title">Map view</div>
-                <div class="section-subtitle" id="mapSubtitle">
-                  Focus on today’s area and main activities
-                </div>
-              </div>
-              <div class="section-actions">
-                <button class="btn btn-ghost btn-icon btn-small" id="btnMapToday">
-                  <span class="icon">📍</span>
-                </button>
-              </div>
-            </div>
-            <div class="map-frame">
-              <iframe
-                id="mapFrame"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUMMYKEY&q=Sarlat-la-Canéda+Dordogne+France"
-              ></iframe>
-            </div>
-            <div class="info-list">
-              <div class="info-item">
-                <span class="icon">💡</span>
-                <div>
-                  Tap any booking link on a card to open the official site or a Google Maps search in a new tab.
-                </div>
-              </div>
-              <div class="info-item">
-                <span class="icon">🧾</span>
-                <div>
-                  Prices are indicative per adult / child (your kids: 6, 9, 9). Always check the official site for
-                  current rates.
-                </div>
-              </div>
-            </div>
-          </div>
+          </section>
         </section>
       </main>
     </div>
@@ -1074,23 +1031,61 @@
             <input id="restaurantLocation" type="text" placeholder="Sarlat old town, La Roque-Gageac…" />
           </div>
           <div class="form-group">
-            <label for="restaurantCuisine">Style / cuisine</label>
+            <label for="restaurantCuisine">Cuisine type</label>
             <input id="restaurantCuisine" type="text" placeholder="Casual, crêpes, local Périgord…" />
           </div>
           <div class="form-group">
-            <label for="restaurantUrl">Maps / booking URL</label>
-            <input id="restaurantUrl" type="url" placeholder="https://www.google.com/maps/search/…" />
+            <label for="restaurantTags">Tags (comma-separated)</label>
+            <input id="restaurantTags" type="text" placeholder="Kid-friendly, terrace, reservations…" />
           </div>
         </div>
         <div class="form-grid">
           <div class="form-group">
-            <label for="restaurantPriceRange">Price range</label>
-            <input id="restaurantPriceRange" type="text" placeholder="€€ · mid-range, etc." />
+            <label for="restaurantImageUrl">Image URL (optional)</label>
+            <input id="restaurantImageUrl" type="url" placeholder="https://…" />
           </div>
           <div class="form-group">
-            <label for="restaurantNotes">Notes</label>
-            <input id="restaurantNotes" type="text" placeholder="Kid-friendly, terrace, reservations recommended…" />
+            <label for="restaurantPricePerPerson">Avg. price per person (€)</label>
+            <input id="restaurantPricePerPerson" type="number" step="1" min="0" />
           </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="restaurantRating">Rating (0–5)</label>
+            <input id="restaurantRating" type="number" step="0.1" min="0" max="5" />
+          </div>
+          <div class="form-group">
+            <label for="restaurantReviewCount">Number of reviews</label>
+            <input id="restaurantReviewCount" type="number" step="1" min="0" />
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="restaurantPhone">Phone</label>
+            <input id="restaurantPhone" type="text" placeholder="+33 …" />
+          </div>
+          <div class="form-group">
+            <label for="restaurantOpeningHours">Opening days / hours</label>
+            <input id="restaurantOpeningHours" type="text" placeholder="Tue–Sun, 12:00–14:30 & 19:00–22:00" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="restaurantMenuInfo">Menu info</label>
+          <textarea
+            id="restaurantMenuInfo"
+            placeholder="Kids’ menu, specialties, vegetarian options…"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="restaurantUrl">Maps / booking URL</label>
+          <input id="restaurantUrl" type="url" placeholder="https://www.google.com/maps/place/…" />
+        </div>
+        <div class="form-group">
+          <label for="restaurantPersonalReview">Your personal note / review</label>
+          <textarea
+            id="restaurantPersonalReview"
+            placeholder="How it actually felt with your family, what you’d repeat or skip."
+          ></textarea>
         </div>
       </div>
       <div class="modal-footer">
@@ -1114,8 +1109,8 @@
       </div>
       <div class="modal-body">
         <p class="muted">
-          Snapshots are stored only in this browser (localStorage). Perfect for GitHub Pages: just commit this single
-          HTML file.
+          Snapshots are stored only in this browser (localStorage). You can restore any snapshot to become the current
+          version of the plan.
         </p>
         <div class="history-list" id="historyList"></div>
         <p class="muted" id="historyEmptyMessage" style="display: none;">
@@ -1126,10 +1121,10 @@
   </div>
 
   <script>
-    // ---------- Data model ----------
+    // ---------- Data model & persistence ----------
 
-    const STORAGE_KEY = "dordogneTripDataV3";
-    const HISTORY_KEY = "dordogneTripHistoryV3";
+    const STORAGE_KEY = "dordogneTripDataV4";
+    const HISTORY_KEY = "dordogneTripHistoryV4";
 
     const defaultTripData = {
       days: [
@@ -1142,7 +1137,6 @@
           description:
             "Arrive via Bordeaux, drive to Sarlat, stock up at a supermarket, then wander the medieval streets and finish with an easy terrace dinner.",
           area: "Sarlat-la-Canéda",
-          mapQuery: "Sarlat-la-Canéda Dordogne France",
           activities: [
             {
               id: "1-1",
@@ -1167,7 +1161,7 @@
               description:
                 "Stroll the narrow streets, golden stone houses, the Lantern of the Dead and Saint-Sacerdos cathedral. Let the kids explore passages and squares at their own pace.",
               bookingUrl:
-                "https://www.sarlat-tourisme.com/en/discover-sarlat-and-perigord-noir/",
+                "https://www.google.com/maps/search/Sarlat+centre+historique",
               priceAdult: 0,
               priceChild: 0,
               notes: "Mostly free; just parking costs. Great low-pressure way to stretch legs after travel."
@@ -1181,7 +1175,7 @@
               description:
                 "Take the glass elevator up the former church tower for panoramic views over Sarlat. Kids usually love the ‘tower ride’.",
               bookingUrl:
-                "https://www.sarlat-tourisme.com/en/discover-sarlat-and-perigord-noir/the-glass-elevator-of-sainte-marie-church/",
+                "https://www.google.com/maps/search/ascenseur+panoramique+Sarlat",
               priceAdult: 5,
               priceChild: 3,
               notes: "Check opening times; sometimes combined with market hours."
@@ -1192,10 +1186,18 @@
               id: "r1-1",
               name: "Terrace dinner in Sarlat old town",
               location: "Sarlat center",
-              cuisine: "Casual · local Périgord · kid-friendly",
-              priceRange: "€€ · mid-range",
-              url: "https://www.google.com/maps/search/family+restaurant+terrace+Sarlat-la-Can%C3%A9da",
-              notes: "Pick any terrace that looks relaxed; avoid very late seatings with kids."
+              cuisine: "Local Périgord · French",
+              tags: ["Kid-friendly", "Terrace", "Old town"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?french,restaurant,terrace",
+              pricePerPerson: 25,
+              rating: 4.4,
+              reviewCount: 820,
+              phone: "+33 5 00 00 00 00",
+              openingHours: "Daily, 19:00–22:30 (check seasonally)",
+              menuInfo: "Duck confit, salads, kids’ menu with pasta / nuggets, local desserts.",
+              url: "https://www.google.com/maps/search/restaurant+terrasse+Sarlat-la-Can%C3%A9da",
+              personalReview: ""
             }
           ]
         },
@@ -1208,7 +1210,6 @@
           description:
             "Canoe on the Dordogne in the morning, then explore the medieval fortress of Castelnaud and, if energy allows, La Roque-Gageac.",
           area: "Cénac · Beynac · La Roque-Gageac",
-          mapQuery: "Cenac-et-Saint-Julien Dordogne canoe Beynac",
           activities: [
             {
               id: "2-1",
@@ -1218,7 +1219,8 @@
               location: "Cénac-et-Saint-Julien (canoe base)",
               description:
                 "Family-friendly 8–10 km canoe trip with views of Castelnaud, Beynac and Marqueyssac from the water. Kids can paddle a bit and stop on river beaches.",
-              bookingUrl: "https://www.canoerando-dordogne.com/",
+              bookingUrl:
+                "https://www.google.com/maps/search/cano%C3%AB+C%C3%A9nac+Beynac",
               priceAdult: 19,
               priceChild: 12,
               notes:
@@ -1232,7 +1234,8 @@
               location: "Castelnaud-la-Chapelle",
               description:
                 "Explore the medieval fortress, war machines and hands-on exhibits. Great for 9-year-olds who like ‘weapons and knights’.",
-              bookingUrl: "https://castelnaud.com/en/",
+              bookingUrl:
+                "https://www.google.com/maps/search/Ch%C3%A2teau+de+Castelnaud",
               priceAdult: 13,
               priceChild: 8,
               notes:
@@ -1259,18 +1262,34 @@
               name: "Lunch near the canoe base",
               location: "Cénac / Vitrac area",
               cuisine: "Snack bar · simple lunch",
-              priceRange: "€ · budget-friendly",
-              url: "https://www.google.com/maps/search/snack+bar+cano%C3%AB+C%C3%A9nac+Vitrac",
-              notes: "Many bases have simple food; otherwise picnic on a river beach."
+              tags: ["Quick", "Outdoor seating"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?snack,river",
+              pricePerPerson: 15,
+              rating: 4.1,
+              reviewCount: 210,
+              phone: "+33 5 00 00 00 01",
+              openingHours: "In season, 11:30–15:00",
+              menuInfo: "Burgers, salads, fries, ice cream; kids’ portions available.",
+              url: "https://www.google.com/maps/search/snack+cano%C3%AB+C%C3%A9nac+Vitrac",
+              personalReview: ""
             },
             {
               id: "r2-2",
               name: "Dinner with castle views",
               location: "La Roque-Gageac or Beynac",
-              cuisine: "Terrace · local dishes",
-              priceRange: "€€ · mid-range",
-              url: "https://www.google.com/maps/search/restaurant+terrace+La+Roque-Gageac",
-              notes: "Aim for an early dinner so kids can wind down after a big day."
+              cuisine: "Local dishes · terrace",
+              tags: ["View", "Terrace", "Family-friendly"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?restaurant,castle,france",
+              pricePerPerson: 28,
+              rating: 4.5,
+              reviewCount: 640,
+              phone: "+33 5 00 00 00 02",
+              openingHours: "Daily, 19:00–22:00 (check seasonally)",
+              menuInfo: "Duck, confit, salads, kids’ menu; good desserts.",
+              url: "https://www.google.com/maps/search/restaurant+terrasse+La+Roque-Gageac",
+              personalReview: ""
             }
           ]
         },
@@ -1283,7 +1302,6 @@
           description:
             "Topiary gardens with panoramic views in the morning, then Domme hilltop village and a cool-down at a river beach or lake.",
           area: "Marqueyssac · Domme · Caudon / Groléjac",
-          mapQuery: "Jardins de Marqueyssac Domme Caudon beach",
           activities: [
             {
               id: "3-1",
@@ -1293,7 +1311,8 @@
               location: "Vézac (near La Roque-Gageac)",
               description:
                 "Walk the shaded topiary paths with huge views over the Dordogne valley and castles. There are play areas and small adventure paths kids love.",
-              bookingUrl: "https://www.marqueyssac.com/en/",
+              bookingUrl:
+                "https://www.google.com/maps/search/Jardins+de+Marqueyssac",
               priceAdult: 12,
               priceChild: 6,
               notes:
@@ -1307,7 +1326,8 @@
               location: "Domme",
               description:
                 "Explore the bastide village, viewpoint over the valley and, if open, the caves under the main square.",
-              bookingUrl: "https://www.domme.fr/decouvrir/la-grotte-de-domme/",
+              bookingUrl:
+                "https://www.google.com/maps/search/grotte+de+Domme",
               priceAdult: 9,
               priceChild: 6,
               notes:
@@ -1335,18 +1355,34 @@
               name: "Lunch at Marqueyssac café",
               location: "On-site at Jardins de Marqueyssac",
               cuisine: "Light lunch · snacks",
-              priceRange: "€€ · mid-range",
-              url: "https://www.marqueyssac.com/en/restaurant-tea-room/",
-              notes: "Simple, convenient; or bring a picnic to eat in designated areas."
+              tags: ["On-site", "View"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?garden,cafe",
+              pricePerPerson: 20,
+              rating: 4.2,
+              reviewCount: 190,
+              phone: "+33 5 00 00 00 03",
+              openingHours: "In season, 11:30–15:00",
+              menuInfo: "Salads, quiches, desserts, kids’ plates.",
+              url: "https://www.google.com/maps/search/restaurant+Marqueyssac",
+              personalReview: ""
             },
             {
               id: "r3-2",
               name: "Domme terrace drink / ice cream",
               location: "Domme main square",
               cuisine: "Café · ice cream",
-              priceRange: "€ · budget",
-              url: "https://www.google.com/maps/search/caf%C3%A9+terrace+Domme",
-              notes: "Nice pause before heading to the water."
+              tags: ["View", "Quick stop"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?icecream,cafe",
+              pricePerPerson: 8,
+              rating: 4.3,
+              reviewCount: 260,
+              phone: "+33 5 00 00 00 04",
+              openingHours: "Daily, afternoon & evening (seasonal)",
+              menuInfo: "Ice cream, drinks, simple snacks.",
+              url: "https://www.google.com/maps/search/caf%C3%A9+terrasse+Domme",
+              personalReview: ""
             }
           ]
         },
@@ -1359,7 +1395,6 @@
           description:
             "Choose between Lascaux IV or Rouffignac in the morning, then pair with Le Thot or Roque Saint-Christophe for a very visual, kid-friendly prehistory day.",
           area: "Montignac · Rouffignac · Le Thot / Roque Saint-Christophe",
-          mapQuery: "Lascaux IV Montignac Le Thot Roque Saint-Christophe",
           activities: [
             {
               id: "4-1",
@@ -1369,7 +1404,8 @@
               location: "Montignac (or Rouffignac)",
               description:
                 "Lascaux IV offers a spectacular reproduction of the prehistoric cave with multimedia and guided tours. Rouffignac is a real cave with a small train and engravings—more ‘adventurous’.",
-              bookingUrl: "https://www.lascaux.fr/en",
+              bookingUrl:
+                "https://www.google.com/maps/search/Lascaux+IV+Montignac",
               priceAdult: 22,
               priceChild: 14,
               notes:
@@ -1383,7 +1419,8 @@
               location: "Le Thot (Thonac) or Roque Saint-Christophe",
               description:
                 "Le Thot combines a small prehistory park, animals and workshops. Roque Saint-Christophe is a dramatic troglodyte cliff village explaining life in prehistoric and medieval times.",
-              bookingUrl: "https://www.le-thot.com/en",
+              bookingUrl:
+                "https://www.google.com/maps/search/Le+Thot+parc+pr%C3%A9histoire",
               priceAdult: 11,
               priceChild: 7,
               notes:
@@ -1410,18 +1447,34 @@
               name: "Lunch near Lascaux IV",
               location: "Montignac",
               cuisine: "Casual · family-friendly",
-              priceRange: "€€ · mid-range",
-              url: "https://www.google.com/maps/search/restaurant+family+friendly+Montignac+Lascaux",
-              notes: "Book if you have a tight timed entry; otherwise picnic by the river."
+              tags: ["Near site", "Quick"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?lunch,france",
+              pricePerPerson: 22,
+              rating: 4.1,
+              reviewCount: 310,
+              phone: "+33 5 00 00 00 05",
+              openingHours: "Daily, 12:00–14:30",
+              menuInfo: "Set menus, kids’ plates, simple desserts.",
+              url: "https://www.google.com/maps/search/restaurant+Montignac+Lascaux",
+              personalReview: ""
             },
             {
               id: "r4-2",
               name: "Crêperie in Sarlat",
               location: "Sarlat center",
               cuisine: "Crêpes · kid-pleaser",
-              priceRange: "€€ · mid-range",
+              tags: ["Kid favourite", "Casual"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?crepes,france",
+              pricePerPerson: 18,
+              rating: 4.6,
+              reviewCount: 540,
+              phone: "+33 5 00 00 00 06",
+              openingHours: "Daily, 12:00–14:30 & 19:00–22:00",
+              menuInfo: "Sweet and savoury crêpes, kids’ menu, cider and soft drinks.",
               url: "https://www.google.com/maps/search/cr%C3%AAperie+Sarlat-la-Can%C3%A9da",
-              notes: "Great reward after a full prehistory day."
+              personalReview: ""
             }
           ]
         },
@@ -1434,7 +1487,6 @@
           description:
             "Longest driving day: Padirac chasm with underground boat ride in the morning, then Rocamadour clifftop village and optional Monkey Forest or bird of prey show.",
           area: "Padirac · Rocamadour",
-          mapQuery: "Gouffre de Padirac Rocamadour",
           activities: [
             {
               id: "5-1",
@@ -1444,7 +1496,8 @@
               location: "Padirac",
               description:
                 "Huge chasm with stairs/lifts down to an underground river boat ride and impressive chambers. Very memorable for kids.",
-              bookingUrl: "https://www.gouffre-de-padirac.com/en",
+              bookingUrl:
+                "https://www.google.com/maps/search/Gouffre+de+Padirac",
               priceAdult: 22,
               priceChild: 16,
               notes:
@@ -1457,8 +1510,9 @@
               title: "Rocamadour clifftop village",
               location: "Rocamadour",
               description:
-                "Explore the pilgrimage village with lifts/stairs and viewpoints. Optionally add Monkey Forest (La Forêt des Singes) or a bird of prey show if your kids like animals.",
-              bookingUrl: "https://www.rocamadour.com/en/",
+                "Explore the pilgrimage village with lifts/stairs and viewpoints. Optionally add Monkey Forest or a bird of prey show if your kids like animals.",
+              bookingUrl:
+                "https://www.google.com/maps/search/Rocamadour+village",
               priceAdult: 0,
               priceChild: 0,
               notes:
@@ -1472,7 +1526,8 @@
               location: "Near Rocamadour",
               description:
                 "Walk among free-roaming Barbary macaques in a forest setting—usually a big hit with kids.",
-              bookingUrl: "https://www.la-foret-des-singes.com/en/",
+              bookingUrl:
+                "https://www.google.com/maps/search/La+For%C3%AAt+des+Singes+Rocamadour",
               priceAdult: 11.5,
               priceChild: 7.5,
               notes: "Check feeding times and opening hours; can be combined with Rocamadour visit."
@@ -1484,18 +1539,34 @@
               name: "Lunch near Padirac",
               location: "Padirac area",
               cuisine: "Simple · family-friendly",
-              priceRange: "€€ · mid-range",
+              tags: ["Near site", "Quick"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?restaurant,cave",
+              pricePerPerson: 22,
+              rating: 4.0,
+              reviewCount: 180,
+              phone: "+33 5 00 00 00 07",
+              openingHours: "Daily, 12:00–14:30",
+              menuInfo: "Set menus, kids’ plates, simple desserts.",
               url: "https://www.google.com/maps/search/restaurant+Padirac",
-              notes: "Allow buffer between lunch and your timed cave entry."
+              personalReview: ""
             },
             {
               id: "r5-2",
               name: "Early dinner near Rocamadour",
               location: "Rocamadour",
               cuisine: "Local dishes · terrace",
-              priceRange: "€€ · mid-range",
-              url: "https://www.google.com/maps/search/restaurant+family+friendly+Rocamadour",
-              notes: "Aim for an early dinner before the drive back to Sarlat."
+              tags: ["Terrace", "View"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?restaurant,rocamadour",
+              pricePerPerson: 27,
+              rating: 4.3,
+              reviewCount: 430,
+              phone: "+33 5 00 00 00 08",
+              openingHours: "Daily, 19:00–22:00",
+              menuInfo: "Regional dishes, kids’ menu, desserts.",
+              url: "https://www.google.com/maps/search/restaurant+Rocamadour",
+              personalReview: ""
             }
           ]
         },
@@ -1508,7 +1579,6 @@
           description:
             "Slow morning at Sarlat market, then pool time or a treetop adventure park. Evening stroll with street performances.",
           area: "Sarlat · nearby adventure park",
-          mapQuery: "Sarlat market L'Appel de la Forêt",
           activities: [
             {
               id: "6-1",
@@ -1519,7 +1589,7 @@
               description:
                 "Browse stalls with local cheeses, strawberries, foie gras and nuts. Fun for kids to choose picnic supplies and small souvenirs.",
               bookingUrl:
-                "https://www.sarlat-tourisme.com/en/discover-sarlat-and-perigord-noir/the-markets-of-sarlat/",
+                "https://www.google.com/maps/search/march%C3%A9+Sarlat-la-Can%C3%A9da",
               priceAdult: 0,
               priceChild: 0,
               notes: "Arrive early for easier parking and less heat."
@@ -1532,7 +1602,8 @@
               location: "Near Sarlat",
               description:
                 "Ropes courses and ziplines with routes for children and adults. Great energy outlet after market browsing.",
-              bookingUrl: "https://www.appel-de-la-foret.com/",
+              bookingUrl:
+                "https://www.google.com/maps/search/L'Appel+de+la+For%C3%AAt+parc+accrobranche",
               priceAdult: 25,
               priceChild: 18,
               notes:
@@ -1559,18 +1630,34 @@
               name: "Market picnic",
               location: "Sarlat area",
               cuisine: "Picnic · local products",
-              priceRange: "€ · flexible",
+              tags: ["Flexible", "Budget"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?picnic,market",
+              pricePerPerson: 12,
+              rating: 4.7,
+              reviewCount: 120,
+              phone: "",
+              openingHours: "Market hours (check day)",
+              menuInfo: "Cheeses, bread, fruit, charcuterie; assemble your own picnic.",
               url: "https://www.google.com/maps/search/parc+aire+de+piquenique+Sarlat",
-              notes: "Let kids choose a few ‘must-try’ items at the market."
+              personalReview: ""
             },
             {
               id: "r6-2",
               name: "Final-night dinner in Sarlat",
               location: "Sarlat center",
               cuisine: "Local Périgord · terrace",
-              priceRange: "€€ · mid-range",
+              tags: ["Last night", "Terrace"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?dinner,france",
+              pricePerPerson: 30,
+              rating: 4.5,
+              reviewCount: 510,
+              phone: "+33 5 00 00 00 09",
+              openingHours: "Daily, 19:00–22:30",
+              menuInfo: "Regional dishes, kids’ menu, good desserts and wine list.",
               url: "https://www.google.com/maps/search/restaurant+Sarlat-la-Can%C3%A9da+centre",
-              notes: "Pick a place you walked past earlier in the week that looked inviting."
+              personalReview: ""
             }
           ]
         },
@@ -1583,7 +1670,6 @@
           description:
             "Keep this day flexible for packing, a last swim or a final stroll in Sarlat before heading home.",
           area: "Sarlat / Saint-Julien",
-          mapQuery: "Saint-Julien-de-Lampon Sarlat",
           activities: [
             {
               id: "7-1",
@@ -1620,9 +1706,17 @@
               name: "Easy lunch on the road",
               location: "On the way to Bordeaux",
               cuisine: "Service area or simple café",
-              priceRange: "€ · budget",
+              tags: ["On the road", "Quick"],
+              imageUrl:
+                "https://source.unsplash.com/featured/400x300/?highway,restaurant",
+              pricePerPerson: 15,
+              rating: 3.8,
+              reviewCount: 300,
+              phone: "",
+              openingHours: "All day (varies by area)",
+              menuInfo: "Sandwiches, salads, kids’ options.",
               url: "https://www.google.com/maps/search/aire+de+service+autoroute+vers+Bordeaux",
-              notes: "Keep it simple; everyone will be tired."
+              personalReview: ""
             }
           ]
         }
@@ -1668,19 +1762,19 @@
     let editingActivity = { dayIndex: null, activityIndex: null, isNew: false };
     let editingRestaurant = { dayIndex: null, restaurantIndex: null, isNew: false };
 
-    // ---------- Rendering ----------
+    // ---------- DOM refs ----------
 
     const dayStripEl = document.getElementById("dayStrip");
     const dayOverviewSubtitleEl = document.getElementById("dayOverviewSubtitle");
     const daySummaryTitleEl = document.getElementById("daySummaryTitle");
     const daySummaryTagsEl = document.getElementById("daySummaryTags");
     const daySummaryDescEl = document.getElementById("daySummaryDesc");
-    const activitiesGridEl = document.getElementById("activitiesGrid");
-    const restaurantsGridEl = document.getElementById("restaurantsGrid");
-    const mapFrameEl = document.getElementById("mapFrame");
-    const mapSubtitleEl = document.getElementById("mapSubtitle");
+    const activitiesListEl = document.getElementById("activitiesList");
+    const restaurantsListEl = document.getElementById("restaurantsList");
     const historyListEl = document.getElementById("historyList");
     const historyEmptyMessageEl = document.getElementById("historyEmptyMessage");
+
+    // ---------- Rendering ----------
 
     function renderDayStrip() {
       dayStripEl.innerHTML = "";
@@ -1720,7 +1814,7 @@
 
     function renderActivities() {
       const day = tripData.days[selectedDayIndex];
-      activitiesGridEl.innerHTML = "";
+      activitiesListEl.innerHTML = "";
       day.activities.forEach((activity, index) => {
         const card = document.createElement("article");
         card.className = "card";
@@ -1782,63 +1876,117 @@
         card.querySelector('[data-role="delete-activity"]').addEventListener("click", () =>
           deleteActivity(selectedDayIndex, index)
         );
-        card.addEventListener("click", (e) => {
-          if (e.target.closest("button") || e.target.closest("a")) return;
-          focusMapOn(activity.location || day.area);
-        });
-        activitiesGridEl.appendChild(card);
+        activitiesListEl.appendChild(card);
       });
     }
 
     function renderRestaurants() {
       const day = tripData.days[selectedDayIndex];
-      restaurantsGridEl.innerHTML = "";
+      restaurantsListEl.innerHTML = "";
       day.restaurants.forEach((restaurant, index) => {
         const card = document.createElement("article");
         card.className = "card";
+        const tagsHtml = (restaurant.tags || [])
+          .map((t) => `<span class="chip">${t}</span>`)
+          .join("");
         card.innerHTML = `
-          <div class="card-inner">
-            <div class="card-header">
-              <div class="card-title-block">
-                <div class="card-title">${restaurant.name}</div>
-                <div class="card-subtitle">
-                  <span class="chip">${restaurant.location}</span>
-                  ${
-                    restaurant.cuisine
-                      ? `<span class="chip chip-type">${restaurant.cuisine}</span>`
-                      : ""
-                  }
-                  ${
-                    restaurant.priceRange
-                      ? `<span class="chip">${restaurant.priceRange}</span>`
-                      : ""
-                  }
+          <div class="card-inner restaurant-card">
+            <div class="restaurant-image">
+              ${
+                restaurant.imageUrl
+                  ? `<img src="${restaurant.imageUrl}" alt="${restaurant.name}" />`
+                  : ""
+              }
+              <div class="restaurant-image-overlay"></div>
+              <div class="restaurant-image-label">Restaurant</div>
+            </div>
+            <div>
+              <div class="card-header">
+                <div class="card-title-block">
+                  <div class="card-title">${restaurant.name}</div>
+                  <div class="card-subtitle">
+                    <span class="chip">${restaurant.location}</span>
+                    ${
+                      restaurant.cuisine
+                        ? `<span class="chip chip-type">${restaurant.cuisine}</span>`
+                        : ""
+                    }
+                    ${
+                      typeof restaurant.pricePerPerson === "number"
+                        ? `<span class="chip">~€${restaurant.pricePerPerson.toFixed(
+                            0
+                          )} / person</span>`
+                        : ""
+                    }
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card-body">
-              ${restaurant.notes || "Tap the link to open a Google Maps search or booking page."}
-            </div>
-            <div class="card-footer">
-              <div class="card-footer-left">
+              <div class="card-meta" style="margin-top:4px;">
                 ${
-                  restaurant.url
-                    ? `<a class="link" href="${restaurant.url}" target="_blank" rel="noopener noreferrer">
-                         <span class="icon">📍</span>
-                         <span>Open in Maps / booking</span>
-                       </a>`
-                    : `<span class="muted" style="font-size:11px;">No link yet</span>`
+                  typeof restaurant.rating === "number"
+                    ? `<span class="meta-item">
+                         <span class="icon">⭐</span>
+                         <span>${restaurant.rating.toFixed(1)} (${restaurant.reviewCount || 0} reviews)</span>
+                       </span>`
+                    : ""
+                }
+                ${
+                  restaurant.phone
+                    ? `<span class="meta-item">
+                         <span class="icon">📞</span>
+                         <span>${restaurant.phone}</span>
+                       </span>`
+                    : ""
+                }
+                ${
+                  restaurant.openingHours
+                    ? `<span class="meta-item">
+                         <span class="icon">🕒</span>
+                         <span>${restaurant.openingHours}</span>
+                       </span>`
+                    : ""
                 }
               </div>
-              <div class="card-actions">
-                <button class="btn-xxs" data-role="edit-restaurant">
-                  <span class="icon">✏️</span>
-                  Edit
-                </button>
-                <button class="btn-xxs btn-xxs-danger" data-role="delete-restaurant">
-                  <span class="icon">🗑️</span>
-                  Remove
-                </button>
+              <div class="card-body" style="margin-top:4px;">
+                ${
+                  restaurant.menuInfo
+                    ? `<div><strong style="font-size:11px;">Menu:</strong> ${restaurant.menuInfo}</div>`
+                    : ""
+                }
+                ${
+                  tagsHtml
+                    ? `<div style="margin-top:4px; display:flex; flex-wrap:wrap; gap:4px;">${tagsHtml}</div>`
+                    : ""
+                }
+                ${
+                  restaurant.personalReview
+                    ? `<div style="margin-top:6px; font-size:11px; opacity:0.9;">
+                         <strong>Your note:</strong> ${restaurant.personalReview}
+                       </div>`
+                    : ""
+                }
+              </div>
+              <div class="card-footer">
+                <div class="card-footer-left">
+                  ${
+                    restaurant.url
+                      ? `<a class="link" href="${restaurant.url}" target="_blank" rel="noopener noreferrer">
+                           <span class="icon">📍</span>
+                           <span>Open in Maps / booking</span>
+                         </a>`
+                      : `<span class="muted" style="font-size:11px;">No link yet</span>`
+                  }
+                </div>
+                <div class="card-actions">
+                  <button class="btn-xxs" data-role="edit-restaurant">
+                    <span class="icon">✏️</span>
+                    Edit
+                  </button>
+                  <button class="btn-xxs btn-xxs-danger" data-role="delete-restaurant">
+                    <span class="icon">🗑️</span>
+                    Remove
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1849,20 +1997,8 @@
         card.querySelector('[data-role="delete-restaurant"]').addEventListener("click", () =>
           deleteRestaurant(selectedDayIndex, index)
         );
-        card.addEventListener("click", (e) => {
-          if (e.target.closest("button") || e.target.closest("a")) return;
-          focusMapOn(restaurant.location || day.area);
-        });
-        restaurantsGridEl.appendChild(card);
+        restaurantsListEl.appendChild(card);
       });
-    }
-
-    function focusMapOn(query) {
-      if (!query) return;
-      const encoded = encodeURIComponent(query + " Dordogne France");
-      mapFrameEl.src =
-        "https://www.google.com/maps/embed/v1/search?key=AIzaSyDUMMYKEY&q=" + encoded;
-      mapSubtitleEl.textContent = "Map focus: " + query;
     }
 
     function renderHistory() {
@@ -1875,7 +2011,7 @@
       historyData
         .slice()
         .reverse()
-        .forEach((snapshot, idx) => {
+        .forEach((snapshot) => {
           const item = document.createElement("div");
           item.className = "history-item";
           const label = snapshot.label || "Snapshot";
@@ -1905,8 +2041,6 @@
       renderDayOverview();
       renderActivities();
       renderRestaurants();
-      const day = tripData.days[selectedDayIndex];
-      focusMapOn(day.area || day.mapQuery);
     }
 
     // ---------- Activity modal logic ----------
@@ -2028,9 +2162,16 @@
     const restaurantNameInput = document.getElementById("restaurantName");
     const restaurantLocationInput = document.getElementById("restaurantLocation");
     const restaurantCuisineInput = document.getElementById("restaurantCuisine");
+    const restaurantTagsInput = document.getElementById("restaurantTags");
+    const restaurantImageUrlInput = document.getElementById("restaurantImageUrl");
+    const restaurantPricePerPersonInput = document.getElementById("restaurantPricePerPerson");
+    const restaurantRatingInput = document.getElementById("restaurantRating");
+    const restaurantReviewCountInput = document.getElementById("restaurantReviewCount");
+    const restaurantPhoneInput = document.getElementById("restaurantPhone");
+    const restaurantOpeningHoursInput = document.getElementById("restaurantOpeningHours");
+    const restaurantMenuInfoInput = document.getElementById("restaurantMenuInfo");
     const restaurantUrlInput = document.getElementById("restaurantUrl");
-    const restaurantPriceRangeInput = document.getElementById("restaurantPriceRange");
-    const restaurantNotesInput = document.getElementById("restaurantNotes");
+    const restaurantPersonalReviewInput = document.getElementById("restaurantPersonalReview");
 
     function openRestaurantModal(dayIndex, restaurantIndex) {
       editingRestaurant.dayIndex = dayIndex;
@@ -2044,9 +2185,16 @@
           name: "",
           location: day.area || "",
           cuisine: "",
+          tags: [],
+          imageUrl: "",
+          pricePerPerson: 0,
+          rating: null,
+          reviewCount: null,
+          phone: "",
+          openingHours: "",
+          menuInfo: "",
           url: "",
-          priceRange: "",
-          notes: ""
+          personalReview: ""
         };
         restaurantModalTitle.textContent = "Add restaurant";
       } else {
@@ -2057,9 +2205,21 @@
       restaurantNameInput.value = restaurant.name || "";
       restaurantLocationInput.value = restaurant.location || "";
       restaurantCuisineInput.value = restaurant.cuisine || "";
+      restaurantTagsInput.value = (restaurant.tags || []).join(", ");
+      restaurantImageUrlInput.value = restaurant.imageUrl || "";
+      restaurantPricePerPersonInput.value =
+        typeof restaurant.pricePerPerson === "number"
+          ? String(restaurant.pricePerPerson)
+          : "";
+      restaurantRatingInput.value =
+        typeof restaurant.rating === "number" ? String(restaurant.rating) : "";
+      restaurantReviewCountInput.value =
+        typeof restaurant.reviewCount === "number" ? String(restaurant.reviewCount) : "";
+      restaurantPhoneInput.value = restaurant.phone || "";
+      restaurantOpeningHoursInput.value = restaurant.openingHours || "";
+      restaurantMenuInfoInput.value = restaurant.menuInfo || "";
       restaurantUrlInput.value = restaurant.url || "";
-      restaurantPriceRangeInput.value = restaurant.priceRange || "";
-      restaurantNotesInput.value = restaurant.notes || "";
+      restaurantPersonalReviewInput.value = restaurant.personalReview || "";
 
       restaurantModalBackdrop.style.display = "flex";
     }
@@ -2076,6 +2236,12 @@
 
     restaurantModalSave.addEventListener("click", () => {
       const day = tripData.days[editingRestaurant.dayIndex];
+      const tags =
+        restaurantTagsInput.value
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean) || [];
+
       const updated = {
         id:
           editingRestaurant.isNew || !day.restaurants[editingRestaurant.restaurantIndex]
@@ -2084,9 +2250,25 @@
         name: restaurantNameInput.value.trim() || "New restaurant",
         location: restaurantLocationInput.value.trim() || day.area || "",
         cuisine: restaurantCuisineInput.value.trim(),
+        tags,
+        imageUrl: restaurantImageUrlInput.value.trim(),
+        pricePerPerson:
+          restaurantPricePerPersonInput.value !== ""
+            ? Number(restaurantPricePerPersonInput.value)
+            : null,
+        rating:
+          restaurantRatingInput.value !== ""
+            ? Number(restaurantRatingInput.value)
+            : null,
+        reviewCount:
+          restaurantReviewCountInput.value !== ""
+            ? Number(restaurantReviewCountInput.value)
+            : null,
+        phone: restaurantPhoneInput.value.trim(),
+        openingHours: restaurantOpeningHoursInput.value.trim(),
+        menuInfo: restaurantMenuInfoInput.value.trim(),
         url: restaurantUrlInput.value.trim(),
-        priceRange: restaurantPriceRangeInput.value.trim(),
-        notes: restaurantNotesInput.value.trim()
+        personalReview: restaurantPersonalReviewInput.value.trim()
       };
 
       if (editingRestaurant.isNew) {
@@ -2143,21 +2325,12 @@
       openRestaurantModal(selectedDayIndex, null)
     );
 
-    document.getElementById("btnMapToday").addEventListener("click", () => {
-      const day = tripData.days[selectedDayIndex];
-      focusMapOn(day.area || day.mapQuery);
-    });
-    document.getElementById("btnMapFocus").addEventListener("click", () => {
-      const day = tripData.days[selectedDayIndex];
-      focusMapOn(day.area || day.mapQuery);
-    });
-
     document.getElementById("btnHistory").addEventListener("click", openHistoryModal);
 
     document.getElementById("btnReset").addEventListener("click", () => {
       if (
         !confirm(
-          "Reset to the original default plan? All your edits and snapshots will remain in history, but the current view will go back to default."
+          "Reset to the original default plan? This will overwrite your current changes (snapshots stay in history)."
         )
       )
         return;
