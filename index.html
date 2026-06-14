@@ -11,15 +11,15 @@
       --primary-soft-strong: #c8e6c9;
       --primary-dark: #1b5e20;
       --accent: #ffb74d;
-      --bg: #f5f7f5;
+      --bg: #f3f6f3;
       --surface: #ffffff;
       --surface-soft: #f0f3f0;
       --border-soft: #dde4dd;
-      --text-main: #1f2933;
+      --text-main: #111827;
       --text-muted: #6b7280;
       --danger: #e53935;
-      --shadow-soft: 0 14px 40px rgba(15, 23, 42, 0.12);
-      --radius-xl: 24px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.16);
+      --radius-xl: 26px;
       --radius-lg: 18px;
       --radius-md: 12px;
       --radius-pill: 999px;
@@ -36,7 +36,7 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #e8f5e9 0, #f5f7f5 40%, #edf1ed 100%);
+      background: radial-gradient(circle at top, #e8f5e9 0, #f3f6f3 40%, #e5ece5 100%);
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
@@ -46,7 +46,7 @@
 
     .app-shell {
       width: 100%;
-      max-width: 1120px;
+      max-width: 1180px;
       background: linear-gradient(135deg, #ffffff, #f7faf7);
       border-radius: 32px;
       border: 1px solid rgba(209, 223, 210, 0.9);
@@ -91,7 +91,7 @@
     }
 
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       letter-spacing: 0.03em;
       display: flex;
       align-items: center;
@@ -181,11 +181,11 @@
 
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.1fr);
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.1fr);
       gap: 16px;
     }
 
-    @media (max-width: 880px) {
+    @media (max-width: 900px) {
       .layout {
         grid-template-columns: minmax(0, 1fr);
       }
@@ -233,56 +233,97 @@
       color: var(--text-muted);
     }
 
-    /* Day chips */
+    /* Sliding days */
 
-    .day-chips {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-      margin-bottom: 12px;
+    .day-slider-wrapper {
+      margin-top: 6px;
+      position: relative;
     }
 
-    .day-chip {
-      padding: 8px 14px;
+    .day-slider {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 4px 0 8px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .day-slider::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .day-slider::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .day-slider::-webkit-scrollbar-thumb {
+      background: rgba(209, 223, 210, 0.9);
+      border-radius: 999px;
+    }
+
+    .day-card {
+      min-width: 130px;
+      max-width: 150px;
+      scroll-snap-align: start;
       border-radius: 18px;
       background: var(--surface-soft);
-      color: var(--text-main);
-      font-size: 0.85rem;
-      white-space: nowrap;
-      cursor: pointer;
       border: 1px solid var(--border-soft);
-      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.06);
-      display: inline-flex;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      padding: 8px 10px;
+      cursor: pointer;
+      display: flex;
       flex-direction: column;
-      gap: 2px;
-      min-width: 90px;
+      gap: 4px;
       transition: all var(--transition-fast);
     }
 
-    .day-chip-label {
+    .day-card-label {
+      font-size: 0.85rem;
       font-weight: 600;
     }
 
-    .day-chip-date {
-      font-size: 0.7rem;
+    .day-card-date {
+      font-size: 0.75rem;
       color: var(--text-muted);
     }
 
-    .day-chip.active {
-      background: #e8f5e9;
+    .day-card-tags {
+      font-size: 0.7rem;
       color: var(--primary-dark);
-      border-color: rgba(46, 125, 50, 0.5);
-      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+      margin-top: 2px;
+    }
+
+    .day-card.active {
+      background: #e8f5e9;
+      border-color: rgba(46, 125, 50, 0.6);
+      box-shadow: 0 6px 16px rgba(46, 125, 50, 0.35);
       transform: translateY(-1px);
     }
 
-    .day-chip.active .day-chip-date {
-      color: var(--primary);
+    .day-slider-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
     }
 
+    .day-slider-controls button {
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      background: #ffffff;
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Day meta */
+
     .day-meta {
-      margin-bottom: 12px;
+      margin-top: 12px;
       padding: 12px 12px;
       border-radius: var(--radius-lg);
       background: #f9fbf9;
@@ -446,6 +487,32 @@
     .activity-details {
       font-size: 0.8rem;
       color: var(--text-muted);
+    }
+
+    .activity-extra {
+      margin-top: 6px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.78rem;
+    }
+
+    .activity-price {
+      color: var(--primary-dark);
+      background: #e8f5e9;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(46,125,50,0.25);
+    }
+
+    .activity-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .activity-link:hover {
+      text-decoration: underline;
     }
 
     .activity-actions {
@@ -634,7 +701,7 @@
       color: var(--primary-dark);
     }
 
-    /* Bottom sheet (history & editor & map) */
+    /* Overlays (history, editor, map) */
 
     .overlay-base {
       position: fixed;
@@ -923,11 +990,12 @@
           </div>
         </div>
         <div class="subtitle">
-          A calm, visual overview of your days, activities, and restaurants—designed to feel like a real app, not a dev tool.
+          A modern, app‑like planner with sliding days, cards, and local version history.
         </div>
       </div>
       <div class="top-actions">
         <button class="btn-tonal btn" id="btnMapToday">🗺 Map today’s restaurants</button>
+        <button class="btn btn-tonal" id="btnHistoryToggle">🕒 Version history</button>
       </div>
     </header>
 
@@ -941,12 +1009,20 @@
               <span class="badge">Green Forest · App‑like</span>
             </div>
             <div class="card-subtitle">
-              Tap a day, see its cards, and edit with friendly bottom sheets.
+              Slide through days, tap cards, and edit with friendly bottom sheets.
             </div>
           </div>
         </div>
 
-        <div class="day-chips" id="dayChips"></div>
+        <div class="day-slider-wrapper">
+          <div class="day-slider" id="daySlider"></div>
+          <div class="day-slider-controls">
+            <button id="dayPrev">◀ Previous</button>
+            <span id="dayLabelCurrent"></span>
+            <button id="dayNext">Next ▶</button>
+          </div>
+        </div>
+
         <div id="dayContent"></div>
       </div>
 
@@ -979,9 +1055,9 @@
             <span class="icon">✨</span>
             How to use
           </div>
-          <div>1. Pick a day from the row of day cards.</div>
+          <div>1. Slide the day row and tap a day card.</div>
           <div>2. Tap “✏️ Edit” on an activity or restaurant to adjust details.</div>
-          <div>3. Use the “+” button (bottom‑right) to add items, see history, or reset.</div>
+          <div>3. Use the “+” button (bottom‑right) to add items, save snapshots, or reset.</div>
           <div>4. Use “Map today’s restaurants” to open Google Maps with today’s picks.</div>
         </div>
 
@@ -1003,7 +1079,7 @@
     <div class="fab-menu" id="fabMenu">
       <div class="fab-menu-item" id="fabAddActivity">➕ Add activity</div>
       <div class="fab-menu-item" id="fabAddRestaurant">➕ Add restaurant</div>
-      <div class="fab-menu-item" id="fabHistory">🕒 Version history</div>
+      <div class="fab-menu-item" id="fabSaveSnapshot">💾 Save snapshot</div>
       <div class="fab-menu-item" id="fabReset">♻️ Reset to default</div>
     </div>
     <button class="fab" id="fabMain">
@@ -1093,14 +1169,18 @@
               time: "Afternoon",
               title: "Arrive at house & explore",
               details: "Unpack, kids in the pool, quick tour of the house and garden.",
-              type: "Relax"
+              type: "Relax",
+              link: "",
+              price: ""
             },
             {
               id: "a2",
               time: "Late afternoon",
               title: "Groceries in nearby town",
               details: "Stock up for breakfast, snacks, and easy dinners.",
-              type: "Practical"
+              type: "Practical",
+              link: "",
+              price: ""
             }
           ],
           restaurants: [
@@ -1132,14 +1212,18 @@
               time: "Morning",
               title: "Château de Beynac",
               details: "Explore the castle, views over the Dordogne. Good for kids who like knights.",
-              type: "Castle"
+              type: "Castle",
+              link: "https://www.beynac.com/en/",
+              price: "Entry ~€9 adult, ~€6 child"
             },
             {
               id: "a4",
               time: "Afternoon",
               title: "Stroll through Beynac village",
               details: "Ice cream, short wander, maybe a quick drink with a view.",
-              type: "Walk"
+              type: "Walk",
+              link: "",
+              price: "Ice cream / drinks as you go"
             }
           ],
           restaurants: [
@@ -1197,14 +1281,18 @@
               time: "Morning",
               title: "La Roque‑Gageac walk",
               details: "Stroll the village, maybe the exotic garden if energy allows.",
-              type: "Walk"
+              type: "Walk",
+              link: "",
+              price: ""
             },
             {
               id: "a6",
               time: "Afternoon",
               title: "Boat or canoe (optional)",
               details: "Short gabare cruise or easy canoe stretch if kids are up for it.",
-              type: "River"
+              type: "River",
+              link: "https://www.gabaresnorbert.com/",
+              price: "Gabare cruise ~€10–15 per person"
             }
           ],
           restaurants: [
@@ -1249,14 +1337,18 @@
               time: "Morning",
               title: "Domme viewpoint & village",
               details: "Panoramic views over the Dordogne; wander the bastide streets.",
-              type: "View"
+              type: "View",
+              link: "",
+              price: ""
             },
             {
               id: "a8",
               time: "Optional",
               title: "Domme caves",
               details: "Short underground visit if kids are curious and not too tired.",
-              type: "Cave"
+              type: "Cave",
+              link: "",
+              price: ""
             }
           ],
           restaurants: [
@@ -1314,7 +1406,9 @@
               time: "Late morning",
               title: "Cingle de Trémolat viewpoint",
               details: "Scenic bend in the river; short stop, photos.",
-              type: "View"
+              type: "View",
+              link: "",
+              price: ""
             }
           ],
           restaurants: [
@@ -1346,7 +1440,9 @@
               time: "Flexible",
               title: "Pool day & games",
               details: "Let the kids choose; maybe a short outing if everyone feels like it.",
-              type: "Relax"
+              type: "Relax",
+              link: "",
+              price: ""
             }
           ],
           restaurants: [
@@ -1378,7 +1474,9 @@
               time: "Morning",
               title: "Pack & quick swim",
               details: "Final dip in the pool if timing allows.",
-              type: "Practical"
+              type: "Practical",
+              link: "",
+              price: ""
             }
           ],
           restaurants: [
@@ -1400,8 +1498,8 @@
       ]
     };
 
-    const STORAGE_KEY_DATA = "dordogne_trip_data_green_ui_v2";
-    const STORAGE_KEY_HISTORY = "dordogne_trip_history_green_ui_v2";
+    const STORAGE_KEY_DATA = "dordogne_trip_data_green_ui_v3";
+    const STORAGE_KEY_HISTORY = "dordogne_trip_history_green_ui_v3";
 
     let state = {
       days: [],
@@ -1501,24 +1599,29 @@
     }
 
     // ---------- RENDER ----------
-    function renderDayChips() {
-      const chipsEl = document.getElementById("dayChips");
-      chipsEl.innerHTML = "";
+    function renderDaySlider() {
+      const sliderEl = document.getElementById("daySlider");
+      const labelEl = document.getElementById("dayLabelCurrent");
+      sliderEl.innerHTML = "";
       state.days.forEach(day => {
-        const btn = document.createElement("button");
-        btn.className = "day-chip" + (day.id === state.activeDayId ? " active" : "");
-        btn.innerHTML = `
-          <div class="day-chip-label">${day.label}</div>
-          <div class="day-chip-date">${day.dateLabel || ""}</div>
+        const card = document.createElement("div");
+        card.className = "day-card" + (day.id === state.activeDayId ? " active" : "");
+        card.innerHTML = `
+          <div class="day-card-label">${day.label}</div>
+          <div class="day-card-date">${day.dateLabel || ""}</div>
+          <div class="day-card-tags">${(day.tags || []).join(" · ")}</div>
         `;
-        btn.onclick = () => {
+        card.onclick = () => {
           state.activeDayId = day.id;
           saveToStorage();
-          renderDayChips();
+          renderDaySlider();
           renderDayContent();
         };
-        chipsEl.appendChild(btn);
+        sliderEl.appendChild(card);
       });
+
+      const currentDay = state.days.find(d => d.id === state.activeDayId);
+      labelEl.textContent = currentDay ? `${currentDay.label} · ${currentDay.title}` : "";
     }
 
     function renderDayContent() {
@@ -1583,6 +1686,10 @@
               ${act.type ? `<span class="badge type">${act.type}</span>` : ""}
             </div>
             <div class="activity-details">${act.details || ""}</div>
+            <div class="activity-extra">
+              ${act.price ? `<div class="activity-price">💶 ${act.price}</div>` : ""}
+              ${act.link ? `<a class="activity-link" href="${act.link}" target="_blank">🔗 More info</a>` : ""}
+            </div>
           </div>
           <div class="activity-actions">
             <button class="btn-icon" data-edit-act="${act.id}">✏️ Edit</button>
@@ -1705,7 +1812,7 @@
       listEl.innerHTML = "";
       if (!history.length) {
         listEl.innerHTML =
-          "<p style='font-size:0.75rem;color:var(--text-muted);'>No snapshots yet. Use the floating “+” menu → “🕒 Version history” → “Save snapshot” to create one.</p>";
+          "<p style='font-size:0.75rem;color:var(--text-muted);'>No snapshots yet. Use the floating “+” menu → “💾 Save snapshot” to create one.</p>";
         return;
       }
 
@@ -1739,7 +1846,7 @@
     }
 
     function renderAll() {
-      renderDayChips();
+      renderDaySlider();
       renderDayContent();
       renderHistory();
     }
@@ -1773,6 +1880,14 @@
           <div class="editor-field">
             <label>Type</label>
             <input type="text" data-field="type" value="${item.type || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Link (URL)</label>
+            <input type="text" data-field="link" value="${item.link || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Price / Cost</label>
+            <input type="text" data-field="price" value="${item.price || ""}">
           </div>
         `;
         photoWrap.style.display = "none";
@@ -1870,7 +1985,9 @@
               time: "",
               title: "",
               details: "",
-              type: ""
+              type: "",
+              link: "",
+              price: ""
             }
           : {
               id: "r_" + Date.now() + "_" + Math.random().toString(16).slice(2),
@@ -1926,8 +2043,10 @@
         openEditorForNew("restaurant");
       };
 
-      document.getElementById("fabHistory").onclick = () => {
-        document.getElementById("historyOverlay").classList.add("visible");
+      document.getElementById("fabSaveSnapshot").onclick = () => {
+        const label = prompt("Snapshot label (optional):", "Manual snapshot");
+        saveHistorySnapshot(label || "Manual snapshot");
+        alert("Snapshot saved.");
       };
 
       document.getElementById("fabReset").onclick = () => {
@@ -1944,6 +2063,10 @@
       overlay.addEventListener("click", e => {
         if (e.target === overlay) overlay.classList.remove("visible");
       });
+
+      document.getElementById("btnHistoryToggle").onclick = () => {
+        overlay.classList.add("visible");
+      };
     }
 
     // ---------- MAP SHEET ----------
@@ -1996,6 +2119,35 @@
       };
     }
 
+    // ---------- DAY SLIDER CONTROLS ----------
+    function setupDaySliderControls() {
+      const btnPrev = document.getElementById("dayPrev");
+      const btnNext = document.getElementById("dayNext");
+      const sliderEl = document.getElementById("daySlider");
+
+      btnPrev.onclick = () => {
+        const idx = state.days.findIndex(d => d.id === state.activeDayId);
+        if (idx > 0) {
+          state.activeDayId = state.days[idx - 1].id;
+          saveToStorage();
+          renderAll();
+          const card = sliderEl.children[idx - 1];
+          card.scrollIntoView({ behavior: "smooth", inline: "center" });
+        }
+      };
+
+      btnNext.onclick = () => {
+        const idx = state.days.findIndex(d => d.id === state.activeDayId);
+        if (idx < state.days.length - 1) {
+          state.activeDayId = state.days[idx + 1].id;
+          saveToStorage();
+          renderAll();
+          const card = sliderEl.children[idx + 1];
+          card.scrollIntoView({ behavior: "smooth", inline: "center" });
+        }
+      };
+    }
+
     // ---------- INIT ----------
     document.addEventListener("DOMContentLoaded", () => {
       loadFromStorage();
@@ -2003,6 +2155,7 @@
       setupFab();
       setupHistorySheet();
       setupMapSheet();
+      setupDaySliderControls();
 
       document.getElementById("btnMapToday").onclick = openMapSheet;
     });
