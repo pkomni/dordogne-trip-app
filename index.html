@@ -284,6 +284,7 @@
       gap: 8px;
       font-size: 0.75rem;
       color: var(--muted);
+      flex-wrap: wrap;
     }
 
     .chips {
@@ -562,6 +563,69 @@
       background: rgba(75,85,99,0.9);
       border-radius: 999px;
     }
+
+    /* Modal */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-overlay.hidden {
+      display: none;
+    }
+
+    .modal {
+      background: #111827;
+      padding: 20px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 420px;
+      border: 1px solid #374151;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .modal h2 {
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .modal label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .modal label div {
+      margin-bottom: 2px;
+    }
+
+    .modal input,
+    .modal textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #1f2937;
+      color: #e5e7eb;
+      font-size: 0.8rem;
+    }
+
+    .modal textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
   </style>
 </head>
 <body>
@@ -576,7 +640,7 @@
           </div>
         </div>
         <div class="subtitle">
-          Quick, editable overview of days, activities, and restaurants—with history, reset, and local persistence.
+          Editable overview of days, activities, and restaurants—with history, reset, and local persistence.
         </div>
       </div>
       <div class="top-actions">
@@ -618,7 +682,7 @@
               <span class="badge">Local only</span>
             </div>
             <div class="card-subtitle">
-              Snapshots are stored in your browser (localStorage). Great for GitHub‑hosted static pages too.
+              Snapshots are stored in your browser (localStorage). Perfect for GitHub‑hosted static pages.
             </div>
           </div>
         </div>
@@ -660,8 +724,8 @@
             <span class="bar"></span>
           </div>
           <ul style="font-size:0.72rem;color:var(--muted);padding-left:16px;display:flex;flex-direction:column;gap:3px;">
-            <li><strong>GitHub‑ready:</strong> Just commit this file and serve via GitHub Pages.</li>
-            <li><strong>Private:</strong> All edits and snapshots stay in your browser.</li>
+            <li><strong>GitHub‑ready:</strong> Commit this file and enable GitHub Pages.</li>
+            <li><strong>Private:</strong> All edits and snapshots stay in each browser.</li>
             <li><strong>Reset:</strong> Use “Reset to default” if things get messy.</li>
           </ul>
         </div>
@@ -669,8 +733,20 @@
     </div>
   </div>
 
+  <!-- Modal -->
+  <div id="modalOverlay" class="modal-overlay hidden">
+    <div id="modal" class="modal">
+      <h2 id="modalTitle"></h2>
+      <div id="modalContent"></div>
+      <div class="modal-actions">
+        <button id="modalCancel" class="btn">Cancel</button>
+        <button id="modalSave" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // ---------- DEFAULT DATA (with corrected restaurant URLs) ----------
+    // ---------- DEFAULT DATA ----------
     const defaultData = {
       days: [
         {
@@ -734,8 +810,16 @@
               name: "La Taverne des Remparts",
               town: "Beynac‑et‑Cazenac",
               style: "Brasserie · burgers · salads",
-              url: "https://www.facebook.com/La-Taverne-Des-Remparts-872323016195681/",
+              url: "https://www.facebook.com/latavernedesremparts/",
               notes: "Terrace at the foot of the château; relaxed, good with kids."
+            },
+            {
+              id: "r2b",
+              name: "La Petite Tonnelle",
+              town: "Beynac‑et‑Cazenac",
+              style: "Traditional French",
+              url: "https://www.la-petite-tonnelle.fr/",
+              notes: "Cozy, very good food; book ahead in season."
             }
           ]
         },
@@ -773,10 +857,10 @@
             {
               id: "r4",
               name: "Le Médiéval",
-              town: "Sarlat‑la‑Canéda",
-              style: "French · bistro",
-              url: "https://www.thefork.com/restaurant/le-medieval-r5978",
-              notes: "Option if you swing by Sarlat instead."
+              town: "La Roque‑Gageac",
+              style: "Brasserie",
+              url: "https://www.facebook.com/restaurantlemedieval/",
+              notes: "Casual, good with kids after a boat ride."
             }
           ]
         },
@@ -808,7 +892,7 @@
               name: "Cabanoix et Châtaigne",
               town: "Domme",
               style: "French · seasonal",
-              url: "https://www.tripadvisor.com/Restaurant_Review-g580128-d1527325-Reviews-Cabanoix_Chataigne_Cie-Domme_Dordogne_Nouvelle_Aquitaine.html",
+              url: "https://www.cabanoixchataigne.fr/",
               notes: "Well‑reviewed; book ahead if you want a proper sit‑down meal."
             },
             {
@@ -816,7 +900,7 @@
               name: "Auberge de la Rode",
               town: "Domme",
               style: "French · terrace",
-              url: "https://www.tripadvisor.com/Restaurant_Review-g580128-d1527324-Reviews-Auberge_de_la_Rode-Domme_Dordogne_Nouvelle_Aquitaine.html",
+              url: "https://www.facebook.com/aubergedelarode/",
               notes: "Nice terrace; good local dishes."
             },
             {
@@ -824,7 +908,7 @@
               name: "Le Belvédère",
               town: "Domme",
               style: "View restaurant · simple food",
-              url: "https://www.tripadvisor.com/Restaurant_Review-g580128-d1527326-Reviews-Le_Belvedere-Domme_Dordogne_Nouvelle_Aquitaine.html",
+              url: "https://www.facebook.com/restaurant.lebelvedere.domme/",
               notes: "Big view; food reviews mixed but setting is great."
             }
           ]
@@ -850,7 +934,7 @@
               name: "Le Bistrot de la Place",
               town: "Trémolat",
               style: "Bistro · regional",
-              url: "https://www.vieux-logis.com/en/restaurant/bistrot-de-la-place/",
+              url: "https://www.vieux-logis.com/en/restaurant/bistrot-de-the-place/",
               notes: "Classic Périgord dishes; good for a proper lunch."
             }
           ]
@@ -910,8 +994,8 @@
       ]
     };
 
-    const STORAGE_KEY_DATA = "dordogne_trip_data_v1";
-    const STORAGE_KEY_HISTORY = "dordogne_trip_history_v1";
+    const STORAGE_KEY_DATA = "dordogne_trip_data_v2";
+    const STORAGE_KEY_HISTORY = "dordogne_trip_history_v2";
 
     let state = {
       days: [],
@@ -967,7 +1051,6 @@
         data: structuredClone(state)
       };
       history.unshift(snapshot);
-      // keep last 20
       history = history.slice(0, 20);
       localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(history));
       renderHistory();
@@ -994,6 +1077,39 @@
       history = history.filter(h => h.id !== id);
       localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(history));
       renderHistory();
+    }
+
+    // ---------- MODAL ----------
+    function openModal(title, fields, onSave) {
+      const overlay = document.getElementById("modalOverlay");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalContent = document.getElementById("modalContent");
+      const btnSave = document.getElementById("modalSave");
+      const btnCancel = document.getElementById("modalCancel");
+
+      modalTitle.textContent = title;
+
+      modalContent.innerHTML = fields.map(f => `
+        <label>
+          <div style="font-size:0.8rem;color:#9ca3af;">${f.label}</div>
+          ${f.type === "textarea"
+            ? `<textarea data-field="${f.key}">${f.value || ""}</textarea>`
+            : `<input type="${f.type}" data-field="${f.key}" value="${f.value || ""}">`
+          }
+        </label>
+      `).join("");
+
+      overlay.classList.remove("hidden");
+
+      btnCancel.onclick = () => overlay.classList.add("hidden");
+
+      btnSave.onclick = () => {
+        const inputs = modalContent.querySelectorAll("[data-field]");
+        const result = {};
+        inputs.forEach(inp => result[inp.dataset.field] = inp.value.trim());
+        overlay.classList.add("hidden");
+        onSave(result);
+      };
     }
 
     // ---------- RENDER ----------
@@ -1113,6 +1229,7 @@
             </div>
           </div>
           <div class="item-actions">
+            <button class="btn-icon" data-edit-act="${act.id}">✎ Edit</button>
             <button class="btn-icon danger" data-id="${act.id}" data-kind="activity">
               ✕ Remove
             </button>
@@ -1121,12 +1238,35 @@
         listEl.appendChild(item);
       });
 
-      listEl.querySelectorAll(".btn-icon.danger").forEach(btn => {
+      listEl.querySelectorAll("[data-id][data-kind='activity']").forEach(btn => {
         btn.onclick = () => {
           const id = btn.getAttribute("data-id");
           day.activities = (day.activities || []).filter(a => a.id !== id);
           saveToStorage();
           renderActivities(day);
+        };
+      });
+
+      listEl.querySelectorAll("[data-edit-act]").forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.dataset.editAct;
+          const act = day.activities.find(a => a.id === id);
+          if (!act) return;
+
+          openModal(
+            "Edit Activity",
+            [
+              { label: "Time", key: "time", type: "text", value: act.time },
+              { label: "Title", key: "title", type: "text", value: act.title },
+              { label: "Details", key: "details", type: "textarea", value: act.details },
+              { label: "Type", key: "type", type: "text", value: act.type }
+            ],
+            updated => {
+              Object.assign(act, updated);
+              saveToStorage();
+              renderActivities(day);
+            }
+          );
         };
       });
     }
@@ -1157,6 +1297,7 @@
           </div>
           <div class="item-actions">
             ${linkHtml}
+            <button class="btn-icon" data-edit="${r.id}">✎ Edit</button>
             <button class="btn-icon danger" data-id="${r.id}" data-kind="restaurant">
               ✕ Remove
             </button>
@@ -1165,12 +1306,36 @@
         listEl.appendChild(item);
       });
 
-      listEl.querySelectorAll(".btn-icon.danger").forEach(btn => {
+      listEl.querySelectorAll("[data-id][data-kind='restaurant']").forEach(btn => {
         btn.onclick = () => {
           const id = btn.getAttribute("data-id");
           day.restaurants = (day.restaurants || []).filter(r => r.id !== id);
           saveToStorage();
           renderRestaurants(day);
+        };
+      });
+
+      listEl.querySelectorAll("[data-edit]").forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.dataset.edit;
+          const rest = day.restaurants.find(r => r.id === id);
+          if (!rest) return;
+
+          openModal(
+            "Edit Restaurant",
+            [
+              { label: "Name", key: "name", type: "text", value: rest.name },
+              { label: "Town", key: "town", type: "text", value: rest.town },
+              { label: "Style", key: "style", type: "text", value: rest.style },
+              { label: "URL", key: "url", type: "text", value: rest.url },
+              { label: "Notes", key: "notes", type: "textarea", value: rest.notes }
+            ],
+            updated => {
+              Object.assign(rest, updated);
+              saveToStorage();
+              renderRestaurants(day);
+            }
+          );
         };
       });
     }
