@@ -158,6 +158,9 @@ style="
 
 <div id="map" style="height: 400px; margin: 10px; border-radius: 12px;"></div>
 
+  <h2 style="padding:12px 12px 0;">Where to eat</h2>
+<div id="restaurants-container"></div>
+
 <div id="days-container"></div>
 
 
@@ -251,6 +254,166 @@ function getDistanceKm(a, b) {
 
     return R * y;
 }
+
+  const restaurants = {
+  "le_saint_jus": {
+    name: "Le Saint Jus",
+    village: "Saint-Julien-de-Lampon",
+    type: "Bistrot / Brasserie",
+    priceRange: "€13.50 day menu • €16.50 with dessert",
+    phone: "05 53 29 47 41",
+    booking: "Booking advised",
+    reviewScore: 4.5,
+    reviewCount: 120,
+    photo: "images/le_saint_jus.jpg",
+    notes: "Casual, kid-friendly, good for arrival day or simple dinners."
+  },
+  "la_gabarre": {
+    name: "La Gabarre",
+    village: "Saint-Julien-de-Lampon",
+    type: "Traditional French",
+    priceRange: "Mid-range",
+    phone: "05 53 29 61 43",
+    booking: "Call to reserve",
+    reviewScore: 4.7,
+    reviewCount: 95,
+    photo: "images/la_gabarre.jpg",
+    notes: "Lovely riverside setting, great after a day on the river."
+  },
+  "la_halle_paysanne": {
+    name: "La Halle Paysanne",
+    village: "Near Saint-Julien-de-Lampon",
+    type: "Regional / Local products",
+    priceRange: "Not specified",
+    phone: "",
+    booking: "Walk-in",
+    reviewScore: 4.4,
+    reviewCount: 60,
+    photo: "images/la_halle_paysanne.jpg",
+    notes: "Rustic, local, great for lunch after a morning activity."
+  },
+  "domaine_saint_julien": {
+    name: "Domaine Saint Julien",
+    village: "Saint-Julien-de-Lampon",
+    type: "Bistronomic",
+    priceRange: "Not specified",
+    phone: "",
+    booking: "Check website",
+    reviewScore: 4.6,
+    reviewCount: 80,
+    photo: "images/domaine_saint_julien.jpg",
+    notes: "More refined; good for an adults’ evening."
+  },
+  "la_petite_tonnelle": {
+    name: "La Petite Tonnelle",
+    village: "Beynac-et-Cazenac",
+    type: "Traditional French",
+    priceRange: "€19.50–€46 (avg ~€39)",
+    phone: "05 53 29 95 18",
+    booking: "Reservation advised",
+    reviewScore: 4.6,
+    reviewCount: 400,
+    photo: "images/la_petite_tonnelle.jpg",
+    notes: "Excellent food, cozy, perfect after visiting Beynac Castle."
+  },
+  "le_donjon": {
+    name: "Le Donjon",
+    village: "Beynac-et-Cazenac",
+    type: "Family restaurant",
+    priceRange: "Menu €12.50–€16 • Kids €9",
+    phone: "05 53 29 28 49",
+    booking: "Usually easy, but call in high season",
+    reviewScore: 4.3,
+    reviewCount: 250,
+    photo: "images/le_donjon.jpg",
+    notes: "Right near the castle entrance; great for families."
+  },
+  "la_taverne_des_remparts": {
+    name: "La Taverne des Remparts",
+    village: "Beynac-et-Cazenac",
+    type: "Bistro",
+    priceRange: "Not specified",
+    phone: "",
+    booking: "Book for terrace view",
+    reviewScore: 4.2,
+    reviewCount: 180,
+    photo: "images/la_taverne_des_remparts.jpg",
+    notes: "Amazing panorama over the Dordogne valley."
+  },
+  "la_belle_etoile": {
+    name: "La Belle Étoile",
+    village: "La Roque-Gageac",
+    type: "Gastronomic",
+    priceRange: "Menu ~€31 • Entrée €15 • Plat €25 • Dessert €12",
+    phone: "05 53 29 51 44",
+    booking: "Book weeks ahead in summer",
+    reviewScore: 4.7,
+    reviewCount: 350,
+    photo: "images/la_belle_etoile.jpg",
+    notes: "One of the best terraces in Dordogne, right on the river."
+  },
+  "le_medieval": {
+    name: "Le Medieval",
+    village: "La Roque-Gageac",
+    type: "Brasserie",
+    priceRange: "Not specified",
+    phone: "",
+    booking: "Reserve for terrace",
+    reviewScore: 4.1,
+    reviewCount: 210,
+    photo: "images/le_medieval.jpg",
+    notes: "Casual, great for families after a gabare boat ride."
+  },
+  "bistrot_de_la_place": {
+    name: "Bistrot de la Place",
+    village: "Trémolat",
+    type: "Bistrot",
+    priceRange: "Menu €28 • Formule €19/€25 • Kids €14",
+    phone: "05 53 22 80 69",
+    booking: "Recommended",
+    reviewScore: 4.5,
+    reviewCount: 220,
+    photo: "images/bistrot_de_la_place.jpg",
+    notes: "Classic Dordogne bistrot, great stop on a driving day."
+  },
+  "cabanoix_et_chataigne": {
+    name: "Cabanoix et Châtaigne",
+    village: "Domme",
+    type: "Traditional French",
+    priceRange: "€26–€32 (range €15–€35)",
+    phone: "05 53 31 00 00",
+    booking: "Recommended; closed Tuesday",
+    reviewScore: 4.6,
+    reviewCount: 280,
+    photo: "images/cabanoix_et_chataigne.jpg",
+    notes: "Very good food, charming interior."
+  },
+  "auberge_de_la_rode": {
+    name: "Auberge de la Rode",
+    village: "Domme",
+    type: "Auberge",
+    priceRange: "~€30/person",
+    phone: "05 53 28 36 97",
+    booking: "Book ahead in high season",
+    reviewScore: 4.4,
+    reviewCount: 190,
+    photo: "images/auberge_de_la_rode.jpg",
+    notes: "Traditional, hearty, great value."
+  },
+  "le_belvedere": {
+    name: "Le Belvédère",
+    village: "Domme",
+    type: "Restaurant with view",
+    priceRange: "Menu €18.50 • ~€30 for 2 plats + water",
+    phone: "05 53 31 12 01",
+    booking: "Reserve for cliff-view terrace",
+    reviewScore: 4.3,
+    reviewCount: 260,
+    photo: "images/le_belvedere.jpg",
+    notes: "One of the best views in the region."
+  }
+};
+
 
 // -----------------------------
 // ENHANCED ACTIVITIES (DORDOGNE-OPTIMIZED)
@@ -856,6 +1019,36 @@ function drop(e) {
     renderDays();
 }
 
+  function renderRestaurants() {
+  const container = document.getElementById("restaurants-container");
+  container.innerHTML = "";
+
+  Object.keys(restaurants).forEach(key => {
+    const r = restaurants[key];
+    const card = document.createElement("div");
+    card.className = "day-card"; // reuse styling
+
+    card.innerHTML = `
+      <h2>🍽️ ${r.name} – ${r.village}</h2>
+      <div class="activity">
+        <strong>${r.type}</strong><br>
+        Price: ${r.priceRange}<br>
+        Phone: ${r.phone ? `<a href="tel:${r.phone.replace(/\\s+/g,'')}">${r.phone}</a>` : "Not available"}<br>
+        Booking: ${r.booking}<br>
+        Reviews: ⭐ ${r.reviewScore} (${r.reviewCount} reviews)<br>
+        <em>${r.notes}</em>
+        ${r.photo ? `<img src="${r.photo}" alt="${r.name}">` : ""}
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+renderDays();
+renderRestaurants();
+
+
     // -----------------------------
 // MAP CLUSTERING ENGINE
 // -----------------------------
@@ -949,8 +1142,39 @@ function clusterByProximity(activityIds) {
     return days;
 }
 
+  function saveDB() {
+  localStorage.setItem("restaurants", JSON.stringify(restaurants));
+  localStorage.setItem("activities", JSON.stringify(activities));
+  localStorage.setItem("days", JSON.stringify(days));
+}
+
+function loadDB() {
+  const r = localStorage.getItem("restaurants");
+  const a = localStorage.getItem("activities");
+  const d = localStorage.getItem("days");
+
+  if (r) Object.assign(restaurants, JSON.parse(r));
+  if (a) Object.assign(activities, JSON.parse(a));
+  if (d) days.splice(0, days.length, ...JSON.parse(d));
+}
+
+  function saveVersion() {
+  const history = JSON.parse(localStorage.getItem("history") || "[]");
+  history.push({
+    timestamp: new Date().toISOString(),
+    restaurants,
+    activities,
+    days
+  });
+  localStorage.setItem("history", JSON.stringify(history));
+}
+
+
+loadDB();
+
 initMap();
 renderDays();
+renderRestaurants();
 renderMap(0);
 
 </script>
