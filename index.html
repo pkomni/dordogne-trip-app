@@ -6,28 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg: #0f172a;
-      --bg-soft: #111827;
-      --card: #020617;
+      --bg: #020617;
+      --bg-soft: #0f172a;
+      --card: #0b1220;
       --accent: #22c55e;
       --accent-soft: rgba(34,197,94,0.12);
       --accent-strong: rgba(34,197,94,0.25);
       --text: #e5e7eb;
       --muted: #9ca3af;
       --border: #1f2937;
-      --danger: #f97373;
-      --danger-soft: rgba(248,113,113,0.12);
-      --shadow-soft: 0 18px 45px rgba(0,0,0,0.65);
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --radius-pill: 999px;
+      --danger: #ef4444;
+      --danger-soft: rgba(239,68,68,0.12);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
@@ -37,7 +29,7 @@
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 24px 12px;
+      padding: 20px 10px;
     }
 
     .app-shell {
@@ -46,8 +38,8 @@
       background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(2,6,23,0.98));
       border-radius: 28px;
       border: 1px solid rgba(148,163,184,0.18);
-      box-shadow: var(--shadow-soft);
-      padding: 20px 18px 22px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.65);
+      padding: 18px 16px 20px;
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -72,28 +64,14 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-    }
-
-    .title-block {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .title-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
       flex-wrap: wrap;
     }
 
-    h1 {
-      font-size: 1.4rem;
-      letter-spacing: 0.03em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .title-block { display: flex; flex-direction: column; gap: 4px; }
+
+    .title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    h1 { font-size: 1.4rem; letter-spacing: 0.03em; display: flex; align-items: center; gap: 8px; }
 
     .pill {
       font-size: 0.7rem;
@@ -115,27 +93,15 @@
       box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
     }
 
-    .subtitle {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
+    .subtitle { font-size: 0.8rem; color: var(--muted); }
 
-    .top-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-end;
-    }
+    .top-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
 
-    button {
-      border: none;
-      cursor: pointer;
-      font: inherit;
-    }
+    button { border: none; cursor: pointer; font: inherit; }
 
     .btn {
       padding: 7px 12px;
-      border-radius: var(--radius-pill);
+      border-radius: 999px;
       font-size: 0.78rem;
       display: inline-flex;
       align-items: center;
@@ -159,10 +125,7 @@
       box-shadow: 0 0 0 1px rgba(34,197,94,0.4), 0 10px 25px rgba(22,163,74,0.45);
     }
 
-    .btn-primary:hover {
-      filter: brightness(1.05);
-      transform: translateY(-1px);
-    }
+    .btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
 
     .btn-danger {
       background: var(--danger-soft);
@@ -170,13 +133,7 @@
       border-color: rgba(248,113,113,0.6);
     }
 
-    .btn-danger:hover {
-      background: rgba(248,113,113,0.18);
-    }
-
-    .btn-ghost {
-      background: rgba(15,23,42,0.7);
-    }
+    .btn-danger:hover { background: rgba(248,113,113,0.18); }
 
     .layout {
       display: grid;
@@ -184,18 +141,14 @@
       gap: 14px;
     }
 
-    @media (max-width: 880px) {
-      .layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
+    @media (max-width: 880px) { .layout { grid-template-columns: minmax(0, 1fr); } }
 
     .card {
-      background: radial-gradient(circle at top left, rgba(15,23,42,0.9), rgba(15,23,42,0.98));
-      border-radius: var(--radius-lg);
+      background: #020617;
+      border-radius: 22px;
       border: 1px solid rgba(31,41,55,0.9);
       box-shadow: 0 14px 35px rgba(0,0,0,0.7);
-      padding: 12px 12px 10px;
+      padding: 12px 12px 12px;
       position: relative;
       overflow: hidden;
     }
@@ -204,12 +157,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       gap: 8px;
     }
 
     .card-title {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: #e5e7eb;
@@ -227,70 +180,54 @@
       color: var(--muted);
     }
 
-    .card-subtitle {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
+    .card-subtitle { font-size: 0.75rem; color: var(--muted); }
 
-    .tabs {
+    /* Day selector */
+
+    .day-tabs {
       display: flex;
-      gap: 6px;
-      margin-bottom: 10px;
+      gap: 8px;
       overflow-x: auto;
-      padding-bottom: 2px;
+      padding-bottom: 4px;
+      margin-bottom: 10px;
     }
 
-    .tab {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(55,65,81,0.9);
-      font-size: 0.78rem;
-      color: var(--muted);
-      background: rgba(15,23,42,0.9);
+    .day-tab {
+      padding: 10px 16px;
+      border-radius: 14px;
+      background: #1e293b;
+      color: #e2e8f0;
+      font-size: 0.9rem;
       white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
       cursor: pointer;
-      transition: all 0.16s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+      border: 1px solid #334155;
     }
 
-    .tab span.day-label {
-      font-weight: 500;
-      color: #e5e7eb;
-    }
-
-    .tab.active {
-      background: radial-gradient(circle at top left, rgba(34,197,94,0.18), rgba(15,23,42,0.98));
-      border-color: rgba(34,197,94,0.7);
-      color: #bbf7d0;
-      box-shadow: 0 0 0 1px rgba(34,197,94,0.35);
-    }
-
-    .tab.active span.day-label {
-      color: #bbf7d0;
-    }
-
-    .tab .date {
-      font-size: 0.7rem;
-      color: var(--muted);
+    .day-tab.active {
+      background: #22c55e;
+      color: #022c22;
+      font-weight: 600;
+      border-color: #16a34a;
     }
 
     .day-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      gap: 8px;
-      font-size: 0.75rem;
-      color: var(--muted);
-      flex-wrap: wrap;
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: #0b1220;
+      border: 1px solid #1f2937;
     }
+
+    .day-meta-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+
+    .day-meta-notes { font-size: 0.8rem; color: var(--muted); }
 
     .chips {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
+      margin-top: 6px;
     }
 
     .chip {
@@ -318,15 +255,9 @@
       color: #bbf7d0;
     }
 
-    .chip.accent .dot {
-      background: #22c55e;
-    }
+    .chip.accent .dot { background: #22c55e; }
 
-    .section {
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 1px dashed rgba(55,65,81,0.9);
-    }
+    .section { margin-top: 10px; }
 
     .section-title {
       font-size: 0.78rem;
@@ -345,132 +276,184 @@
       background: linear-gradient(to right, rgba(55,65,81,0.9), transparent);
     }
 
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .small-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; }
 
-    .item {
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(31,41,55,0.9);
-      background: radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,0.99));
-      padding: 7px 8px;
+    /* Activity cards */
+
+    .activity-card {
+      background: #0b1220;
+      border-radius: 18px;
+      padding: 10px 12px;
+      border: 1px solid #1f2937;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+      margin-bottom: 10px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 6px;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
       align-items: center;
     }
 
-    .item-main {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .item-title-row {
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 1.2rem;
+      background: #1e293b;
     }
 
-    .item-title {
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-
-    .item-meta {
-      font-size: 0.72rem;
-      color: var(--muted);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .item-meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .item-actions {
+    .activity-main {
       display: flex;
       flex-direction: column;
       gap: 4px;
+    }
+
+    .activity-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .activity-time {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
+
+    .activity-details {
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+
+    .activity-type {
+      font-size: 0.75rem;
+      color: #a5b4fc;
+    }
+
+    .activity-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
       align-items: flex-end;
     }
 
-    .link {
-      font-size: 0.72rem;
-      color: #a5b4fc;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .link:hover {
-      text-decoration: underline;
-    }
-
     .btn-icon {
-      padding: 3px 7px;
+      padding: 4px 8px;
       border-radius: 999px;
       border: 1px solid rgba(55,65,81,0.9);
       background: rgba(15,23,42,0.9);
       color: var(--muted);
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
 
     .btn-icon.danger {
-      border-color: rgba(248,113,113,0.7);
+      border-color: rgba(239,68,68,0.7);
       color: #fecaca;
       background: var(--danger-soft);
     }
 
+    /* Add forms */
+
     .form-inline {
-      margin-top: 8px;
+      margin-top: 6px;
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 6px;
       align-items: center;
     }
 
-    @media (max-width: 720px) {
-      .form-inline {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+    @media (min-width: 720px) {
+      .form-inline { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     }
 
     .form-inline input,
     .form-inline select {
       width: 100%;
-      padding: 6px 8px;
+      padding: 7px 9px;
       border-radius: 999px;
       border: 1px solid rgba(55,65,81,0.9);
       background: rgba(15,23,42,0.9);
       color: var(--text);
-      font-size: 0.75rem;
+      font-size: 0.8rem;
     }
 
-    .form-inline input::placeholder {
-      color: #6b7280;
+    .form-inline input::placeholder { color: #6b7280; }
+
+    /* Restaurant cards */
+
+    .rest-card {
+      background: #1e293b;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      margin-bottom: 14px;
     }
 
-    .form-inline button {
-      font-size: 0.75rem;
-      padding: 6px 10px;
+    .rest-photo {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
     }
 
-    .small-label {
-      font-size: 0.7rem;
-      color: var(--muted);
+    .rest-body {
+      padding: 12px 14px;
+    }
+
+    .rest-title {
+      font-size: 1.05rem;
+      font-weight: 600;
       margin-bottom: 2px;
     }
+
+    .rest-town {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin-bottom: 8px;
+    }
+
+    .rest-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .rest-notes {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-top: 4px;
+    }
+
+    .rest-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px 14px 12px;
+      background: #0f172a;
+    }
+
+    .rest-btn {
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: #334155;
+      color: #e2e8f0;
+      border: none;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .rest-btn:hover { background: #475569; }
+
+    .rest-btn.danger { background: #7f1d1d; }
+
+    .rest-btn.danger:hover { background: #991b1b; }
+
+    /* History */
 
     .version-list {
       display: flex;
@@ -479,29 +462,23 @@
       max-height: 260px;
       overflow-y: auto;
       padding-right: 2px;
+      font-size: 0.78rem;
     }
 
     .version-item {
-      border-radius: var(--radius-md);
+      border-radius: 14px;
       border: 1px solid rgba(31,41,55,0.9);
-      background: radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,0.99));
+      background: #0b1220;
       padding: 7px 8px;
       display: flex;
       justify-content: space-between;
       gap: 6px;
       align-items: center;
-      font-size: 0.75rem;
     }
 
-    .version-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .version-meta { display: flex; flex-direction: column; gap: 2px; }
 
-    .version-meta span.label {
-      color: var(--muted);
-    }
+    .version-meta span.label { color: var(--muted); }
 
     .version-actions {
       display: flex;
@@ -538,31 +515,7 @@
       background: #22c55e;
     }
 
-    .status-pill.warn .dot {
-      background: #f97316;
-    }
-
-    .status-pill.danger .dot {
-      background: #ef4444;
-    }
-
-    .scroll-soft {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(75,85,99,0.9) transparent;
-    }
-
-    .scroll-soft::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .scroll-soft::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .scroll-soft::-webkit-scrollbar-thumb {
-      background: rgba(75,85,99,0.9);
-      border-radius: 999px;
-    }
+    .status-pill.warn .dot { background: #f97316; }
 
     /* Modal */
 
@@ -576,9 +529,7 @@
       z-index: 999;
     }
 
-    .modal-overlay.hidden {
-      display: none;
-    }
+    .modal-overlay.hidden { display: none; }
 
     .modal {
       background: #111827;
@@ -590,10 +541,7 @@
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
 
-    .modal h2 {
-      margin-bottom: 10px;
-      font-size: 1rem;
-    }
+    .modal h2 { margin-bottom: 10px; font-size: 1rem; }
 
     .modal-actions {
       display: flex;
@@ -602,14 +550,7 @@
       margin-top: 16px;
     }
 
-    .modal label {
-      display: block;
-      margin-bottom: 8px;
-    }
-
-    .modal label div {
-      margin-bottom: 2px;
-    }
+    .modal label { display: block; margin-bottom: 8px; }
 
     .modal input,
     .modal textarea {
@@ -622,105 +563,12 @@
       font-size: 0.8rem;
     }
 
-    .modal textarea {
-      min-height: 70px;
-      resize: vertical;
-    }
+    .modal textarea { min-height: 70px; resize: vertical; }
 
-    .rest-card {
-  background: #1e293b;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-  margin-bottom: 14px;
-}
-
-.rest-photo {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
-.rest-body {
-  padding: 12px 14px;
-}
-
-.rest-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.rest-town {
-  font-size: 0.85rem;
-  color: #94a3b8;
-  margin-bottom: 8px;
-}
-
-.rest-info {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  font-size: 0.8rem;
-  color: #cbd5e1;
-  margin-bottom: 8px;
-}
-
-.rest-notes {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  margin-top: 4px;
-}
-
-.rest-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 12px 14px;
-  background: #0f172a;
-}
-
-.rest-btn {
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: #334155;
-  color: #e2e8f0;
-  border: none;
-  font-size: 0.85rem;
-  text-align: center;
-}
-
-.rest-btn:hover {
-  background: #475569;
-}
-
-.rest-btn.danger {
-  background: #7f1d1d;
-}
-
-.rest-btn.danger:hover {
-  background: #991b1b;
-}
-
-    .day-tab {
-  padding: 10px 16px;
-  border-radius: 14px;
-  background: #1e293b;
-  color: #e2e8f0;
-  font-size: 0.9rem;
-  white-space: nowrap;
-  cursor: pointer;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
-}
-
-.day-tab.active {
-  background: #22c55e;
-  color: #022c22;
-  font-weight: 600;
-}
-
-
-
+    .scroll-soft { scrollbar-width: thin; scrollbar-color: rgba(75,85,99,0.9) transparent; }
+    .scroll-soft::-webkit-scrollbar { width: 6px; }
+    .scroll-soft::-webkit-scrollbar-track { background: transparent; }
+    .scroll-soft::-webkit-scrollbar-thumb { background: rgba(75,85,99,0.9); border-radius: 999px; }
   </style>
 </head>
 <body>
@@ -731,44 +579,40 @@
           <h1>📍 Dordogne Trip Planner</h1>
           <div class="pill">
             <span class="dot"></span>
-            <span>Family · 23–29 June · Saint‑Julien</span>
+            <span>Family · 23–29 June · Saint‑Julien‑de‑Lampon</span>
           </div>
         </div>
         <div class="subtitle">
-          Editable overview of days, activities, and restaurants—with history, reset, and local persistence.
+          Beautiful, editable overview of days, activities, and restaurants—with history, reset, and local persistence.
         </div>
       </div>
       <div class="top-actions">
-        <button class="btn btn-ghost" id="btnSaveSnapshot">
-          💾 Save snapshot
-        </button>
-        <button class="btn btn-danger" id="btnReset">
-          ♻️ Reset to default
-        </button>
+        <button class="btn btn-primary" id="btnMapToday">🗺 Map today’s restaurants</button>
+        <button class="btn" id="btnSaveSnapshot">💾 Save snapshot</button>
+        <button class="btn btn-danger" id="btnReset">♻️ Reset to default</button>
       </div>
     </header>
 
     <div class="layout">
-      <!-- LEFT: Days / Activities / Restaurants -->
+      <!-- LEFT: Itinerary -->
       <div class="card">
         <div class="card-header">
           <div>
             <div class="card-title">
               Itinerary
-              <span class="badge">Editable</span>
+              <span class="badge">App‑like view</span>
             </div>
             <div class="card-subtitle">
-              Tap a day, tweak activities and restaurants, and keep it lightweight on the go.
+              Tap a day, edit activities and restaurants, and keep everything simple and visual.
             </div>
           </div>
         </div>
 
-        <div class="tabs" id="dayTabs"></div>
-
+        <div class="day-tabs" id="dayTabs"></div>
         <div id="dayContent"></div>
       </div>
 
-      <!-- RIGHT: Version history + persistence -->
+      <!-- RIGHT: History & persistence -->
       <div class="card">
         <div class="card-header">
           <div>
@@ -868,12 +712,17 @@
           ],
           restaurants: [
             {
-              id: "r1",
-              name: "Simple dinner at home",
-              town: "Saint‑Julien area",
-              style: "Casual · kid‑friendly",
-              url: "",
-              notes: "Use groceries; keep it flexible depending on arrival energy."
+              id: "r_le_saint_jus",
+              name: "Le Saint Jus",
+              town: "Saint‑Julien‑de‑Lampon",
+              style: "Bistrot / Brasserie",
+              url: "https://www.facebook.com/lesaintjus/",
+              phone: "05 53 29 47 41",
+              price: "Menu €13.50–16.50",
+              reviewScore: "4.5",
+              reviewCount: "120",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
+              notes: "Friendly local bistrot; good for arrival evening."
             }
           ]
         },
@@ -901,20 +750,43 @@
           ],
           restaurants: [
             {
-              id: "r2",
-              name: "La Taverne des Remparts",
-              town: "Beynac‑et‑Cazenac",
-              style: "Brasserie · burgers · salads",
-              url: "https://www.facebook.com/latavernedesremparts/",
-              notes: "Terrace at the foot of the château; relaxed, good with kids."
-            },
-            {
-              id: "r2b",
+              id: "r_la_petite_tonnelle",
               name: "La Petite Tonnelle",
               town: "Beynac‑et‑Cazenac",
               style: "Traditional French",
               url: "https://www.la-petite-tonnelle.fr/",
-              notes: "Cozy, very good food; book ahead in season."
+              phone: "05 53 29 95 18",
+              price: "Menu €19.50–46",
+              reviewScore: "4.6",
+              reviewCount: "500",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
+              notes: "Cozy, very good food; reservation advised."
+            },
+            {
+              id: "r_le_donjon",
+              name: "Le Donjon",
+              town: "Beynac‑et‑Cazenac",
+              style: "Family‑friendly near castle",
+              url: "https://www.facebook.com/ledonjonbeynac/",
+              phone: "05 53 29 28 49",
+              price: "Menu €12.50–16 · Child €9",
+              reviewScore: "4.3",
+              reviewCount: "250",
+              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80",
+              notes: "Simple, good with kids right by the castle entrance."
+            },
+            {
+              id: "r_la_taverne_des_remparts",
+              name: "La Taverne des Remparts",
+              town: "Beynac‑et‑Cazenac",
+              style: "Bistro with castle view",
+              url: "https://www.facebook.com/latavernedesremparts/",
+              phone: "",
+              price: "",
+              reviewScore: "",
+              reviewCount: "",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
+              notes: "Terrace at the foot of the château; relaxed, good with kids."
             }
           ]
         },
@@ -942,19 +814,29 @@
           ],
           restaurants: [
             {
-              id: "r3",
+              id: "r_la_belle_etoile",
               name: "La Belle Étoile",
               town: "La Roque‑Gageac",
               style: "Refined · terrace by the river",
               url: "https://belleetoile24.fr/",
-              notes: "More grown‑up; maybe lunch with a view if timing works."
+              phone: "05 53 29 51 44",
+              price: "Menu ~€31",
+              reviewScore: "4.7",
+              reviewCount: "400",
+              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80",
+              notes: "Book weeks ahead in summer; more grown‑up, great view."
             },
             {
-              id: "r4",
+              id: "r_le_medieval",
               name: "Le Médiéval",
               town: "La Roque‑Gageac",
-              style: "Brasserie",
+              style: "Brasserie · terrace",
               url: "https://www.facebook.com/restaurantlemedieval/",
+              phone: "",
+              price: "",
+              reviewScore: "",
+              reviewCount: "",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
               notes: "Casual, good with kids after a boat ride."
             }
           ]
@@ -983,28 +865,43 @@
           ],
           restaurants: [
             {
-              id: "r5",
+              id: "r_cabanoix_chataigne",
               name: "Cabanoix et Châtaigne",
               town: "Domme",
               style: "French · seasonal",
               url: "https://www.cabanoixchataigne.fr/",
+              phone: "05 53 31 00 00",
+              price: "Menu €26–32",
+              reviewScore: "4.6",
+              reviewCount: "300",
+              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80",
               notes: "Well‑reviewed; book ahead if you want a proper sit‑down meal."
             },
             {
-              id: "r6",
+              id: "r_auberge_de_la_rode",
               name: "Auberge de la Rode",
               town: "Domme",
               style: "French · terrace",
               url: "https://www.facebook.com/aubergedelarode/",
-              notes: "Nice terrace; good local dishes."
+              phone: "05 53 28 36 97",
+              price: "~€30/person",
+              reviewScore: "4.4",
+              reviewCount: "200",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
+              notes: "Book ahead for high season; nice terrace and local dishes."
             },
             {
-              id: "r7",
+              id: "r_le_belvedere",
               name: "Le Belvédère",
               town: "Domme",
               style: "View restaurant · simple food",
               url: "https://www.facebook.com/restaurant.lebelvedere.domme/",
-              notes: "Big view; food reviews mixed but setting is great."
+              phone: "05 53 31 12 01",
+              price: "Menu €18.50",
+              reviewScore: "4.0",
+              reviewCount: "350",
+              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80",
+              notes: "Big cliff view; food reviews mixed but setting is great."
             }
           ]
         },
@@ -1025,11 +922,16 @@
           ],
           restaurants: [
             {
-              id: "r8",
-              name: "Le Bistrot de la Place",
+              id: "r_bistrot_de_la_place",
+              name: "Bistrot de la Place",
               town: "Trémolat",
               style: "Bistro · regional",
-              url: "https://www.vieux-logis.com/en/restaurant/bistrot-de-the-place/",
+              url: "https://www.vieux-logis.com/en/restaurant/bistrot-de-la-place/",
+              phone: "05 53 22 80 69",
+              price: "Menu €19–36",
+              reviewScore: "4.5",
+              reviewCount: "220",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
               notes: "Classic Périgord dishes; good for a proper lunch."
             }
           ]
@@ -1051,11 +953,16 @@
           ],
           restaurants: [
             {
-              id: "r9",
-              name: "Pick a favourite to repeat",
+              id: "r_repeat_favourite",
+              name: "Repeat a favourite",
               town: "Open",
               style: "Your choice",
               url: "",
+              phone: "",
+              price: "",
+              reviewScore: "",
+              reviewCount: "",
+              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80",
               notes: "Decide based on what you loved most earlier in the week."
             }
           ]
@@ -1077,11 +984,16 @@
           ],
           restaurants: [
             {
-              id: "r10",
-              name: "Leftovers / simple stop on the road",
+              id: "r_departure",
+              name: "Simple stop on the road",
               town: "En route",
               style: "Very flexible",
               url: "",
+              phone: "",
+              price: "",
+              reviewScore: "",
+              reviewCount: "",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
               notes: "No pressure—just keep it easy."
             }
           ]
@@ -1089,8 +1001,8 @@
       ]
     };
 
-    const STORAGE_KEY_DATA = "dordogne_trip_data_v2";
-    const STORAGE_KEY_HISTORY = "dordogne_trip_history_v2";
+    const STORAGE_KEY_DATA = "dordogne_trip_data_v3";
+    const STORAGE_KEY_HISTORY = "dordogne_trip_history_v3";
 
     let state = {
       days: [],
@@ -1207,6 +1119,20 @@
       };
     }
 
+    // ---------- ICONS ----------
+    function activityIcon(type) {
+      switch ((type || "").toLowerCase()) {
+        case "relax": return "🛟";
+        case "practical": return "🧺";
+        case "castle": return "🏰";
+        case "walk": return "🚶";
+        case "river": return "🚣";
+        case "view": return "🌄";
+        case "cave": return "🕳";
+        default: return "📌";
+      }
+    }
+
     // ---------- RENDER ----------
     function renderTabs() {
       const tabsEl = document.getElementById("dayTabs");
@@ -1214,10 +1140,7 @@
       state.days.forEach(day => {
         const btn = document.createElement("button");
         btn.className = "day-tab" + (day.id === state.activeDayId ? " active" : "");
-        btn.innerHTML = `
-          <span class="day-label">${day.label}</span>
-          <span class="date">${day.id}</span>
-        `;
+        btn.textContent = `${day.label}`;
         btn.onclick = () => {
           state.activeDayId = day.id;
           saveToStorage();
@@ -1237,22 +1160,14 @@
       }
 
       const tagsHtml = (day.tags || [])
-        .map(t => `<span class="chip"><span class="dot"></span>${t}</span>`)
+        .map(t => `<span class="chip accent"><span class="dot"></span>${t}</span>`)
         .join("");
 
       container.innerHTML = `
         <div class="day-meta">
-          <div>
-            <div class="small-label">Focus</div>
-            <div style="font-size:0.8rem;">${day.title}</div>
-          </div>
-          <div>
-            <div class="small-label">Vibe</div>
-            <div class="chips">${tagsHtml}</div>
-          </div>
-        </div>
-        <div style="font-size:0.78rem;color:var(--muted);margin-bottom:6px;">
-          ${day.notes || ""}
+          <div class="day-meta-title">${day.title}</div>
+          <div class="day-meta-notes">${day.notes || ""}</div>
+          <div class="chips">${tagsHtml}</div>
         </div>
 
         <div class="section">
@@ -1260,7 +1175,7 @@
             Activities
             <span class="bar"></span>
           </div>
-          <div class="list" id="activityList"></div>
+          <div id="activityList"></div>
 
           <div class="small-label" style="margin-top:6px;">Add activity</div>
           <div class="form-inline" id="activityForm">
@@ -1286,7 +1201,7 @@
             Restaurants
             <span class="bar"></span>
           </div>
-          <div class="list" id="restaurantList"></div>
+          <div id="restaurantList"></div>
 
           <div class="small-label" style="margin-top:6px;">Add restaurant</div>
           <div class="form-inline" id="restaurantForm">
@@ -1314,25 +1229,18 @@
       listEl.innerHTML = "";
       (day.activities || []).forEach(act => {
         const item = document.createElement("div");
-        item.className = "item";
+        item.className = "activity-card";
         item.innerHTML = `
-          <div class="item-main">
-            <div class="item-title-row">
-              <div class="chip accent">
-                <span class="dot"></span>${act.time || "Anytime"}
-              </div>
-              <div class="item-title">${act.title}</div>
-            </div>
-            <div class="item-meta">
-              <span><strong style="font-weight:500;">Type:</strong> ${act.type || "—"}</span>
-              <span>${act.details || ""}</span>
-            </div>
+          <div class="activity-icon">${activityIcon(act.type)}</div>
+          <div class="activity-main">
+            <div class="activity-title">${act.title}</div>
+            <div class="activity-time">${act.time || "Anytime"}</div>
+            <div class="activity-details">${act.details || ""}</div>
+            <div class="activity-type">${act.type || ""}</div>
           </div>
-          <div class="item-actions">
-            <button class="btn-icon" data-edit-act="${act.id}">✎ Edit</button>
-            <button class="btn-icon danger" data-id="${act.id}" data-kind="activity">
-              ✕ Remove
-            </button>
+          <div class="activity-actions">
+            <button class="btn-icon" data-edit-act="${act.id}">✏️ Edit</button>
+            <button class="btn-icon danger" data-id="${act.id}" data-kind="activity">🗑 Remove</button>
           </div>
         `;
         listEl.appendChild(item);
@@ -1376,39 +1284,26 @@
       listEl.innerHTML = "";
       (day.restaurants || []).forEach(r => {
         const item = document.createElement("div");
-        item.className = "item";
-        const linkHtml = r.url
-          ? `<a class="link" href="${r.url}" target="_blank" rel="noopener noreferrer">
-               🔗 Website
-             </a>`
-          : `<span style="font-size:0.7rem;color:var(--muted);">No link</span>`;
+        item.className = "rest-card";
         item.innerHTML = `
-  <div class="rest-card">
-    <img class="rest-photo" src="${r.photo || 'https://via.placeholder.com/300'}" alt="${r.name}">
-
-    <div class="rest-body">
-      <div class="rest-title">${r.name}</div>
-      <div class="rest-town">${r.town || "—"}</div>
-
-      <div class="rest-info">
-        ${r.style ? `<span>${r.style}</span>` : ""}
-        ${r.price ? `<span>💶 ${r.price}</span>` : ""}
-        ${r.phone ? `<span>📞 ${r.phone}</span>` : ""}
-        ${r.reviewScore ? `<span>⭐ ${r.reviewScore} (${r.reviewCount})</span>` : ""}
-      </div>
-
-      ${r.notes ? `<div class="rest-notes">${r.notes}</div>` : ""}
-    </div>
-
-    <div class="rest-actions">
-      ${r.url ? `<button class="rest-btn" onclick="window.open('${r.url}', '_blank')">🌐 Website</button>` : ""}
-      <button class="rest-btn" data-edit="${r.id}">✏️ Edit</button>
-      <button class="rest-btn danger" data-id="${r.id}" data-kind="restaurant">🗑 Remove</button>
-    </div>
-  </div>
-`;
-
-
+          <img class="rest-photo" src="${r.photo || 'https://via.placeholder.com/300'}" alt="${r.name}">
+          <div class="rest-body">
+            <div class="rest-title">${r.name}</div>
+            <div class="rest-town">${r.town || "—"}</div>
+            <div class="rest-info">
+              ${r.style ? `<span>${r.style}</span>` : ""}
+              ${r.price ? `<span>💶 ${r.price}</span>` : ""}
+              ${r.phone ? `<span>📞 ${r.phone}</span>` : ""}
+              ${r.reviewScore ? `<span>⭐ ${r.reviewScore} (${r.reviewCount})</span>` : ""}
+            </div>
+            ${r.notes ? `<div class="rest-notes">${r.notes}</div>` : ""}
+          </div>
+          <div class="rest-actions">
+            ${r.url ? `<button class="rest-btn" onclick="window.open('${r.url}', '_blank')">🌐 Website</button>` : ""}
+            <button class="rest-btn" data-edit="${r.id}">✏️ Edit</button>
+            <button class="rest-btn danger" data-id="${r.id}" data-kind="restaurant">🗑 Remove</button>
+          </div>
+        `;
         listEl.appendChild(item);
       });
 
@@ -1428,25 +1323,25 @@
           if (!rest) return;
 
           openModal(
-  "Edit Restaurant",
-  [
-    { label: "Name", key: "name", type: "text", value: rest.name },
-    { label: "Town", key: "town", type: "text", value: rest.town },
-    { label: "Style", key: "style", type: "text", value: rest.style },
-    { label: "URL", key: "url", type: "text", value: rest.url },
-    { label: "Phone", key: "phone", type: "text", value: rest.phone },
-    { label: "Price range", key: "price", type: "text", value: rest.price },
-    { label: "Review score", key: "reviewScore", type: "number", value: rest.reviewScore },
-    { label: "Review count", key: "reviewCount", type: "number", value: rest.reviewCount },
-    { label: "Photo URL", key: "photo", type: "text", value: rest.photo },
-    { label: "Notes", key: "notes", type: "textarea", value: rest.notes }
-  ],
-  updated => {
-    Object.assign(rest, updated);
-    saveToStorage();
-    renderRestaurants(day);
-  }
-);
+            "Edit Restaurant",
+            [
+              { label: "Name", key: "name", type: "text", value: rest.name },
+              { label: "Town", key: "town", type: "text", value: rest.town },
+              { label: "Style", key: "style", type: "text", value: rest.style },
+              { label: "URL", key: "url", type: "text", value: rest.url },
+              { label: "Phone", key: "phone", type: "text", value: rest.phone },
+              { label: "Price range", key: "price", type: "text", value: rest.price },
+              { label: "Review score", key: "reviewScore", type: "number", value: rest.reviewScore },
+              { label: "Review count", key: "reviewCount", type: "number", value: rest.reviewCount },
+              { label: "Photo URL", key: "photo", type: "text", value: rest.photo },
+              { label: "Notes", key: "notes", type: "textarea", value: rest.notes }
+            ],
+            updated => {
+              Object.assign(rest, updated);
+              saveToStorage();
+              renderRestaurants(day);
+            }
+          );
         };
       });
     }
@@ -1479,35 +1374,30 @@
       };
 
       document.getElementById("btnAddRestaurant").onclick = () => {
-  const payload = {};
-  restInputs.forEach(inp => {
-    payload[inp.getAttribute("data-field")] = inp.value.trim();
-  });
-
-  if (!payload.name) return;
-
-  const newRest = {
-    id: "r_" + Date.now() + "_" + Math.random().toString(16).slice(2),
-    name: payload.name,
-    town: payload.town || "",
-    style: payload.style || "",
-    url: payload.url || "",
-    phone: payload.phone || "",
-    price: payload.price || "",
-    reviewScore: payload.reviewScore || "",
-    reviewCount: payload.reviewCount || "",
-    photo: payload.photo || "",
-    notes: ""
-  };
-
-  day.restaurants = day.restaurants || [];
-  day.restaurants.push(newRest);
-
-  restInputs.forEach(inp => (inp.value = ""));
-  saveToStorage();
-  renderRestaurants(day);
-};
-
+        const payload = {};
+        restInputs.forEach(inp => {
+          payload[inp.getAttribute("data-field")] = inp.value.trim();
+        });
+        if (!payload.name) return;
+        const newRest = {
+          id: "r_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+          name: payload.name,
+          town: payload.town || "",
+          style: payload.style || "",
+          url: payload.url || "",
+          phone: payload.phone || "",
+          price: payload.price || "",
+          reviewScore: payload.reviewScore || "",
+          reviewCount: payload.reviewCount || "",
+          photo: payload.photo || "",
+          notes: ""
+        };
+        day.restaurants = day.restaurants || [];
+        day.restaurants.push(newRest);
+        restInputs.forEach(inp => (inp.value = ""));
+        saveToStorage();
+        renderRestaurants(day);
+      };
     }
 
     function renderHistory() {
@@ -1521,9 +1411,7 @@
 
       history.forEach((h, idx) => {
         const d = new Date(h.timestamp);
-        const label =
-          h.label ||
-          `Snapshot ${idx + 1}`;
+        const label = h.label || `Snapshot ${idx + 1}`;
         const item = document.createElement("div");
         item.className = "version-item";
         item.innerHTML = `
@@ -1556,6 +1444,17 @@
       renderHistory();
     }
 
+    // ---------- MAP VIEW ----------
+    function openMapForToday() {
+      const day = state.days.find(d => d.id === state.activeDayId) || state.days[0];
+      if (!day || !day.restaurants || !day.restaurants.length) return;
+      const query = day.restaurants
+        .map(r => `${r.name} ${r.town || ""}`)
+        .join(";");
+      const url = "https://www.google.com/maps/search/" + encodeURIComponent(query);
+      window.open(url, "_blank");
+    }
+
     // ---------- INIT ----------
     document.addEventListener("DOMContentLoaded", () => {
       loadFromStorage();
@@ -1567,6 +1466,7 @@
       };
 
       document.getElementById("btnReset").onclick = resetToDefault;
+      document.getElementById("btnMapToday").onclick = openMapForToday;
     });
   </script>
 </body>
