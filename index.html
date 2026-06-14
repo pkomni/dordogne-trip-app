@@ -2,58 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dordogne Trip Planner · Green Forest</title>
+  <title>Dordogne Trip Planner – Green Forest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --primary: #2e7d32;
-      --primary-soft: #e8f5e9;
-      --primary-soft-strong: #c8e6c9;
-      --primary-dark: #1b5e20;
-      --accent: #ffb74d;
-      --bg: #f3f6f3;
-      --surface: #ffffff;
-      --surface-soft: #f0f3f0;
-      --border-soft: #dde4dd;
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --danger: #e53935;
-      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.16);
-      --radius-xl: 26px;
+      --color-bg: #04130b;
+      --color-bg-elevated: #071a10;
+      --color-surface: #0c2415;
+      --color-surface-soft: #12301f;
+      --color-primary: #4caf50;
+      --color-primary-soft: #66bb6a;
+      --color-primary-strong: #2e7d32;
+      --color-accent: #a5d6a7;
+      --color-danger: #ff5252;
+      --color-text: #f5fff7;
+      --color-text-soft: #cfe7d4;
+      --color-border-subtle: rgba(255, 255, 255, 0.06);
       --radius-lg: 18px;
       --radius-md: 12px;
       --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --shadow-chip: 0 6px 18px rgba(0, 0, 0, 0.45);
       --transition-fast: 0.18s ease-out;
       --transition-med: 0.25s ease-out;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
     }
 
     * {
       box-sizing: border-box;
+    }
+
+    html,
+    body {
       margin: 0;
       padding: 0;
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top, #0b2a18 0, #020806 55%, #000 100%);
+      color: var(--color-text);
+      -webkit-font-smoothing: antialiased;
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #e8f5e9 0, #f3f6f3 40%, #e5ece5 100%);
-      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 16px 10px 24px;
+      align-items: stretch;
+      padding: 12px;
     }
 
     .app-shell {
       width: 100%;
-      max-width: 1180px;
-      background: linear-gradient(135deg, #ffffff, #f7faf7);
-      border-radius: 32px;
-      border: 1px solid rgba(209, 223, 210, 0.9);
+      max-width: 1240px;
+      background: linear-gradient(145deg, #04130b 0, #020806 40%, #04130b 100%);
+      border-radius: 28px;
       box-shadow: var(--shadow-soft);
-      padding: 18px 18px 20px;
-      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
+      position: relative;
     }
 
     .app-shell::before {
@@ -61,691 +69,633 @@
       position: absolute;
       inset: -40%;
       background:
-        radial-gradient(circle at 0% 0%, rgba(200, 230, 201, 0.5) 0, transparent 55%),
-        radial-gradient(circle at 100% 0%, rgba(129, 199, 132, 0.35) 0, transparent 55%);
-      opacity: 0.7;
+        radial-gradient(circle at 0% 0%, rgba(76, 175, 80, 0.18), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(129, 199, 132, 0.12), transparent 55%);
+      opacity: 0.9;
       pointer-events: none;
-      z-index: -1;
+      z-index: 0;
     }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-
-    .title-block {
+    .app-inner {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      height: 100%;
     }
 
-    .title-row {
+    /* Top bar */
+
+    .top-bar {
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 16px 20px 10px;
+      border-bottom: 1px solid var(--color-border-subtle);
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(4, 19, 11, 0.95),
+        rgba(4, 19, 11, 0.85)
+      );
     }
 
-    h1 {
-      font-size: 1.6rem;
-      letter-spacing: 0.03em;
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .app-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 18px;
+      background: radial-gradient(circle at 30% 0, #a5d6a7 0, #2e7d32 40%, #04130b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e8f5e9;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+    }
+
+    .app-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .app-title {
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: 0.02em;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .trip-pill {
-      font-size: 0.78rem;
-      padding: 6px 12px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(46, 125, 50, 0.25);
-      color: var(--primary-dark);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(232, 245, 233, 0.9);
-    }
-
-    .trip-pill span.dot {
-      width: 8px;
-      height: 8px;
+    .app-title span.badge {
+      font-size: 11px;
+      padding: 2px 8px;
       border-radius: 999px;
-      background: var(--primary);
-      box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.2);
+      background: rgba(76, 175, 80, 0.18);
+      color: var(--color-accent);
+      border: 1px solid rgba(165, 214, 167, 0.35);
     }
 
-    .subtitle {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .top-actions {
+    .app-subtitle {
+      font-size: 12px;
+      color: var(--color-text-soft);
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      justify-content: flex-end;
+      align-items: center;
     }
 
-    button {
-      border: none;
-      cursor: pointer;
-      font: inherit;
+    .pill {
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px;
+      color: var(--color-text-soft);
+      background: rgba(12, 36, 21, 0.9);
+    }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .btn {
-      padding: 7px 12px;
       border-radius: var(--radius-pill);
-      font-size: 0.8rem;
+      border: 1px solid transparent;
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      border: 1px solid rgba(209, 223, 210, 0.9);
-      background: #ffffff;
-      color: var(--text-main);
-      transition: all var(--transition-fast);
+      cursor: pointer;
+      background: rgba(12, 36, 21, 0.9);
+      color: var(--color-text-soft);
+      transition: background var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast), border-color var(--transition-fast),
+        color var(--transition-fast);
     }
 
-    .btn:hover {
-      border-color: rgba(46, 125, 50, 0.35);
-      background: #f9fbf9;
-      transform: translateY(-0.5px);
+    .btn span.icon {
+      font-size: 14px;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), #4caf50);
-      color: #ffffff;
-      border-color: transparent;
-      box-shadow: 0 10px 24px rgba(46, 125, 50, 0.4);
+      background: linear-gradient(135deg, var(--color-primary-soft), var(--color-primary));
+      color: #04130b;
+      box-shadow: 0 10px 24px rgba(76, 175, 80, 0.45);
     }
 
     .btn-primary:hover {
-      filter: brightness(1.05);
       transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(76, 175, 80, 0.55);
     }
 
-    .btn-tonal {
-      background: #f1f8f2;
-      border-color: rgba(46, 125, 50, 0.25);
-      color: var(--primary-dark);
+    .btn-ghost {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(4, 19, 11, 0.85);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(12, 36, 21, 0.95);
+      border-color: rgba(165, 214, 167, 0.5);
     }
 
     .btn-danger {
-      background: #ffebee;
-      color: var(--danger);
-      border-color: rgba(229, 57, 53, 0.4);
+      border-color: rgba(255, 82, 82, 0.6);
+      color: #ffb3b3;
+      background: rgba(40, 0, 0, 0.7);
     }
 
-    .layout {
+    .btn-danger:hover {
+      background: rgba(60, 0, 0, 0.9);
+    }
+
+    /* Day strip */
+
+    .day-strip-wrapper {
+      padding: 6px 18px 10px;
+      border-bottom: 1px solid var(--color-border-subtle);
+      background: radial-gradient(circle at top, rgba(76, 175, 80, 0.12), transparent 55%);
+    }
+
+    .day-strip-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--color-text-soft);
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0.9;
+    }
+
+    .day-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+    }
+
+    .day-chip {
+      scroll-snap-align: start;
+      min-width: 120px;
+      max-width: 160px;
+      padding: 8px 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: radial-gradient(circle at top left, #12301f 0, #071a10 55%, #020806 100%);
+      color: var(--color-text-soft);
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      cursor: pointer;
+      box-shadow: var(--shadow-chip);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        border-color var(--transition-fast), background var(--transition-fast);
+      position: relative;
+    }
+
+    .day-chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+      border-color: rgba(165, 214, 167, 0.6);
+    }
+
+    .day-chip.active {
+      border-color: rgba(165, 214, 167, 0.9);
+      background: linear-gradient(135deg, #1b5e20, #4caf50);
+      color: #04130b;
+    }
+
+    .day-chip-title {
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .day-chip-main {
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .day-chip-meta {
+      font-size: 10px;
+      opacity: 0.8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .day-chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(165, 214, 167, 0.9);
+    }
+
+    /* Layout */
+
+    .content {
       display: grid;
-      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.1fr);
-      gap: 16px;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 14px;
+      padding: 12px 16px 16px;
     }
 
-    @media (max-width: 900px) {
-      .layout {
+    @media (max-width: 960px) {
+      .content {
         grid-template-columns: minmax(0, 1fr);
       }
     }
 
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-soft);
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-      padding: 14px 14px 16px;
+    /* Left column */
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section {
+      background: radial-gradient(circle at top left, #12301f 0, #071a10 55%, #020806 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border-subtle);
+      padding: 12px 14px 10px;
       position: relative;
       overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      gap: 8px;
+    }
+
+    .section-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--color-text-soft);
+      opacity: 0.9;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--color-text-soft);
+      opacity: 0.9;
+    }
+
+    .section-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn-small {
+      padding: 5px 10px;
+      font-size: 11px;
+    }
+
+    .btn-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      font-size: 15px;
+    }
+
+    /* Day summary */
+
+    .day-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .day-summary-title {
+      font-size: 15px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .day-summary-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(165, 214, 167, 0.4);
+      background: rgba(12, 36, 21, 0.9);
+      color: var(--color-accent);
+    }
+
+    .day-summary-desc {
+      font-size: 12px;
+      color: var(--color-text-soft);
+      line-height: 1.5;
+    }
+
+    /* Cards */
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .card {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: radial-gradient(circle at top left, #163824 0, #071a10 55%, #020806 100%);
+      padding: 10px 10px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+        border-color var(--transition-fast), background var(--transition-fast);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0 0, rgba(165, 214, 167, 0.16), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.75);
+      border-color: rgba(165, 214, 167, 0.7);
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
     .card-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      gap: 8px;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .card-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .card-title {
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .card-title span.badge {
-      font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: var(--radius-pill);
-      background: #f1f8f2;
-      border: 1px solid rgba(46, 125, 50, 0.2);
-      color: var(--primary-dark);
+      font-size: 13px;
+      font-weight: 600;
     }
 
     .card-subtitle {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    /* Sliding days */
-
-    .day-slider-wrapper {
-      margin-top: 6px;
-      position: relative;
-    }
-
-    .day-slider {
+      font-size: 11px;
+      color: var(--color-text-soft);
       display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 4px 0 8px;
-      scroll-snap-type: x mandatory;
-    }
-
-    .day-slider::-webkit-scrollbar {
-      height: 6px;
-    }
-
-    .day-slider::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .day-slider::-webkit-scrollbar-thumb {
-      background: rgba(209, 223, 210, 0.9);
-      border-radius: 999px;
-    }
-
-    .day-card {
-      min-width: 130px;
-      max-width: 150px;
-      scroll-snap-align: start;
-      border-radius: 18px;
-      background: var(--surface-soft);
-      border: 1px solid var(--border-soft);
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-      padding: 8px 10px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      transition: all var(--transition-fast);
-    }
-
-    .day-card-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-    }
-
-    .day-card-date {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .day-card-tags {
-      font-size: 0.7rem;
-      color: var(--primary-dark);
-      margin-top: 2px;
-    }
-
-    .day-card.active {
-      background: #e8f5e9;
-      border-color: rgba(46, 125, 50, 0.6);
-      box-shadow: 0 6px 16px rgba(46, 125, 50, 0.35);
-      transform: translateY(-1px);
-    }
-
-    .day-slider-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 4px;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .day-slider-controls button {
-      padding: 4px 8px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border-soft);
-      background: #ffffff;
-      font-size: 0.75rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    /* Day meta */
-
-    .day-meta {
-      margin-top: 12px;
-      padding: 12px 12px;
-      border-radius: var(--radius-lg);
-      background: #f9fbf9;
-      border: 1px solid var(--border-soft);
-      display: grid;
-      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr);
-      gap: 10px;
-    }
-
-    @media (max-width: 720px) {
-      .day-meta {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .day-meta-main-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .day-meta-notes {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
       gap: 6px;
-      margin-top: 6px;
+      align-items: center;
+      flex-wrap: wrap;
     }
 
     .chip {
-      padding: 4px 9px;
+      font-size: 10px;
+      padding: 2px 7px;
       border-radius: var(--radius-pill);
-      border: 1px solid var(--border-soft);
-      font-size: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(4, 19, 11, 0.9);
+      color: var(--color-text-soft);
+    }
+
+    .chip-type {
+      border-color: rgba(165, 214, 167, 0.6);
+      color: var(--color-accent);
+    }
+
+    .card-body {
+      font-size: 12px;
+      color: var(--color-text-soft);
+      line-height: 1.5;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--color-text-soft);
+    }
+
+    .meta-item {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: #ffffff;
-      color: var(--text-muted);
-    }
-
-    .chip .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(156, 163, 175, 0.9);
-    }
-
-    .chip.accent {
-      border-color: rgba(46, 125, 50, 0.3);
-      background: #e8f5e9;
-      color: var(--primary-dark);
-    }
-
-    .chip.accent .dot {
-      background: var(--primary);
-    }
-
-    .day-meta-side {
-      display: flex;
-      flex-direction: column;
       gap: 4px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      background: rgba(4, 19, 11, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    .day-meta-side-label {
-      font-weight: 600;
-      color: var(--primary-dark);
+    .meta-item span.icon {
+      font-size: 13px;
     }
 
-    .section {
-      margin-top: 10px;
-    }
-
-    .section-title {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-muted);
-      margin-bottom: 6px;
+    .card-footer {
       display: flex;
+      justify-content: space-between;
       align-items: center;
       gap: 6px;
+      margin-top: 2px;
     }
 
-    .section-title span.bar {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, rgba(209, 223, 210, 0.9), transparent);
-    }
-
-    /* Activity cards */
-
-    .activity-card {
-      background: #ffffff;
-      border-radius: var(--radius-xl);
-      padding: 10px 12px;
-      border: 1px solid var(--border-soft);
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
-      margin-bottom: 10px;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .activity-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      background: #e8f5e9;
-      color: var(--primary-dark);
-    }
-
-    .activity-main {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .activity-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .activity-meta-row {
+    .card-footer-left {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      font-size: 0.75rem;
+      align-items: center;
     }
 
-    .badge {
-      padding: 3px 8px;
-      border-radius: var(--radius-pill);
-      font-size: 0.7rem;
-      border: 1px solid var(--border-soft);
-      background: #f9fbf9;
-      color: var(--text-muted);
-    }
-
-    .badge.time {
-      background: #e8f5e9;
-      border-color: rgba(46, 125, 50, 0.3);
-      color: var(--primary-dark);
-    }
-
-    .badge.type {
-      background: #f3f4f6;
-    }
-
-    .activity-details {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    .activity-extra {
-      margin-top: 6px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      font-size: 0.78rem;
-    }
-
-    .activity-price {
-      color: var(--primary-dark);
-      background: #e8f5e9;
-      padding: 3px 8px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(46,125,50,0.25);
-    }
-
-    .activity-link {
-      color: var(--primary);
+    .link {
+      font-size: 11px;
+      color: var(--color-accent);
       text-decoration: none;
-      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 0;
     }
 
-    .activity-link:hover {
+    .link:hover {
       text-decoration: underline;
     }
 
-    .activity-actions {
+    .card-actions {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-      align-items: flex-end;
-    }
-
-    .btn-icon {
-      padding: 4px 8px;
-      border-radius: var(--radius-pill);
-      border: 1px solid var(--border-soft);
-      background: #ffffff;
-      color: var(--text-muted);
-      font-size: 0.75rem;
-      display: inline-flex;
-      align-items: center;
       gap: 4px;
-      transition: all var(--transition-fast);
     }
 
-    .btn-icon:hover {
-      background: #f9fbf9;
-      border-color: rgba(46, 125, 50, 0.25);
-      color: var(--primary-dark);
-    }
-
-    .btn-icon.danger {
-      border-color: rgba(229, 57, 53, 0.4);
-      color: var(--danger);
-      background: #ffebee;
-    }
-
-    /* Restaurant cards */
-
-    .rest-card {
-      background: #ffffff;
-      border-radius: var(--radius-xl);
-      overflow: hidden;
-      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
-      margin-bottom: 14px;
-      border: 1px solid var(--border-soft);
-    }
-
-    .rest-photo-wrap {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .rest-photo {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      display: block;
-      transition: transform var(--transition-med);
-    }
-
-    .rest-card:hover .rest-photo {
-      transform: scale(1.03);
-    }
-
-    .rest-photo-gradient {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.45), transparent 55%);
-    }
-
-    .rest-photo-top {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .rest-rating-pill {
-      padding: 4px 9px;
+    .btn-xxs {
+      padding: 3px 7px;
+      font-size: 10px;
       border-radius: var(--radius-pill);
-      background: rgba(0, 0, 0, 0.6);
-      color: #e8f5e9;
-      font-size: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(4, 19, 11, 0.9);
+      color: var(--color-text-soft);
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 4px;
     }
 
-    .rest-rating-pill span.star {
-      color: #ffeb3b;
+    .btn-xxs:hover {
+      background: rgba(12, 36, 21, 0.95);
     }
 
-    .rest-photo-bottom {
-      position: absolute;
-      bottom: 8px;
-      left: 8px;
-      right: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 8px;
-    }
-
-    .rest-photo-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #ffffff;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
-    }
-
-    .rest-photo-town {
-      font-size: 0.8rem;
-      color: #e8f5e9;
-    }
-
-    .rest-photo-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .rest-photo-btn {
-      padding: 4px 8px;
-      border-radius: var(--radius-pill);
-      border: none;
-      font-size: 0.75rem;
-      background: rgba(0, 0, 0, 0.6);
-      color: #e8f5e9;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .rest-body {
-      padding: 10px 12px 12px;
-    }
-
-    .rest-info-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .rest-notes {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 2px;
+    .btn-xxs-danger {
+      border-color: rgba(255, 82, 82, 0.7);
+      color: #ffb3b3;
     }
 
     /* Right column */
 
-    .info-section {
-      margin-top: 8px;
-      padding: 10px 12px;
-      border-radius: var(--radius-lg);
-      background: #f9fbf9;
-      border: 1px solid var(--border-soft);
+    .map-section {
+      min-height: 220px;
+    }
+
+    .map-frame {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 6px;
+      background: #000;
+      height: 260px;
+    }
+
+    .map-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .info-list {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--color-text-soft);
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      gap: 4px;
     }
 
-    .info-section-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--primary-dark);
+    .info-item {
       display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .info-item span.icon {
+      font-size: 14px;
+      margin-top: 1px;
+    }
+
+    /* Floating add buttons (mobile emphasis) */
+
+    .fab-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+
+    .fab {
+      border-radius: var(--radius-pill);
+      padding: 6px 10px;
+      font-size: 11px;
+      border: 1px solid rgba(165, 214, 167, 0.6);
+      background: rgba(12, 36, 21, 0.95);
+      color: var(--color-accent);
+      display: inline-flex;
       align-items: center;
       gap: 6px;
+      cursor: pointer;
     }
 
-    .info-section-title span.icon {
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      background: #e8f5e9;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      color: var(--primary-dark);
+    .fab span.icon {
+      font-size: 14px;
     }
 
-    /* Overlays (history, editor, map) */
+    /* Modals */
 
-    .overlay-base {
+    .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(15, 23, 42, 0.35);
-      display: flex;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
       justify-content: center;
-      align-items: flex-end;
-      z-index: 999;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity var(--transition-med);
+      z-index: 20;
+      padding: 12px;
     }
 
-    .overlay-base.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .sheet-base {
+    .modal {
       width: 100%;
-      max-width: 900px;
-      background: #ffffff;
-      border-radius: 24px 24px 0 0;
-      border-top: 1px solid var(--border-soft);
-      box-shadow: 0 -12px 30px rgba(15, 23, 42, 0.18);
-      padding: 14px 14px 16px;
-      transform: translateY(100%);
-      transition: transform var(--transition-med);
+      max-width: 520px;
+      background: radial-gradient(circle at top left, #163824 0, #071a10 55%, #020806 100%);
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+      padding: 14px 16px 12px;
+      max-height: 90vh;
+      overflow: auto;
     }
 
-    .overlay-base.visible .sheet-base {
-      transform: translateY(0);
-    }
-
-    .sheet-handle {
-      width: 40px;
-      height: 4px;
-      border-radius: 999px;
-      background: #e5e7eb;
-      margin: 0 auto 8px;
-    }
-
-    .sheet-header {
+    .modal-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -753,1412 +703,1495 @@
       gap: 8px;
     }
 
-    .sheet-title {
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+    .modal-title {
+      font-size: 15px;
+      font-weight: 600;
     }
 
-    .sheet-subtitle {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .version-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      max-height: 260px;
-      overflow-y: auto;
-      padding-right: 2px;
-      font-size: 0.78rem;
-    }
-
-    .version-item {
-      border-radius: 16px;
-      border: 1px solid var(--border-soft);
-      background: #f9fbf9;
-      padding: 7px 8px;
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .version-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .version-meta span.label {
-      color: var(--text-muted);
-    }
-
-    .version-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      align-items: flex-end;
-    }
-
-    .editor-content {
-      margin-top: 6px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-      gap: 10px;
-    }
-
-    @media (max-width: 720px) {
-      .editor-content {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .editor-fields {
+    .modal-body {
       display: flex;
       flex-direction: column;
       gap: 8px;
+      font-size: 12px;
+      color: var(--color-text-soft);
     }
 
-    .editor-field label {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      display: block;
-      margin-bottom: 2px;
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 8px;
     }
 
-    .editor-field input,
-    .editor-field textarea {
-      width: 100%;
-      padding: 8px 9px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--border-soft);
-      background: #f9fbf9;
-      color: var(--text-main);
-      font-size: 0.8rem;
-    }
-
-    .editor-field textarea {
-      min-height: 70px;
-      resize: vertical;
-    }
-
-    .editor-photo-preview {
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--border-soft);
-      background: #f9fbf9;
+    .form-group {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      padding: 6px;
+      gap: 3px;
     }
 
-    .editor-photo-preview img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 12px;
+    .form-group label {
+      font-size: 11px;
+      color: var(--color-text-soft);
     }
 
-    .editor-photo-caption {
-      font-size: 0.75rem;
-      color: var(--text-muted);
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(4, 19, 11, 0.95);
+      color: var(--color-text);
+      padding: 6px 8px;
+      font-size: 12px;
+      font-family: var(--font-sans);
+      resize: vertical;
+      min-height: 32px;
     }
 
-    .editor-actions {
+    .form-group textarea {
+      min-height: 70px;
+    }
+
+    .modal-footer {
       display: flex;
       justify-content: flex-end;
       gap: 8px;
       margin-top: 10px;
     }
 
-    /* FAB */
+    /* History modal */
 
-    .fab-container {
-      position: fixed;
-      right: 18px;
-      bottom: 22px;
-      z-index: 900;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-    }
-
-    .fab-menu {
+    .history-list {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      transform: translateY(10px);
-      opacity: 0;
-      pointer-events: none;
-      transition: all var(--transition-med);
+      margin-top: 4px;
     }
 
-    .fab-menu.visible {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .fab-menu-item {
-      padding: 6px 10px;
-      border-radius: var(--radius-pill);
-      background: #ffffff;
-      border: 1px solid var(--border-soft);
-      color: var(--text-main);
-      font-size: 0.78rem;
-      display: inline-flex;
+    .history-item {
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(4, 19, 11, 0.9);
+      padding: 6px 8px;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
       gap: 6px;
-      cursor: pointer;
-      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+      font-size: 11px;
     }
 
-    .fab {
-      width: 56px;
-      height: 56px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, var(--primary), #4caf50);
-      color: #ffffff;
+    .history-meta {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 14px 32px rgba(46, 125, 50, 0.5);
-      font-size: 1.4rem;
-      border: none;
-      cursor: pointer;
-      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      flex-direction: column;
+      gap: 2px;
     }
 
-    .fab:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 18px 40px rgba(46, 125, 50, 0.6);
+    .history-label {
+      font-weight: 500;
+      color: var(--color-accent);
     }
 
-    .fab-icon-rotated {
-      transform: rotate(45deg);
+    .history-time {
+      color: var(--color-text-soft);
+      opacity: 0.9;
     }
 
-    /* Map sheet */
+    /* Small helpers */
 
-    .map-placeholder {
-      border-radius: 18px;
-      border: 1px dashed var(--border-soft);
-      background: #f9fbf9;
-      height: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      text-align: center;
-      padding: 10px;
+    .muted {
+      opacity: 0.8;
     }
 
-    .scroll-soft {
-      scrollbar-width: thin;
-      scrollbar-color: rgba(209, 223, 210, 0.9) transparent;
+    .nowrap {
+      white-space: nowrap;
     }
 
-    .scroll-soft::-webkit-scrollbar {
-      width: 6px;
-    }
+    @media (max-width: 720px) {
+      .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
 
-    .scroll-soft::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .scroll-soft::-webkit-scrollbar-thumb {
-      background: rgba(209, 223, 210, 0.9);
-      border-radius: 999px;
+      .top-bar-right {
+        align-self: stretch;
+        justify-content: flex-end;
+      }
     }
   </style>
 </head>
 <body>
   <div class="app-shell">
-    <header>
-      <div class="title-block">
-        <div class="title-row">
-          <h1>🌿 Dordogne Trip Planner</h1>
-          <div class="trip-pill">
-            <span class="dot"></span>
-            <span>Family · 23–29 June 2026 · Saint‑Julien‑de‑Lampon</span>
-          </div>
-        </div>
-        <div class="subtitle">
-          A modern, app‑like planner with sliding days, cards, and local version history.
-        </div>
-      </div>
-      <div class="top-actions">
-        <button class="btn-tonal btn" id="btnMapToday">🗺 Map today’s restaurants</button>
-        <button class="btn btn-tonal" id="btnHistoryToggle">🕒 Version history</button>
-      </div>
-    </header>
-
-    <div class="layout">
-      <!-- LEFT: Itinerary -->
-      <div class="card">
-        <div class="card-header">
-          <div>
-            <div class="card-title">
-              Itinerary
-              <span class="badge">Green Forest · App‑like</span>
+    <div class="app-inner">
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <div class="app-icon">D</div>
+          <div class="app-title-block">
+            <div class="app-title">
+              Dordogne Trip Planner
+              <span class="badge">Material You · Green Forest</span>
             </div>
-            <div class="card-subtitle">
-              Slide through days, tap cards, and edit with friendly bottom sheets.
+            <div class="app-subtitle">
+              <span>Saint-Julien · Sarlat base · 23–29 June 2026</span>
+              <span class="pill">Family · 2 adults + kids 6, 9, 9</span>
             </div>
           </div>
         </div>
-
-        <div class="day-slider-wrapper">
-          <div class="day-slider" id="daySlider"></div>
-          <div class="day-slider-controls">
-            <button id="dayPrev">◀ Previous</button>
-            <span id="dayLabelCurrent"></span>
-            <button id="dayNext">Next ▶</button>
-          </div>
-        </div>
-
-        <div id="dayContent"></div>
-      </div>
-
-      <!-- RIGHT: Info / Tips -->
-      <div class="card">
-        <div class="card-header">
-          <div>
-            <div class="card-title">
-              Trip info
-              <span class="badge">Local & GitHub‑ready</span>
-            </div>
-            <div class="card-subtitle">
-              Everything you change stays on this device. Perfect for a simple GitHub Pages app.
-            </div>
-          </div>
-        </div>
-
-        <div class="info-section">
-          <div class="info-section-title">
+        <div class="top-bar-right">
+          <button class="btn btn-ghost btn-small" id="btnMapFocus">
+            <span class="icon">🗺️</span>
+            Map today
+          </button>
+          <button class="btn btn-ghost btn-small" id="btnHistory">
+            <span class="icon">🕒</span>
+            Versions
+          </button>
+          <button class="btn btn-danger btn-small" id="btnReset">
+            <span class="icon">↺</span>
+            Reset to default
+          </button>
+          <button class="btn btn-primary btn-small" id="btnSaveSnapshot">
             <span class="icon">💾</span>
-            Persistence
-          </div>
-          <div>• <strong>Local only:</strong> All edits are stored in your browser (localStorage).</div>
-          <div>• <strong>GitHub Pages:</strong> Commit this file and enable Pages—no backend needed.</div>
-          <div>• <strong>Snapshots:</strong> Use the floating “+” menu to save and restore versions.</div>
+            Save snapshot
+          </button>
         </div>
+      </header>
 
-        <div class="info-section">
-          <div class="info-section-title">
-            <span class="icon">✨</span>
-            How to use
-          </div>
-          <div>1. Slide the day row and tap a day card.</div>
-          <div>2. Tap “✏️ Edit” on an activity or restaurant to adjust details.</div>
-          <div>3. Use the “+” button (bottom‑right) to add items, save snapshots, or reset.</div>
-          <div>4. Use “Map today’s restaurants” to open Google Maps with today’s picks.</div>
+      <section class="day-strip-wrapper">
+        <div class="day-strip-label">
+          <span>Trip days</span>
+          <span class="muted" id="dayStripHint">Swipe / scroll to browse days</span>
         </div>
+        <div class="day-strip" id="dayStrip"></div>
+      </section>
 
-        <div class="info-section">
-          <div class="info-section-title">
-            <span class="icon">💡</span>
-            Tips
+      <main class="content">
+        <section class="column">
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title-block">
+                <div class="section-title">Today overview</div>
+                <div class="section-subtitle" id="dayOverviewSubtitle"></div>
+              </div>
+              <div class="section-actions">
+                <button class="btn btn-ghost btn-small" id="btnSoftDay">
+                  <span class="icon">🌿</span>
+                  Make it softer
+                </button>
+              </div>
+            </div>
+            <div class="day-summary">
+              <div class="day-summary-title" id="daySummaryTitle"></div>
+              <div class="day-summary-tags" id="daySummaryTags"></div>
+              <div class="day-summary-desc" id="daySummaryDesc"></div>
+            </div>
           </div>
-          <div>• Keep it light: you don’t need to fill every field.</div>
-          <div>• Use snapshots before big changes, so you can roll back easily.</div>
-          <div>• Treat this like a personal travel app—simple, visual, and forgiving.</div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title-block">
+                <div class="section-title">Activities</div>
+                <div class="section-subtitle">
+                  Bookable experiences with links & costs per adult / child
+                </div>
+              </div>
+              <div class="section-actions">
+                <button class="btn btn-ghost btn-small" id="btnAddActivity">
+                  <span class="icon">＋</span>
+                  Add activity
+                </button>
+              </div>
+            </div>
+            <div class="card-grid" id="activitiesGrid"></div>
+            <div class="fab-row">
+              <button class="fab" id="btnAddActivityFab">
+                <span class="icon">➕</span>
+                New activity for this day
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="column">
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title-block">
+                <div class="section-title">Restaurants & food</div>
+                <div class="section-subtitle">
+                  Family-friendly options near today’s plan (with working links)
+                </div>
+              </div>
+              <div class="section-actions">
+                <button class="btn btn-ghost btn-small" id="btnAddRestaurant">
+                  <span class="icon">＋</span>
+                  Add restaurant
+                </button>
+              </div>
+            </div>
+            <div class="card-grid" id="restaurantsGrid"></div>
+            <div class="fab-row">
+              <button class="fab" id="btnAddRestaurantFab">
+                <span class="icon">➕</span>
+                New restaurant for this day
+              </button>
+            </div>
+          </div>
+
+          <div class="section map-section">
+            <div class="section-header">
+              <div class="section-title-block">
+                <div class="section-title">Map view</div>
+                <div class="section-subtitle" id="mapSubtitle">
+                  Focus on today’s area and main activities
+                </div>
+              </div>
+              <div class="section-actions">
+                <button class="btn btn-ghost btn-icon btn-small" id="btnMapToday">
+                  <span class="icon">📍</span>
+                </button>
+              </div>
+            </div>
+            <div class="map-frame">
+              <iframe
+                id="mapFrame"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDUMMYKEY&q=Sarlat-la-Canéda+Dordogne+France"
+              ></iframe>
+            </div>
+            <div class="info-list">
+              <div class="info-item">
+                <span class="icon">💡</span>
+                <div>
+                  Tap any booking link on a card to open the official site or a Google Maps search in a new tab.
+                </div>
+              </div>
+              <div class="info-item">
+                <span class="icon">🧾</span>
+                <div>
+                  Prices are indicative per adult / child (your kids: 6, 9, 9). Always check the official site for
+                  current rates.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Activity modal -->
+  <div class="modal-backdrop" id="activityModalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="activityModalTitle">Edit activity</div>
+        <button class="btn btn-ghost btn-icon btn-small" id="activityModalClose">
+          <span class="icon">✕</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="activityTimeOfDay">Time of day</label>
+            <input id="activityTimeOfDay" type="text" placeholder="Morning, afternoon, evening…" />
+          </div>
+          <div class="form-group">
+            <label for="activityType">Type</label>
+            <select id="activityType">
+              <option value="Explore">Explore</option>
+              <option value="Relax">Relax</option>
+              <option value="Practical">Practical</option>
+              <option value="Culture">Culture</option>
+              <option value="Adventure">Adventure</option>
+              <option value="Prehistory">Prehistory</option>
+              <option value="Big day">Big day</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="activityLocation">Location / base town</label>
+            <input id="activityLocation" type="text" placeholder="Sarlat, Vitrac, Rocamadour…" />
+          </div>
+          <div class="form-group">
+            <label for="activityBookingUrl">Booking / info URL</label>
+            <input id="activityBookingUrl" type="url" placeholder="https://…" />
+          </div>
         </div>
+        <div class="form-group">
+          <label for="activityTitle">Title</label>
+          <input id="activityTitle" type="text" placeholder="Canoe on the Dordogne, Lascaux IV tour…" />
+        </div>
+        <div class="form-group">
+          <label for="activityDescription">Description</label>
+          <textarea
+            id="activityDescription"
+            placeholder="Short description of what you’ll actually do, in kid-friendly language."
+          ></textarea>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="activityPriceAdult">Price per adult (€)</label>
+            <input id="activityPriceAdult" type="number" step="0.5" min="0" />
+          </div>
+          <div class="form-group">
+            <label for="activityPriceChild">Price per child (€)</label>
+            <input id="activityPriceChild" type="number" step="0.5" min="0" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="activityNotes">Notes (optional)</label>
+          <textarea
+            id="activityNotes"
+            placeholder="Timing tips, what to bring, backup options…"
+          ></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-ghost btn-small" id="activityModalCancel">Cancel</button>
+        <button class="btn btn-primary btn-small" id="activityModalSave">
+          <span class="icon">💾</span>
+          Save activity
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- FAB -->
-  <div class="fab-container">
-    <div class="fab-menu" id="fabMenu">
-      <div class="fab-menu-item" id="fabAddActivity">➕ Add activity</div>
-      <div class="fab-menu-item" id="fabAddRestaurant">➕ Add restaurant</div>
-      <div class="fab-menu-item" id="fabSaveSnapshot">💾 Save snapshot</div>
-      <div class="fab-menu-item" id="fabReset">♻️ Reset to default</div>
-    </div>
-    <button class="fab" id="fabMain">
-      <span id="fabIcon">＋</span>
-    </button>
-  </div>
-
-  <!-- History bottom sheet -->
-  <div id="historyOverlay" class="overlay-base">
-    <div class="sheet-base">
-      <div class="sheet-handle"></div>
-      <div class="sheet-header">
-        <div>
-          <div class="sheet-title">Version history</div>
-          <div class="sheet-subtitle">
-            Snapshots are stored locally. Restore or delete them here.
+  <!-- Restaurant modal -->
+  <div class="modal-backdrop" id="restaurantModalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="restaurantModalTitle">Edit restaurant</div>
+        <button class="btn btn-ghost btn-icon btn-small" id="restaurantModalClose">
+          <span class="icon">✕</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="restaurantName">Name</label>
+            <input id="restaurantName" type="text" placeholder="Family bistro, crêperie, terrace…" />
+          </div>
+          <div class="form-group">
+            <label for="restaurantLocation">Location</label>
+            <input id="restaurantLocation" type="text" placeholder="Sarlat old town, La Roque-Gageac…" />
+          </div>
+          <div class="form-group">
+            <label for="restaurantCuisine">Style / cuisine</label>
+            <input id="restaurantCuisine" type="text" placeholder="Casual, crêpes, local Périgord…" />
+          </div>
+          <div class="form-group">
+            <label for="restaurantUrl">Maps / booking URL</label>
+            <input id="restaurantUrl" type="url" placeholder="https://www.google.com/maps/search/…" />
           </div>
         </div>
-        <button class="btn" id="historyClose">Close</button>
-      </div>
-      <div class="version-list scroll-soft" id="versionList"></div>
-    </div>
-  </div>
-
-  <!-- Editor bottom sheet -->
-  <div id="editorOverlay" class="overlay-base">
-    <div class="sheet-base">
-      <div class="sheet-handle"></div>
-      <div class="sheet-header">
-        <div class="sheet-title" id="editorTitle"></div>
-        <button class="btn" id="editorClose">Close</button>
-      </div>
-      <div class="editor-content">
-        <div class="editor-fields" id="editorFields"></div>
-        <div class="editor-photo-preview" id="editorPhotoPreview" style="display:none;">
-          <img id="editorPhotoImg" src="" alt="Preview" />
-          <div class="editor-photo-caption">
-            Photo preview. Paste a new URL to change the image.
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="restaurantPriceRange">Price range</label>
+            <input id="restaurantPriceRange" type="text" placeholder="€€ · mid-range, etc." />
+          </div>
+          <div class="form-group">
+            <label for="restaurantNotes">Notes</label>
+            <input id="restaurantNotes" type="text" placeholder="Kid-friendly, terrace, reservations recommended…" />
           </div>
         </div>
       </div>
-      <div class="editor-actions">
-        <button class="btn" id="editorCancel">Cancel</button>
-        <button class="btn-primary btn" id="editorSave">Save</button>
+      <div class="modal-footer">
+        <button class="btn btn-ghost btn-small" id="restaurantModalCancel">Cancel</button>
+        <button class="btn btn-primary btn-small" id="restaurantModalSave">
+          <span class="icon">💾</span>
+          Save restaurant
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Map bottom sheet -->
-  <div id="mapOverlay" class="overlay-base">
-    <div class="sheet-base">
-      <div class="sheet-handle"></div>
-      <div class="sheet-header">
-        <div>
-          <div class="sheet-title">Map today’s restaurants</div>
-          <div class="sheet-subtitle">
-            Open all of today’s restaurants in Google Maps or copy the search query.
-          </div>
-        </div>
-        <button class="btn" id="mapClose">Close</button>
+  <!-- History modal -->
+  <div class="modal-backdrop" id="historyModalBackdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title">Version history</div>
+        <button class="btn btn-ghost btn-icon btn-small" id="historyModalClose">
+          <span class="icon">✕</span>
+        </button>
       </div>
-      <div class="map-placeholder" id="mapPlaceholder">
-        Map embedding is optional. For now, we’ll open Google Maps with a search query containing all restaurants for the selected day.
-      </div>
-      <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
-        <button class="btn-primary btn" id="mapOpenExternal">Open in Google Maps</button>
-        <button class="btn-tonal btn" id="mapCopyQuery">Copy search query</button>
-        <div style="font-size:0.75rem;color:var(--text-muted);" id="mapQueryText"></div>
+      <div class="modal-body">
+        <p class="muted">
+          Snapshots are stored only in this browser (localStorage). Perfect for GitHub Pages: just commit this single
+          HTML file.
+        </p>
+        <div class="history-list" id="historyList"></div>
+        <p class="muted" id="historyEmptyMessage" style="display: none;">
+          No snapshots yet. Use “Save snapshot” in the top bar after you tweak the plan.
+        </p>
       </div>
     </div>
   </div>
 
   <script>
-    // ---------- DEFAULT DATA ----------
-    const defaultData = {
+    // ---------- Data model ----------
+
+    const STORAGE_KEY = "dordogneTripDataV3";
+    const HISTORY_KEY = "dordogneTripHistoryV3";
+
+    const defaultTripData = {
       days: [
         {
-          id: "2026-06-23",
+          id: 1,
           label: "Day 1",
-          dateLabel: "23 Jun",
-          title: "Arrival & settling in",
-          notes: "Easy day. Pool, groceries, short walk nearby.",
-          tags: ["Soft landing", "Pool", "Groceries"],
+          date: "2026-06-23",
+          title: "Arrive & Sarlat old town",
+          vibeTags: ["Soft landing", "Old town", "Terrace dinner"],
+          description:
+            "Arrive via Bordeaux, drive to Sarlat, stock up at a supermarket, then wander the medieval streets and finish with an easy terrace dinner.",
+          area: "Sarlat-la-Canéda",
+          mapQuery: "Sarlat-la-Canéda Dordogne France",
           activities: [
             {
-              id: "a1",
-              time: "Afternoon",
-              title: "Arrive at house & explore",
-              details: "Unpack, kids in the pool, quick tour of the house and garden.",
-              type: "Relax",
-              link: "",
-              price: ""
+              id: "1-1",
+              timeOfDay: "Morning / arrival",
+              type: "Practical",
+              title: "Arrival & supermarket stop",
+              location: "Sarlat area (Intermarché / Leclerc)",
+              description:
+                "Drive from Bordeaux (~2 hours), check in, then do a big supermarket run for breakfasts, snacks and simple dinners.",
+              bookingUrl:
+                "https://www.google.com/maps/search/supermarch%C3%A9+Sarlat-la-Can%C3%A9da",
+              priceAdult: 0,
+              priceChild: 0,
+              notes: "No booking needed. Just aim to arrive before late afternoon to avoid tired kids."
             },
             {
-              id: "a2",
-              time: "Late afternoon",
-              title: "Groceries in nearby town",
-              details: "Stock up for breakfast, snacks, and easy dinners.",
-              type: "Practical",
-              link: "",
-              price: ""
+              id: "1-2",
+              timeOfDay: "Afternoon",
+              type: "Explore",
+              title: "Sarlat medieval center walk",
+              location: "Sarlat old town",
+              description:
+                "Stroll the narrow streets, golden stone houses, the Lantern of the Dead and Saint-Sacerdos cathedral. Let the kids explore passages and squares at their own pace.",
+              bookingUrl:
+                "https://www.sarlat-tourisme.com/en/discover-sarlat-and-perigord-noir/",
+              priceAdult: 0,
+              priceChild: 0,
+              notes: "Mostly free; just parking costs. Great low-pressure way to stretch legs after travel."
+            },
+            {
+              id: "1-3",
+              timeOfDay: "Late afternoon",
+              type: "Culture",
+              title: "Sainte-Marie church glass elevator",
+              location: "Sarlat (covered market)",
+              description:
+                "Take the glass elevator up the former church tower for panoramic views over Sarlat. Kids usually love the ‘tower ride’.",
+              bookingUrl:
+                "https://www.sarlat-tourisme.com/en/discover-sarlat-and-perigord-noir/the-glass-elevator-of-sainte-marie-church/",
+              priceAdult: 5,
+              priceChild: 3,
+              notes: "Check opening times; sometimes combined with market hours."
             }
           ],
           restaurants: [
             {
-              id: "r_le_saint_jus",
-              name: "Le Saint Jus",
-              town: "Saint‑Julien‑de‑Lampon",
-              style: "Bistrot / Brasserie",
-              url: "https://www.facebook.com/lesaintjus/",
-              phone: "05 53 29 47 41",
-              price: "Menu €13.50–16.50",
-              reviewScore: "4.5",
-              reviewCount: "120",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
-              notes: "Friendly local bistrot; good for arrival evening."
+              id: "r1-1",
+              name: "Terrace dinner in Sarlat old town",
+              location: "Sarlat center",
+              cuisine: "Casual · local Périgord · kid-friendly",
+              priceRange: "€€ · mid-range",
+              url: "https://www.google.com/maps/search/family+restaurant+terrace+Sarlat-la-Can%C3%A9da",
+              notes: "Pick any terrace that looks relaxed; avoid very late seatings with kids."
             }
           ]
         },
         {
-          id: "2026-06-24",
+          id: 2,
           label: "Day 2",
-          dateLabel: "24 Jun",
-          title: "Beynac & river views",
-          notes: "Castle + village + easy food options.",
-          tags: ["Castle", "Village", "Views"],
+          date: "2026-06-24",
+          title: "Dordogne river & castles",
+          vibeTags: ["River", "Castles", "Canoe"],
+          description:
+            "Canoe on the Dordogne in the morning, then explore the medieval fortress of Castelnaud and, if energy allows, La Roque-Gageac.",
+          area: "Cénac · Beynac · La Roque-Gageac",
+          mapQuery: "Cenac-et-Saint-Julien Dordogne canoe Beynac",
           activities: [
             {
-              id: "a3",
-              time: "Morning",
-              title: "Château de Beynac",
-              details: "Explore the castle, views over the Dordogne. Good for kids who like knights.",
-              type: "Castle",
-              link: "https://www.beynac.com/en/",
-              price: "Entry ~€9 adult, ~€6 child"
+              id: "2-1",
+              timeOfDay: "Morning",
+              type: "Adventure",
+              title: "Canoe Cénac → Beynac (castles route)",
+              location: "Cénac-et-Saint-Julien (canoe base)",
+              description:
+                "Family-friendly 8–10 km canoe trip with views of Castelnaud, Beynac and Marqueyssac from the water. Kids can paddle a bit and stop on river beaches.",
+              bookingUrl: "https://www.canoerando-dordogne.com/",
+              priceAdult: 19,
+              priceChild: 12,
+              notes:
+                "Book a morning slot; life jackets provided. Bring water shoes, sun protection and a dry bag."
             },
             {
-              id: "a4",
-              time: "Afternoon",
-              title: "Stroll through Beynac village",
-              details: "Ice cream, short wander, maybe a quick drink with a view.",
-              type: "Walk",
-              link: "",
-              price: "Ice cream / drinks as you go"
+              id: "2-2",
+              timeOfDay: "Afternoon",
+              type: "Culture",
+              title: "Château de Castelnaud (war museum)",
+              location: "Castelnaud-la-Chapelle",
+              description:
+                "Explore the medieval fortress, war machines and hands-on exhibits. Great for 9-year-olds who like ‘weapons and knights’.",
+              bookingUrl: "https://castelnaud.com/en/",
+              priceAdult: 13,
+              priceChild: 8,
+              notes:
+                "Look for family tours and trebuchet demos in summer. Combine with a simple snack break."
+            },
+            {
+              id: "2-3",
+              timeOfDay: "Evening (optional)",
+              type: "Explore",
+              title: "La Roque-Gageac stroll & ice cream",
+              location: "La Roque-Gageac",
+              description:
+                "Short walk through the cliffside village, with an ice cream stop if the kids still have energy after the canoe and castle.",
+              bookingUrl:
+                "https://www.google.com/maps/search/La+Roque-Gageac+village",
+              priceAdult: 0,
+              priceChild: 0,
+              notes: "Keep this flexible; you can always skip if everyone is tired."
             }
           ],
           restaurants: [
             {
-              id: "r_la_petite_tonnelle",
-              name: "La Petite Tonnelle",
-              town: "Beynac‑et‑Cazenac",
-              style: "Traditional French",
-              url: "https://www.la-petite-tonnelle.fr/",
-              phone: "05 53 29 95 18",
-              price: "Menu €19.50–46",
-              reviewScore: "4.6",
-              reviewCount: "500",
-              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
-              notes: "Cozy, very good food; reservation advised."
+              id: "r2-1",
+              name: "Lunch near the canoe base",
+              location: "Cénac / Vitrac area",
+              cuisine: "Snack bar · simple lunch",
+              priceRange: "€ · budget-friendly",
+              url: "https://www.google.com/maps/search/snack+bar+cano%C3%AB+C%C3%A9nac+Vitrac",
+              notes: "Many bases have simple food; otherwise picnic on a river beach."
             },
             {
-              id: "r_le_donjon",
-              name: "Le Donjon",
-              town: "Beynac‑et‑Cazenac",
-              style: "Family‑friendly near castle",
-              url: "https://www.facebook.com/ledonjonbeynac/",
-              phone: "05 53 29 28 49",
-              price: "Menu €12.50–16 · Child €9",
-              reviewScore: "4.3",
-              reviewCount: "250",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
-              notes: "Simple, good with kids right by the castle entrance."
-            },
-            {
-              id: "r_la_taverne_des_remparts",
-              name: "La Taverne des Remparts",
-              town: "Beynac‑et‑Cazenac",
-              style: "Bistro with castle view",
-              url: "https://www.facebook.com/latavernedesremparts/",
-              phone: "",
-              price: "",
-              reviewScore: "",
-              reviewCount: "",
-              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
-              notes: "Terrace at the foot of the château; relaxed, good with kids."
+              id: "r2-2",
+              name: "Dinner with castle views",
+              location: "La Roque-Gageac or Beynac",
+              cuisine: "Terrace · local dishes",
+              priceRange: "€€ · mid-range",
+              url: "https://www.google.com/maps/search/restaurant+terrace+La+Roque-Gageac",
+              notes: "Aim for an early dinner so kids can wind down after a big day."
             }
           ]
         },
         {
-          id: "2026-06-25",
+          id: 3,
           label: "Day 3",
-          dateLabel: "25 Jun",
-          title: "La Roque‑Gageac & river",
-          notes: "Village + possible boat/canoe.",
-          tags: ["Village", "River"],
+          date: "2026-06-25",
+          title: "Marqueyssac gardens & Domme",
+          vibeTags: ["Views", "Gardens", "River beach"],
+          description:
+            "Topiary gardens with panoramic views in the morning, then Domme hilltop village and a cool-down at a river beach or lake.",
+          area: "Marqueyssac · Domme · Caudon / Groléjac",
+          mapQuery: "Jardins de Marqueyssac Domme Caudon beach",
           activities: [
             {
-              id: "a5",
-              time: "Morning",
-              title: "La Roque‑Gageac walk",
-              details: "Stroll the village, maybe the exotic garden if energy allows.",
-              type: "Walk",
-              link: "",
-              price: ""
+              id: "3-1",
+              timeOfDay: "Morning",
+              type: "Explore",
+              title: "Jardins de Marqueyssac",
+              location: "Vézac (near La Roque-Gageac)",
+              description:
+                "Walk the shaded topiary paths with huge views over the Dordogne valley and castles. There are play areas and small adventure paths kids love.",
+              bookingUrl: "https://www.marqueyssac.com/en/",
+              priceAdult: 12,
+              priceChild: 6,
+              notes:
+                "Arrive early for cooler temperatures. Check if any kids’ workshops or special events are running."
             },
             {
-              id: "a6",
-              time: "Afternoon",
-              title: "Boat or canoe (optional)",
-              details: "Short gabare cruise or easy canoe stretch if kids are up for it.",
-              type: "River",
-              link: "https://www.gabaresnorbert.com/",
-              price: "Gabare cruise ~€10–15 per person"
-            }
-          ],
-          restaurants: [
-            {
-              id: "r_la_belle_etoile",
-              name: "La Belle Étoile",
-              town: "La Roque‑Gageac",
-              style: "Refined · terrace by the river",
-              url: "https://belleetoile24.fr/",
-              phone: "05 53 29 51 44",
-              price: "Menu ~€31",
-              reviewScore: "4.7",
-              reviewCount: "400",
-              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
-              notes: "Book weeks ahead in summer; more grown‑up, great view."
+              id: "3-2",
+              timeOfDay: "Afternoon",
+              type: "Culture",
+              title: "Domme village & viewpoint",
+              location: "Domme",
+              description:
+                "Explore the bastide village, viewpoint over the valley and, if open, the caves under the main square.",
+              bookingUrl: "https://www.domme.fr/decouvrir/la-grotte-de-domme/",
+              priceAdult: 9,
+              priceChild: 6,
+              notes:
+                "The caves are optional; you can just enjoy the viewpoint and a simple drink/ice cream."
             },
             {
-              id: "r_le_medieval",
-              name: "Le Médiéval",
-              town: "La Roque‑Gageac",
-              style: "Brasserie · terrace",
-              url: "https://www.facebook.com/restaurantlemedieval/",
-              phone: "",
-              price: "",
-              reviewScore: "",
-              reviewCount: "",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
-              notes: "Casual, good with kids after a boat ride."
-            }
-          ]
-        },
-        {
-          id: "2026-06-26",
-          label: "Day 4",
-          dateLabel: "26 Jun",
-          title: "Domme & viewpoints",
-          notes: "Hilltop village + views + easy food.",
-          tags: ["Village", "Viewpoint"],
-          activities: [
-            {
-              id: "a7",
-              time: "Morning",
-              title: "Domme viewpoint & village",
-              details: "Panoramic views over the Dordogne; wander the bastide streets.",
-              type: "View",
-              link: "",
-              price: ""
-            },
-            {
-              id: "a8",
-              time: "Optional",
-              title: "Domme caves",
-              details: "Short underground visit if kids are curious and not too tired.",
-              type: "Cave",
-              link: "",
-              price: ""
-            }
-          ],
-          restaurants: [
-            {
-              id: "r_cabanoix_chataigne",
-              name: "Cabanoix et Châtaigne",
-              town: "Domme",
-              style: "French · seasonal",
-              url: "https://www.cabanoixchataigne.fr/",
-              phone: "05 53 31 00 00",
-              price: "Menu €26–32",
-              reviewScore: "4.6",
-              reviewCount: "300",
-              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
-              notes: "Well‑reviewed; book ahead if you want a proper sit‑down meal."
-            },
-            {
-              id: "r_auberge_de_la_rode",
-              name: "Auberge de la Rode",
-              town: "Domme",
-              style: "French · terrace",
-              url: "https://www.facebook.com/aubergedelarode/",
-              phone: "05 53 28 36 97",
-              price: "~€30/person",
-              reviewScore: "4.4",
-              reviewCount: "200",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
-              notes: "Book ahead for high season; nice terrace and local dishes."
-            },
-            {
-              id: "r_le_belvedere",
-              name: "Le Belvédère",
-              town: "Domme",
-              style: "View restaurant · simple food",
-              url: "https://www.facebook.com/restaurant.lebelvedere.domme/",
-              phone: "05 53 31 12 01",
-              price: "Menu €18.50",
-              reviewScore: "4.0",
-              reviewCount: "350",
-              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
-              notes: "Big cliff view; food reviews mixed but setting is great."
-            }
-          ]
-        },
-        {
-          id: "2026-06-27",
-          label: "Day 5",
-          dateLabel: "27 Jun",
-          title: "Trémolat & river loop",
-          notes: "Cingle de Trémolat + relaxed lunch.",
-          tags: ["Scenic drive", "River"],
-          activities: [
-            {
-              id: "a9",
-              time: "Late morning",
-              title: "Cingle de Trémolat viewpoint",
-              details: "Scenic bend in the river; short stop, photos.",
-              type: "View",
-              link: "",
-              price: ""
-            }
-          ],
-          restaurants: [
-            {
-              id: "r_bistrot_de_la_place",
-              name: "Bistrot de la Place",
-              town: "Trémolat",
-              style: "Bistro · regional",
-              url: "https://www.vieux-logis.com/en/restaurant/bistrot-de-la-place/",
-              phone: "05 53 22 80 69",
-              price: "Menu €19–36",
-              reviewScore: "4.5",
-              reviewCount: "220",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
-              notes: "Classic Périgord dishes; good for a proper lunch."
-            }
-          ]
-        },
-        {
-          id: "2026-06-28",
-          label: "Day 6",
-          dateLabel: "28 Jun",
-          title: "Free / pool / repeats",
-          notes: "Keep it open—repeat favourites or just stay by the pool.",
-          tags: ["Flexible", "Pool"],
-          activities: [
-            {
-              id: "a10",
-              time: "Flexible",
-              title: "Pool day & games",
-              details: "Let the kids choose; maybe a short outing if everyone feels like it.",
+              id: "3-3",
+              timeOfDay: "Late afternoon",
               type: "Relax",
-              link: "",
-              price: ""
+              title: "River beach or lake swim",
+              location: "Caudon beach or Groléjac lake",
+              description:
+                "Cool off with supervised swimming, sand and often inflatables in high summer. Perfect decompression after sightseeing.",
+              bookingUrl:
+                "https://www.google.com/maps/search/plage+Caudon+ou+Grol%C3%A9jac+lac",
+              priceAdult: 0,
+              priceChild: 0,
+              notes:
+                "Check local info for lifeguard hours and parking. Bring water shoes and towels."
             }
           ],
           restaurants: [
             {
-              id: "r_repeat_favourite",
-              name: "Repeat a favourite",
-              town: "Open",
-              style: "Your choice",
-              url: "",
-              phone: "",
-              price: "",
-              reviewScore: "",
-              reviewCount: "",
-              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
-              notes: "Decide based on what you loved most earlier in the week."
+              id: "r3-1",
+              name: "Lunch at Marqueyssac café",
+              location: "On-site at Jardins de Marqueyssac",
+              cuisine: "Light lunch · snacks",
+              priceRange: "€€ · mid-range",
+              url: "https://www.marqueyssac.com/en/restaurant-tea-room/",
+              notes: "Simple, convenient; or bring a picnic to eat in designated areas."
+            },
+            {
+              id: "r3-2",
+              name: "Domme terrace drink / ice cream",
+              location: "Domme main square",
+              cuisine: "Café · ice cream",
+              priceRange: "€ · budget",
+              url: "https://www.google.com/maps/search/caf%C3%A9+terrace+Domme",
+              notes: "Nice pause before heading to the water."
             }
           ]
         },
         {
-          id: "2026-06-29",
-          label: "Day 7",
-          dateLabel: "29 Jun",
-          title: "Departure",
-          notes: "Pack, last swim, easy drive out.",
-          tags: ["Departure"],
+          id: 4,
+          label: "Day 4",
+          date: "2026-06-26",
+          title: "Prehistory day",
+          vibeTags: ["Prehistory", "Caves", "Hands-on"],
+          description:
+            "Choose between Lascaux IV or Rouffignac in the morning, then pair with Le Thot or Roque Saint-Christophe for a very visual, kid-friendly prehistory day.",
+          area: "Montignac · Rouffignac · Le Thot / Roque Saint-Christophe",
+          mapQuery: "Lascaux IV Montignac Le Thot Roque Saint-Christophe",
           activities: [
             {
-              id: "a11",
-              time: "Morning",
-              title: "Pack & quick swim",
-              details: "Final dip in the pool if timing allows.",
-              type: "Practical",
-              link: "",
-              price: ""
+              id: "4-1",
+              timeOfDay: "Morning",
+              type: "Prehistory",
+              title: "Lascaux IV (or Rouffignac cave)",
+              location: "Montignac (or Rouffignac)",
+              description:
+                "Lascaux IV offers a spectacular reproduction of the prehistoric cave with multimedia and guided tours. Rouffignac is a real cave with a small train and engravings—more ‘adventurous’.",
+              bookingUrl: "https://www.lascaux.fr/en",
+              priceAdult: 22,
+              priceChild: 14,
+              notes:
+                "Book timed tickets in advance. If your kids prefer a train ride and a bit less structure, consider Rouffignac instead."
+            },
+            {
+              id: "4-2",
+              timeOfDay: "Afternoon",
+              type: "Prehistory",
+              title: "Le Thot park (or Roque Saint-Christophe)",
+              location: "Le Thot (Thonac) or Roque Saint-Christophe",
+              description:
+                "Le Thot combines a small prehistory park, animals and workshops. Roque Saint-Christophe is a dramatic troglodyte cliff village explaining life in prehistoric and medieval times.",
+              bookingUrl: "https://www.le-thot.com/en",
+              priceAdult: 11,
+              priceChild: 7,
+              notes:
+                "If you choose Lascaux IV, Le Thot pairs perfectly. If you choose Rouffignac, Roque Saint-Christophe is a great visual follow-up."
+            },
+            {
+              id: "4-3",
+              timeOfDay: "Evening",
+              type: "Relax",
+              title: "Simple dinner & crêpes in Sarlat",
+              location: "Sarlat old town",
+              description:
+                "Back to Sarlat for a simple dinner and maybe a short walk for crêpes if the kids still have energy.",
+              bookingUrl:
+                "https://www.google.com/maps/search/cr%C3%AAperie+Sarlat-la-Can%C3%A9da",
+              priceAdult: 0,
+              priceChild: 0,
+              notes: "Keep it easy after a big learning day."
             }
           ],
           restaurants: [
             {
-              id: "r_departure",
-              name: "Simple stop on the road",
-              town: "En route",
-              style: "Very flexible",
-              url: "",
-              phone: "",
-              price: "",
-              reviewScore: "",
-              reviewCount: "",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
-              notes: "No pressure—just keep it easy."
+              id: "r4-1",
+              name: "Lunch near Lascaux IV",
+              location: "Montignac",
+              cuisine: "Casual · family-friendly",
+              priceRange: "€€ · mid-range",
+              url: "https://www.google.com/maps/search/restaurant+family+friendly+Montignac+Lascaux",
+              notes: "Book if you have a tight timed entry; otherwise picnic by the river."
+            },
+            {
+              id: "r4-2",
+              name: "Crêperie in Sarlat",
+              location: "Sarlat center",
+              cuisine: "Crêpes · kid-pleaser",
+              priceRange: "€€ · mid-range",
+              url: "https://www.google.com/maps/search/cr%C3%AAperie+Sarlat-la-Can%C3%A9da",
+              notes: "Great reward after a full prehistory day."
+            }
+          ]
+        },
+        {
+          id: 5,
+          label: "Day 5",
+          date: "2026-06-27",
+          title: "Rocamadour & Padirac (big excursion)",
+          vibeTags: ["Big day", "Caves", "Clifftop village"],
+          description:
+            "Longest driving day: Padirac chasm with underground boat ride in the morning, then Rocamadour clifftop village and optional Monkey Forest or bird of prey show.",
+          area: "Padirac · Rocamadour",
+          mapQuery: "Gouffre de Padirac Rocamadour",
+          activities: [
+            {
+              id: "5-1",
+              timeOfDay: "Morning",
+              type: "Big day",
+              title: "Gouffre de Padirac (underground river)",
+              location: "Padirac",
+              description:
+                "Huge chasm with stairs/lifts down to an underground river boat ride and impressive chambers. Very memorable for kids.",
+              bookingUrl: "https://www.gouffre-de-padirac.com/en",
+              priceAdult: 22,
+              priceChild: 16,
+              notes:
+                "Book timed tickets well in advance. Bring a light jacket; it’s cool underground."
+            },
+            {
+              id: "5-2",
+              timeOfDay: "Afternoon",
+              type: "Explore",
+              title: "Rocamadour clifftop village",
+              location: "Rocamadour",
+              description:
+                "Explore the pilgrimage village with lifts/stairs and viewpoints. Optionally add Monkey Forest (La Forêt des Singes) or a bird of prey show if your kids like animals.",
+              bookingUrl: "https://www.rocamadour.com/en/",
+              priceAdult: 0,
+              priceChild: 0,
+              notes:
+                "Village itself is mostly free; attractions like Monkey Forest or shows have separate tickets."
+            },
+            {
+              id: "5-3",
+              timeOfDay: "Optional add-on",
+              type: "Adventure",
+              title: "Monkey Forest (La Forêt des Singes)",
+              location: "Near Rocamadour",
+              description:
+                "Walk among free-roaming Barbary macaques in a forest setting—usually a big hit with kids.",
+              bookingUrl: "https://www.la-foret-des-singes.com/en/",
+              priceAdult: 11.5,
+              priceChild: 7.5,
+              notes: "Check feeding times and opening hours; can be combined with Rocamadour visit."
+            }
+          ],
+          restaurants: [
+            {
+              id: "r5-1",
+              name: "Lunch near Padirac",
+              location: "Padirac area",
+              cuisine: "Simple · family-friendly",
+              priceRange: "€€ · mid-range",
+              url: "https://www.google.com/maps/search/restaurant+Padirac",
+              notes: "Allow buffer between lunch and your timed cave entry."
+            },
+            {
+              id: "r5-2",
+              name: "Early dinner near Rocamadour",
+              location: "Rocamadour",
+              cuisine: "Local dishes · terrace",
+              priceRange: "€€ · mid-range",
+              url: "https://www.google.com/maps/search/restaurant+family+friendly+Rocamadour",
+              notes: "Aim for an early dinner before the drive back to Sarlat."
+            }
+          ]
+        },
+        {
+          id: 6,
+          label: "Day 6",
+          date: "2026-06-28",
+          title: "Light day: Sarlat market & pool/park",
+          vibeTags: ["Market", "Pool", "Adventure park"],
+          description:
+            "Slow morning at Sarlat market, then pool time or a treetop adventure park. Evening stroll with street performances.",
+          area: "Sarlat · nearby adventure park",
+          mapQuery: "Sarlat market L'Appel de la Forêt",
+          activities: [
+            {
+              id: "6-1",
+              timeOfDay: "Morning",
+              type: "Explore",
+              title: "Sarlat market (ideally Saturday)",
+              location: "Sarlat center",
+              description:
+                "Browse stalls with local cheeses, strawberries, foie gras and nuts. Fun for kids to choose picnic supplies and small souvenirs.",
+              bookingUrl:
+                "https://www.sarlat-tourisme.com/en/discover-sarlat-and-perigord-noir/the-markets-of-sarlat/",
+              priceAdult: 0,
+              priceChild: 0,
+              notes: "Arrive early for easier parking and less heat."
+            },
+            {
+              id: "6-2",
+              timeOfDay: "Afternoon",
+              type: "Adventure",
+              title: "Treetop adventure park (L’Appel de la Forêt or similar)",
+              location: "Near Sarlat",
+              description:
+                "Ropes courses and ziplines with routes for children and adults. Great energy outlet after market browsing.",
+              bookingUrl: "https://www.appel-de-la-foret.com/",
+              priceAdult: 25,
+              priceChild: 18,
+              notes:
+                "Check minimum height/age for each course. Bring gloves if your hands are sensitive."
+            },
+            {
+              id: "6-3",
+              timeOfDay: "Evening",
+              type: "Relax",
+              title: "Sarlat evening & street performances",
+              location: "Sarlat old town",
+              description:
+                "Gentle evening wander with street performers often appearing in high season. Perfect last full night vibe.",
+              bookingUrl:
+                "https://www.google.com/maps/search/Sarlat+centre+historique",
+              priceAdult: 0,
+              priceChild: 0,
+              notes: "Keep bedtime flexible depending on how tired everyone is after the week."
+            }
+          ],
+          restaurants: [
+            {
+              id: "r6-1",
+              name: "Market picnic",
+              location: "Sarlat area",
+              cuisine: "Picnic · local products",
+              priceRange: "€ · flexible",
+              url: "https://www.google.com/maps/search/parc+aire+de+piquenique+Sarlat",
+              notes: "Let kids choose a few ‘must-try’ items at the market."
+            },
+            {
+              id: "r6-2",
+              name: "Final-night dinner in Sarlat",
+              location: "Sarlat center",
+              cuisine: "Local Périgord · terrace",
+              priceRange: "€€ · mid-range",
+              url: "https://www.google.com/maps/search/restaurant+Sarlat-la-Can%C3%A9da+centre",
+              notes: "Pick a place you walked past earlier in the week that looked inviting."
+            }
+          ]
+        },
+        {
+          id: 7,
+          label: "Day 7",
+          date: "2026-06-29",
+          title: "Departure & favourites (flexible)",
+          vibeTags: ["Flexible", "Packing", "Last stroll"],
+          description:
+            "Keep this day flexible for packing, a last swim or a final stroll in Sarlat before heading home.",
+          area: "Sarlat / Saint-Julien",
+          mapQuery: "Saint-Julien-de-Lampon Sarlat",
+          activities: [
+            {
+              id: "7-1",
+              timeOfDay: "Morning",
+              type: "Practical",
+              title: "Packing & house check",
+              location: "Accommodation",
+              description:
+                "Pack calmly, check the house and let kids have one last quick swim or garden play if time allows.",
+              bookingUrl:
+                "https://www.google.com/maps/search/Saint-Julien-de-Lampon",
+              priceAdult: 0,
+              priceChild: 0,
+              notes: "Build in buffer so departure doesn’t feel rushed."
+            },
+            {
+              id: "7-2",
+              timeOfDay: "Optional",
+              type: "Relax",
+              title: "Last stroll or café stop",
+              location: "Sarlat or nearby village",
+              description:
+                "If timing allows, a short walk or café stop in Sarlat or a nearby village to say goodbye to the Dordogne.",
+              bookingUrl:
+                "https://www.google.com/maps/search/caf%C3%A9+Sarlat-la-Can%C3%A9da",
+              priceAdult: 0,
+              priceChild: 0,
+              notes: "Skip if you have an early flight or long drive."
+            }
+          ],
+          restaurants: [
+            {
+              id: "r7-1",
+              name: "Easy lunch on the road",
+              location: "On the way to Bordeaux",
+              cuisine: "Service area or simple café",
+              priceRange: "€ · budget",
+              url: "https://www.google.com/maps/search/aire+de+service+autoroute+vers+Bordeaux",
+              notes: "Keep it simple; everyone will be tired."
             }
           ]
         }
       ]
     };
 
-    const STORAGE_KEY_DATA = "dordogne_trip_data_green_ui_v3";
-    const STORAGE_KEY_HISTORY = "dordogne_trip_history_green_ui_v3";
-
-    let state = {
-      days: [],
-      activeDayId: "2026-06-24"
-    };
-
-    let history = [];
-    let editorContext = null;
-
-    // ---------- STORAGE ----------
-    function loadFromStorage() {
+    function loadTripData() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY_DATA);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          if (parsed && Array.isArray(parsed.days)) {
-            state.days = parsed.days;
-            state.activeDayId = parsed.activeDayId || parsed.days[0]?.id || defaultData.days[0].id;
-          } else {
-            state.days = structuredClone(defaultData.days);
-            state.activeDayId = "2026-06-24";
-          }
-        } else {
-          state.days = structuredClone(defaultData.days);
-          state.activeDayId = "2026-06-24";
-        }
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return structuredClone(defaultTripData);
+        const parsed = JSON.parse(raw);
+        if (!parsed || !Array.isArray(parsed.days)) return structuredClone(defaultTripData);
+        return parsed;
       } catch {
-        state.days = structuredClone(defaultData.days);
-        state.activeDayId = "2026-06-24";
+        return structuredClone(defaultTripData);
       }
+    }
 
+    function saveTripData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tripData));
+    }
+
+    function loadHistory() {
       try {
-        const rawHist = localStorage.getItem(STORAGE_KEY_HISTORY);
-        history = rawHist ? JSON.parse(rawHist) : [];
-        if (!Array.isArray(history)) history = [];
+        const raw = localStorage.getItem(HISTORY_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        return parsed;
       } catch {
-        history = [];
+        return [];
       }
     }
 
-    function saveToStorage() {
-      const payload = {
-        days: state.days,
-        activeDayId: state.activeDayId
-      };
-      localStorage.setItem(STORAGE_KEY_DATA, JSON.stringify(payload));
+    function saveHistory() {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(historyData));
     }
 
-    function saveHistorySnapshot(label = "Manual snapshot") {
-      const snapshot = {
-        id: "v_" + Date.now(),
-        label,
-        timestamp: new Date().toISOString(),
-        data: structuredClone(state)
-      };
-      history.unshift(snapshot);
-      history = history.slice(0, 20);
-      localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(history));
-      renderHistory();
+    let tripData = loadTripData();
+    let historyData = loadHistory();
+    let selectedDayIndex = 0;
+
+    let editingActivity = { dayIndex: null, activityIndex: null, isNew: false };
+    let editingRestaurant = { dayIndex: null, restaurantIndex: null, isNew: false };
+
+    // ---------- Rendering ----------
+
+    const dayStripEl = document.getElementById("dayStrip");
+    const dayOverviewSubtitleEl = document.getElementById("dayOverviewSubtitle");
+    const daySummaryTitleEl = document.getElementById("daySummaryTitle");
+    const daySummaryTagsEl = document.getElementById("daySummaryTags");
+    const daySummaryDescEl = document.getElementById("daySummaryDesc");
+    const activitiesGridEl = document.getElementById("activitiesGrid");
+    const restaurantsGridEl = document.getElementById("restaurantsGrid");
+    const mapFrameEl = document.getElementById("mapFrame");
+    const mapSubtitleEl = document.getElementById("mapSubtitle");
+    const historyListEl = document.getElementById("historyList");
+    const historyEmptyMessageEl = document.getElementById("historyEmptyMessage");
+
+    function renderDayStrip() {
+      dayStripEl.innerHTML = "";
+      tripData.days.forEach((day, index) => {
+        const chip = document.createElement("button");
+        chip.className = "day-chip" + (index === selectedDayIndex ? " active" : "");
+        chip.type = "button";
+        chip.innerHTML = `
+          <div class="day-chip-title">${day.label}</div>
+          <div class="day-chip-main">${day.title}</div>
+          <div class="day-chip-meta">
+            <span>${day.date}</span>
+            <span class="day-chip-dot"></span>
+          </div>
+        `;
+        chip.addEventListener("click", () => {
+          selectedDayIndex = index;
+          renderAll();
+        });
+        dayStripEl.appendChild(chip);
+      });
     }
 
-    function resetToDefault() {
-      if (!confirm("Reset to default itinerary? This keeps your snapshots but overwrites the current view.")) return;
-      state.days = structuredClone(defaultData.days);
-      state.activeDayId = "2026-06-24";
-      saveToStorage();
-      renderAll();
+    function renderDayOverview() {
+      const day = tripData.days[selectedDayIndex];
+      dayOverviewSubtitleEl.textContent = `${day.date} · ${day.area}`;
+      daySummaryTitleEl.textContent = day.title;
+      daySummaryTagsEl.innerHTML = "";
+      day.vibeTags.forEach((tag) => {
+        const el = document.createElement("span");
+        el.className = "tag";
+        el.textContent = tag;
+        daySummaryTagsEl.appendChild(el);
+      });
+      daySummaryDescEl.textContent = day.description;
     }
 
-    function restoreFromSnapshot(id) {
-      const snap = history.find(h => h.id === id);
-      if (!snap) return;
-      if (!confirm("Restore this snapshot as the current itinerary?")) return;
-      state = structuredClone(snap.data);
-      saveToStorage();
-      renderAll();
-    }
-
-    function deleteSnapshot(id) {
-      history = history.filter(h => h.id !== id);
-      localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(history));
-      renderHistory();
-    }
-
-    // ---------- ICONS ----------
-    function activityIcon(type) {
-      switch ((type || "").toLowerCase()) {
-        case "relax": return "🛟";
-        case "practical": return "🧺";
-        case "castle": return "🏰";
-        case "walk": return "🚶";
-        case "river": return "🚣";
-        case "view": return "🌄";
-        case "cave": return "🕳";
-        default: return "📌";
-      }
-    }
-
-    // ---------- RENDER ----------
-    function renderDaySlider() {
-      const sliderEl = document.getElementById("daySlider");
-      const labelEl = document.getElementById("dayLabelCurrent");
-      sliderEl.innerHTML = "";
-      state.days.forEach(day => {
-        const card = document.createElement("div");
-        card.className = "day-card" + (day.id === state.activeDayId ? " active" : "");
+    function renderActivities() {
+      const day = tripData.days[selectedDayIndex];
+      activitiesGridEl.innerHTML = "";
+      day.activities.forEach((activity, index) => {
+        const card = document.createElement("article");
+        card.className = "card";
         card.innerHTML = `
-          <div class="day-card-label">${day.label}</div>
-          <div class="day-card-date">${day.dateLabel || ""}</div>
-          <div class="day-card-tags">${(day.tags || []).join(" · ")}</div>
-        `;
-        card.onclick = () => {
-          state.activeDayId = day.id;
-          saveToStorage();
-          renderDaySlider();
-          renderDayContent();
-        };
-        sliderEl.appendChild(card);
-      });
-
-      const currentDay = state.days.find(d => d.id === state.activeDayId);
-      labelEl.textContent = currentDay ? `${currentDay.label} · ${currentDay.title}` : "";
-    }
-
-    function renderDayContent() {
-      const container = document.getElementById("dayContent");
-      const day = state.days.find(d => d.id === state.activeDayId) || state.days[0];
-      if (!day) {
-        container.innerHTML = "<p style='font-size:0.8rem;color:var(--text-muted);'>No day selected.</p>";
-        return;
-      }
-
-      const tagsHtml = (day.tags || [])
-        .map(t => `<span class="chip accent"><span class="dot"></span>${t}</span>`)
-        .join("");
-
-      container.innerHTML = `
-        <div class="day-meta">
-          <div>
-            <div class="day-meta-main-title">${day.title}</div>
-            <div class="day-meta-notes">${day.notes || ""}</div>
-            <div class="chips">${tagsHtml}</div>
-          </div>
-          <div class="day-meta-side">
-            <div class="day-meta-side-label">Today’s feel</div>
-            <div>${day.tags && day.tags.length ? day.tags.join(" · ") : "Flexible"}</div>
-            <div style="margin-top:4px;">Use the cards below to tweak activities and restaurants.</div>
-          </div>
-        </div>
-
-        <div class="section">
-          <div class="section-title">
-            Activities
-            <span class="bar"></span>
-          </div>
-          <div id="activityList"></div>
-        </div>
-
-        <div class="section">
-          <div class="section-title">
-            Restaurants
-            <span class="bar"></span>
-          </div>
-          <div id="restaurantList"></div>
-        </div>
-      `;
-
-      renderActivities(day);
-      renderRestaurants(day);
-    }
-
-    function renderActivities(day) {
-      const listEl = document.getElementById("activityList");
-      listEl.innerHTML = "";
-      (day.activities || []).forEach(act => {
-        const item = document.createElement("div");
-        item.className = "activity-card";
-        item.innerHTML = `
-          <div class="activity-icon">${activityIcon(act.type)}</div>
-          <div class="activity-main">
-            <div class="activity-title">${act.title}</div>
-            <div class="activity-meta-row">
-              <span class="badge time">${act.time || "Anytime"}</span>
-              ${act.type ? `<span class="badge type">${act.type}</span>` : ""}
+          <div class="card-inner">
+            <div class="card-header">
+              <div class="card-title-block">
+                <div class="card-title">${activity.title}</div>
+                <div class="card-subtitle">
+                  <span class="chip">${activity.timeOfDay}</span>
+                  <span class="chip chip-type">${activity.type}</span>
+                  <span class="chip">${activity.location}</span>
+                </div>
+              </div>
             </div>
-            <div class="activity-details">${act.details || ""}</div>
-            <div class="activity-extra">
-              ${act.price ? `<div class="activity-price">💶 ${act.price}</div>` : ""}
-              ${act.link ? `<a class="activity-link" href="${act.link}" target="_blank">🔗 More info</a>` : ""}
+            <div class="card-body">
+              ${activity.description}
             </div>
-          </div>
-          <div class="activity-actions">
-            <button class="btn-icon" data-edit-act="${act.id}">✏️ Edit</button>
-            <button class="btn-icon danger" data-id="${act.id}" data-kind="activity">🗑 Remove</button>
-          </div>
-        `;
-        listEl.appendChild(item);
-      });
-
-      listEl.querySelectorAll("[data-id][data-kind='activity']").forEach(btn => {
-        btn.onclick = () => {
-          const id = btn.getAttribute("data-id");
-          day.activities = (day.activities || []).filter(a => a.id !== id);
-          saveToStorage();
-          renderActivities(day);
-        };
-      });
-
-      listEl.querySelectorAll("[data-edit-act]").forEach(btn => {
-        btn.onclick = () => {
-          const id = btn.dataset.editAct;
-          const act = day.activities.find(a => a.id === id);
-          if (!act) return;
-          openEditor("Edit activity", "activity", day, act);
-        };
-      });
-    }
-
-    function renderRestaurants(day) {
-      const listEl = document.getElementById("restaurantList");
-      listEl.innerHTML = "";
-      (day.restaurants || []).forEach(r => {
-        const item = document.createElement("div");
-        item.className = "rest-card";
-        item.innerHTML = `
-          <div class="rest-photo-wrap">
-            <img class="rest-photo" src="${r.photo || 'https://via.placeholder.com/900x400'}" alt="${r.name}">
-            <div class="rest-photo-gradient"></div>
-            <div class="rest-photo-top">
+            <div class="card-meta">
+              <span class="meta-item">
+                <span class="icon">💶</span>
+                <span>Adult: €${Number(activity.priceAdult || 0).toFixed(
+                  1
+                )} · Child: €${Number(activity.priceChild || 0).toFixed(1)}</span>
+              </span>
               ${
-                r.reviewScore
-                  ? `<div class="rest-rating-pill">
-                       <span class="star">★</span>
-                       <span>${r.reviewScore} (${r.reviewCount || 0})</span>
-                     </div>`
+                activity.notes
+                  ? `<span class="meta-item"><span class="icon">📝</span><span>${activity.notes}</span></span>`
                   : ""
               }
             </div>
-            <div class="rest-photo-bottom">
-              <div>
-                <div class="rest-photo-title">${r.name}</div>
-                <div class="rest-photo-town">${r.town || ""}</div>
-              </div>
-              <div class="rest-photo-actions">
+            <div class="card-footer">
+              <div class="card-footer-left">
                 ${
-                  r.url
-                    ? `<button class="rest-photo-btn" data-open-url="${r.id}">🌐 Website</button>`
-                    : ""
+                  activity.bookingUrl
+                    ? `<a class="link" href="${activity.bookingUrl}" target="_blank" rel="noopener noreferrer">
+                         <span class="icon">🔗</span>
+                         <span>Booking / info</span>
+                       </a>`
+                    : `<span class="muted" style="font-size:11px;">No link yet</span>`
                 }
-                <button class="rest-photo-btn" data-open-map="${r.id}">📍 Map</button>
               </div>
-            </div>
-          </div>
-          <div class="rest-body">
-            <div class="rest-info-row">
-              ${r.style ? `<span>${r.style}</span>` : ""}
-              ${r.price ? `<span>💶 ${r.price}</span>` : ""}
-              ${r.phone ? `<span>📞 ${r.phone}</span>` : ""}
-            </div>
-            ${r.notes ? `<div class="rest-notes">${r.notes}</div>` : ""}
-            <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
-              <button class="btn-icon" data-edit-rest="${r.id}">✏️ Edit</button>
-              <button class="btn-icon danger" data-id="${r.id}" data-kind="restaurant">🗑 Remove</button>
+              <div class="card-actions">
+                <button class="btn-xxs" data-role="edit-activity">
+                  <span class="icon">✏️</span>
+                  Edit
+                </button>
+                <button class="btn-xxs btn-xxs-danger" data-role="delete-activity">
+                  <span class="icon">🗑️</span>
+                  Remove
+                </button>
+              </div>
             </div>
           </div>
         `;
-        listEl.appendChild(item);
+        card.querySelector('[data-role="edit-activity"]').addEventListener("click", () =>
+          openActivityModal(selectedDayIndex, index)
+        );
+        card.querySelector('[data-role="delete-activity"]').addEventListener("click", () =>
+          deleteActivity(selectedDayIndex, index)
+        );
+        card.addEventListener("click", (e) => {
+          if (e.target.closest("button") || e.target.closest("a")) return;
+          focusMapOn(activity.location || day.area);
+        });
+        activitiesGridEl.appendChild(card);
       });
+    }
 
-      listEl.querySelectorAll("[data-id][data-kind='restaurant']").forEach(btn => {
-        btn.onclick = () => {
-          const id = btn.getAttribute("data-id");
-          day.restaurants = (day.restaurants || []).filter(r => r.id !== id);
-          saveToStorage();
-          renderRestaurants(day);
-        };
+    function renderRestaurants() {
+      const day = tripData.days[selectedDayIndex];
+      restaurantsGridEl.innerHTML = "";
+      day.restaurants.forEach((restaurant, index) => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="card-inner">
+            <div class="card-header">
+              <div class="card-title-block">
+                <div class="card-title">${restaurant.name}</div>
+                <div class="card-subtitle">
+                  <span class="chip">${restaurant.location}</span>
+                  ${
+                    restaurant.cuisine
+                      ? `<span class="chip chip-type">${restaurant.cuisine}</span>`
+                      : ""
+                  }
+                  ${
+                    restaurant.priceRange
+                      ? `<span class="chip">${restaurant.priceRange}</span>`
+                      : ""
+                  }
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              ${restaurant.notes || "Tap the link to open a Google Maps search or booking page."}
+            </div>
+            <div class="card-footer">
+              <div class="card-footer-left">
+                ${
+                  restaurant.url
+                    ? `<a class="link" href="${restaurant.url}" target="_blank" rel="noopener noreferrer">
+                         <span class="icon">📍</span>
+                         <span>Open in Maps / booking</span>
+                       </a>`
+                    : `<span class="muted" style="font-size:11px;">No link yet</span>`
+                }
+              </div>
+              <div class="card-actions">
+                <button class="btn-xxs" data-role="edit-restaurant">
+                  <span class="icon">✏️</span>
+                  Edit
+                </button>
+                <button class="btn-xxs btn-xxs-danger" data-role="delete-restaurant">
+                  <span class="icon">🗑️</span>
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        card.querySelector('[data-role="edit-restaurant"]').addEventListener("click", () =>
+          openRestaurantModal(selectedDayIndex, index)
+        );
+        card.querySelector('[data-role="delete-restaurant"]').addEventListener("click", () =>
+          deleteRestaurant(selectedDayIndex, index)
+        );
+        card.addEventListener("click", (e) => {
+          if (e.target.closest("button") || e.target.closest("a")) return;
+          focusMapOn(restaurant.location || day.area);
+        });
+        restaurantsGridEl.appendChild(card);
       });
+    }
 
-      listEl.querySelectorAll("[data-edit-rest]").forEach(btn => {
-        btn.onclick = () => {
-          const id = btn.dataset.editRest;
-          const rest = day.restaurants.find(r => r.id === id);
-          if (!rest) return;
-          openEditor("Edit restaurant", "restaurant", day, rest);
-        };
-      });
-
-      listEl.querySelectorAll("[data-open-url]").forEach(btn => {
-        btn.onclick = () => {
-          const id = btn.getAttribute("data-open-url");
-          const rest = day.restaurants.find(r => r.id === id);
-          if (rest && rest.url) window.open(rest.url, "_blank");
-        };
-      });
-
-      listEl.querySelectorAll("[data-open-map]").forEach(btn => {
-        btn.onclick = () => {
-          const id = btn.getAttribute("data-open-map");
-          const rest = day.restaurants.find(r => r.id === id);
-          if (!rest) return;
-          const query = `${rest.name} ${rest.town || ""}`;
-          const url = "https://www.google.com/maps/search/" + encodeURIComponent(query);
-          window.open(url, "_blank");
-        };
-      });
+    function focusMapOn(query) {
+      if (!query) return;
+      const encoded = encodeURIComponent(query + " Dordogne France");
+      mapFrameEl.src =
+        "https://www.google.com/maps/embed/v1/search?key=AIzaSyDUMMYKEY&q=" + encoded;
+      mapSubtitleEl.textContent = "Map focus: " + query;
     }
 
     function renderHistory() {
-      const listEl = document.getElementById("versionList");
-      listEl.innerHTML = "";
-      if (!history.length) {
-        listEl.innerHTML =
-          "<p style='font-size:0.75rem;color:var(--text-muted);'>No snapshots yet. Use the floating “+” menu → “💾 Save snapshot” to create one.</p>";
+      historyListEl.innerHTML = "";
+      if (!historyData.length) {
+        historyEmptyMessageEl.style.display = "block";
         return;
       }
-
-      history.forEach((h, idx) => {
-        const d = new Date(h.timestamp);
-        const label = h.label || `Snapshot ${idx + 1}`;
-        const item = document.createElement("div");
-        item.className = "version-item";
-        item.innerHTML = `
-          <div class="version-meta">
-            <span><strong style="font-weight:500;">${label}</strong></span>
-            <span class="label">${d.toLocaleString()}</span>
-          </div>
-          <div class="version-actions">
-            <button class="btn-icon" data-id="${h.id}" data-action="restore">↩ Restore</button>
-            <button class="btn-icon danger" data-id="${h.id}" data-action="delete">✕ Delete</button>
-          </div>
-        `;
-        listEl.appendChild(item);
-      });
-
-      listEl.querySelectorAll("button").forEach(btn => {
-        const id = btn.getAttribute("data-id");
-        const action = btn.getAttribute("data-action");
-        if (action === "restore") {
-          btn.onclick = () => restoreFromSnapshot(id);
-        } else if (action === "delete") {
-          btn.onclick = () => deleteSnapshot(id);
-        }
-      });
+      historyEmptyMessageEl.style.display = "none";
+      historyData
+        .slice()
+        .reverse()
+        .forEach((snapshot, idx) => {
+          const item = document.createElement("div");
+          item.className = "history-item";
+          const label = snapshot.label || "Snapshot";
+          const time = new Date(snapshot.timestamp).toLocaleString();
+          item.innerHTML = `
+            <div class="history-meta">
+              <span class="history-label">${label}</span>
+              <span class="history-time">${time}</span>
+            </div>
+            <div class="history-actions">
+              <button class="btn-xxs" data-role="restore">Restore</button>
+            </div>
+          `;
+          item.querySelector('[data-role="restore"]').addEventListener("click", () => {
+            if (!confirm("Restore this snapshot? This will overwrite the current plan.")) return;
+            tripData = structuredClone(snapshot.data);
+            saveTripData();
+            selectedDayIndex = 0;
+            renderAll();
+          });
+          historyListEl.appendChild(item);
+        });
     }
 
     function renderAll() {
-      renderDaySlider();
-      renderDayContent();
-      renderHistory();
+      renderDayStrip();
+      renderDayOverview();
+      renderActivities();
+      renderRestaurants();
+      const day = tripData.days[selectedDayIndex];
+      focusMapOn(day.area || day.mapQuery);
     }
 
-    // ---------- EDITOR ----------
-    function openEditor(title, kind, day, item) {
-      editorContext = { kind, dayId: day.id, itemId: item.id };
-      const overlay = document.getElementById("editorOverlay");
-      const titleEl = document.getElementById("editorTitle");
-      const fieldsEl = document.getElementById("editorFields");
-      const photoWrap = document.getElementById("editorPhotoPreview");
-      const photoImg = document.getElementById("editorPhotoImg");
+    // ---------- Activity modal logic ----------
 
-      titleEl.textContent = title;
-      fieldsEl.innerHTML = "";
+    const activityModalBackdrop = document.getElementById("activityModalBackdrop");
+    const activityModalClose = document.getElementById("activityModalClose");
+    const activityModalCancel = document.getElementById("activityModalCancel");
+    const activityModalSave = document.getElementById("activityModalSave");
+    const activityModalTitle = document.getElementById("activityModalTitle");
 
-      if (kind === "activity") {
-        fieldsEl.innerHTML = `
-          <div class="editor-field">
-            <label>Time</label>
-            <input type="text" data-field="time" value="${item.time || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Title</label>
-            <input type="text" data-field="title" value="${item.title || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Details</label>
-            <textarea data-field="details">${item.details || ""}</textarea>
-          </div>
-          <div class="editor-field">
-            <label>Type</label>
-            <input type="text" data-field="type" value="${item.type || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Link (URL)</label>
-            <input type="text" data-field="link" value="${item.link || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Price / Cost</label>
-            <input type="text" data-field="price" value="${item.price || ""}">
-          </div>
-        `;
-        photoWrap.style.display = "none";
-      } else if (kind === "restaurant") {
-        fieldsEl.innerHTML = `
-          <div class="editor-field">
-            <label>Name</label>
-            <input type="text" data-field="name" value="${item.name || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Town</label>
-            <input type="text" data-field="town" value="${item.town || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Style</label>
-            <input type="text" data-field="style" value="${item.style || ""}">
-          </div>
-          <div class="editor-field">
-            <label>URL</label>
-            <input type="text" data-field="url" value="${item.url || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Phone</label>
-            <input type="text" data-field="phone" value="${item.phone || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Price range</label>
-            <input type="text" data-field="price" value="${item.price || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Review score</label>
-            <input type="number" step="0.1" data-field="reviewScore" value="${item.reviewScore || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Review count</label>
-            <input type="number" data-field="reviewCount" value="${item.reviewCount || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Photo URL</label>
-            <input type="text" data-field="photo" value="${item.photo || ""}">
-          </div>
-          <div class="editor-field">
-            <label>Notes</label>
-            <textarea data-field="notes">${item.notes || ""}</textarea>
-          </div>
-        `;
-        if (item.photo) {
-          photoImg.src = item.photo;
-          photoWrap.style.display = "flex";
-        } else {
-          photoWrap.style.display = "none";
-        }
-      }
+    const activityTimeOfDayInput = document.getElementById("activityTimeOfDay");
+    const activityTypeInput = document.getElementById("activityType");
+    const activityLocationInput = document.getElementById("activityLocation");
+    const activityBookingUrlInput = document.getElementById("activityBookingUrl");
+    const activityTitleInput = document.getElementById("activityTitle");
+    const activityDescriptionInput = document.getElementById("activityDescription");
+    const activityPriceAdultInput = document.getElementById("activityPriceAdult");
+    const activityPriceChildInput = document.getElementById("activityPriceChild");
+    const activityNotesInput = document.getElementById("activityNotes");
 
-      overlay.classList.add("visible");
+    function openActivityModal(dayIndex, activityIndex) {
+      editingActivity.dayIndex = dayIndex;
+      editingActivity.activityIndex = activityIndex;
+      editingActivity.isNew = activityIndex === null;
 
-      document.getElementById("editorCancel").onclick =
-        document.getElementById("editorClose").onclick =
-          () => overlay.classList.remove("visible");
-
-      document.getElementById("editorSave").onclick = () => {
-        const inputs = fieldsEl.querySelectorAll("[data-field]");
-        const updated = {};
-        inputs.forEach(inp => {
-          updated[inp.dataset.field] = inp.value.trim();
-        });
-
-        const d = state.days.find(x => x.id === day.id);
-        if (!d) return;
-
-        if (kind === "activity") {
-          const act = d.activities.find(a => a.id === item.id);
-          if (!act) return;
-          Object.assign(act, updated);
-        } else if (kind === "restaurant") {
-          const rest = d.restaurants.find(r => r.id === item.id);
-          if (!rest) return;
-          Object.assign(rest, updated);
-        }
-
-        saveToStorage();
-        renderDayContent();
-        overlay.classList.remove("visible");
-      };
-    }
-
-    function openEditorForNew(kind) {
-      const day = state.days.find(d => d.id === state.activeDayId) || state.days[0];
-      if (!day) return;
-
-      const newItem =
-        kind === "activity"
-          ? {
-              id: "a_" + Date.now() + "_" + Math.random().toString(16).slice(2),
-              time: "",
-              title: "",
-              details: "",
-              type: "",
-              link: "",
-              price: ""
-            }
-          : {
-              id: "r_" + Date.now() + "_" + Math.random().toString(16).slice(2),
-              name: "",
-              town: "",
-              style: "",
-              url: "",
-              phone: "",
-              price: "",
-              reviewScore: "",
-              reviewCount: "",
-              photo: "",
-              notes: ""
-            };
-
-      if (kind === "activity") {
-        day.activities = day.activities || [];
-        day.activities.push(newItem);
+      const day = tripData.days[dayIndex];
+      let activity;
+      if (activityIndex === null) {
+        activity = {
+          timeOfDay: "",
+          type: "Explore",
+          location: day.area || "",
+          bookingUrl: "",
+          title: "",
+          description: "",
+          priceAdult: 0,
+          priceChild: 0,
+          notes: ""
+        };
+        activityModalTitle.textContent = "Add activity";
       } else {
-        day.restaurants = day.restaurants || [];
-        day.restaurants.push(newItem);
+        activity = day.activities[activityIndex];
+        activityModalTitle.textContent = "Edit activity";
       }
 
-      saveToStorage();
-      renderDayContent();
-      openEditor(kind === "activity" ? "Add activity" : "Add restaurant", kind, day, newItem);
+      activityTimeOfDayInput.value = activity.timeOfDay || "";
+      activityTypeInput.value = activity.type || "Explore";
+      activityLocationInput.value = activity.location || "";
+      activityBookingUrlInput.value = activity.bookingUrl || "";
+      activityTitleInput.value = activity.title || "";
+      activityDescriptionInput.value = activity.description || "";
+      activityPriceAdultInput.value =
+        activity.priceAdult !== undefined ? String(activity.priceAdult) : "";
+      activityPriceChildInput.value =
+        activity.priceChild !== undefined ? String(activity.priceChild) : "";
+      activityNotesInput.value = activity.notes || "";
+
+      activityModalBackdrop.style.display = "flex";
     }
 
-    // ---------- FAB ----------
-    function setupFab() {
-      const fab = document.getElementById("fabMain");
-      const fabIcon = document.getElementById("fabIcon");
-      const menu = document.getElementById("fabMenu");
-
-      let open = false;
-
-      fab.onclick = () => {
-        open = !open;
-        if (open) {
-          menu.classList.add("visible");
-          fabIcon.classList.add("fab-icon-rotated");
-        } else {
-          menu.classList.remove("visible");
-          fabIcon.classList.remove("fab-icon-rotated");
-        }
-      };
-
-      document.getElementById("fabAddActivity").onclick = () => {
-        openEditorForNew("activity");
-      };
-
-      document.getElementById("fabAddRestaurant").onclick = () => {
-        openEditorForNew("restaurant");
-      };
-
-      document.getElementById("fabSaveSnapshot").onclick = () => {
-        const label = prompt("Snapshot label (optional):", "Manual snapshot");
-        saveHistorySnapshot(label || "Manual snapshot");
-        alert("Snapshot saved.");
-      };
-
-      document.getElementById("fabReset").onclick = () => {
-        resetToDefault();
-      };
+    function closeActivityModal() {
+      activityModalBackdrop.style.display = "none";
     }
 
-    // ---------- HISTORY SHEET ----------
-    function setupHistorySheet() {
-      const overlay = document.getElementById("historyOverlay");
-      document.getElementById("historyClose").onclick = () => {
-        overlay.classList.remove("visible");
-      };
-      overlay.addEventListener("click", e => {
-        if (e.target === overlay) overlay.classList.remove("visible");
-      });
-
-      document.getElementById("btnHistoryToggle").onclick = () => {
-        overlay.classList.add("visible");
-      };
-    }
-
-    // ---------- MAP SHEET ----------
-    function openMapSheet() {
-      const overlay = document.getElementById("mapOverlay");
-      const queryTextEl = document.getElementById("mapQueryText");
-      const day = state.days.find(d => d.id === state.activeDayId) || state.days[0];
-      if (!day || !day.restaurants || !day.restaurants.length) {
-        queryTextEl.textContent = "No restaurants for this day yet.";
-      } else {
-        const query = day.restaurants
-          .map(r => `${r.name} ${r.town || ""}`)
-          .join("; ");
-        queryTextEl.textContent = query;
-      }
-      overlay.classList.add("visible");
-    }
-
-    function setupMapSheet() {
-      const overlay = document.getElementById("mapOverlay");
-      const btnClose = document.getElementById("mapClose");
-      const btnOpen = document.getElementById("mapOpenExternal");
-      const btnCopy = document.getElementById("mapCopyQuery");
-      const queryTextEl = document.getElementById("mapQueryText");
-
-      btnClose.onclick = () => overlay.classList.remove("visible");
-      overlay.addEventListener("click", e => {
-        if (e.target === overlay) overlay.classList.remove("visible");
-      });
-
-      btnOpen.onclick = () => {
-        const day = state.days.find(d => d.id === state.activeDayId) || state.days[0];
-        if (!day || !day.restaurants || !day.restaurants.length) return;
-        const query = day.restaurants
-          .map(r => `${r.name} ${r.town || ""}`)
-          .join("; ");
-        const url = "https://www.google.com/maps/search/" + encodeURIComponent(query);
-        window.open(url, "_blank");
-      };
-
-      btnCopy.onclick = async () => {
-        const text = queryTextEl.textContent || "";
-        if (!text) return;
-        try {
-          await navigator.clipboard.writeText(text);
-          alert("Search query copied to clipboard.");
-        } catch {
-          alert("Could not copy to clipboard, but you can select and copy manually.");
-        }
-      };
-    }
-
-    // ---------- DAY SLIDER CONTROLS ----------
-    function setupDaySliderControls() {
-      const btnPrev = document.getElementById("dayPrev");
-      const btnNext = document.getElementById("dayNext");
-      const sliderEl = document.getElementById("daySlider");
-
-      btnPrev.onclick = () => {
-        const idx = state.days.findIndex(d => d.id === state.activeDayId);
-        if (idx > 0) {
-          state.activeDayId = state.days[idx - 1].id;
-          saveToStorage();
-          renderAll();
-          const card = sliderEl.children[idx - 1];
-          card.scrollIntoView({ behavior: "smooth", inline: "center" });
-        }
-      };
-
-      btnNext.onclick = () => {
-        const idx = state.days.findIndex(d => d.id === state.activeDayId);
-        if (idx < state.days.length - 1) {
-          state.activeDayId = state.days[idx + 1].id;
-          saveToStorage();
-          renderAll();
-          const card = sliderEl.children[idx + 1];
-          card.scrollIntoView({ behavior: "smooth", inline: "center" });
-        }
-      };
-    }
-
-    // ---------- INIT ----------
-    document.addEventListener("DOMContentLoaded", () => {
-      loadFromStorage();
-      renderAll();
-      setupFab();
-      setupHistorySheet();
-      setupMapSheet();
-      setupDaySliderControls();
-
-      document.getElementById("btnMapToday").onclick = openMapSheet;
+    activityModalClose.addEventListener("click", closeActivityModal);
+    activityModalCancel.addEventListener("click", closeActivityModal);
+    activityModalBackdrop.addEventListener("click", (e) => {
+      if (e.target === activityModalBackdrop) closeActivityModal();
     });
+
+    activityModalSave.addEventListener("click", () => {
+      const day = tripData.days[editingActivity.dayIndex];
+      const updated = {
+        id:
+          editingActivity.isNew || !day.activities[editingActivity.activityIndex]
+            ? `${day.id}-${Date.now()}`
+            : day.activities[editingActivity.activityIndex].id,
+        timeOfDay: activityTimeOfDayInput.value.trim() || "Anytime",
+        type: activityTypeInput.value || "Explore",
+        location: activityLocationInput.value.trim() || day.area || "",
+        bookingUrl: activityBookingUrlInput.value.trim(),
+        title: activityTitleInput.value.trim() || "New activity",
+        description:
+          activityDescriptionInput.value.trim() ||
+          "Describe what you’ll do here in a kid-friendly way.",
+        priceAdult: Number(activityPriceAdultInput.value || 0),
+        priceChild: Number(activityPriceChildInput.value || 0),
+        notes: activityNotesInput.value.trim()
+      };
+
+      if (editingActivity.isNew) {
+        day.activities.push(updated);
+      } else {
+        day.activities[editingActivity.activityIndex] = updated;
+      }
+
+      saveTripData();
+      renderActivities();
+      closeActivityModal();
+    });
+
+    function deleteActivity(dayIndex, activityIndex) {
+      const day = tripData.days[dayIndex];
+      const activity = day.activities[activityIndex];
+      if (!confirm(`Remove activity “${activity.title}”?`)) return;
+      day.activities.splice(activityIndex, 1);
+      saveTripData();
+      renderActivities();
+    }
+
+    // ---------- Restaurant modal logic ----------
+
+    const restaurantModalBackdrop = document.getElementById("restaurantModalBackdrop");
+    const restaurantModalClose = document.getElementById("restaurantModalClose");
+    const restaurantModalCancel = document.getElementById("restaurantModalCancel");
+    const restaurantModalSave = document.getElementById("restaurantModalSave");
+    const restaurantModalTitle = document.getElementById("restaurantModalTitle");
+
+    const restaurantNameInput = document.getElementById("restaurantName");
+    const restaurantLocationInput = document.getElementById("restaurantLocation");
+    const restaurantCuisineInput = document.getElementById("restaurantCuisine");
+    const restaurantUrlInput = document.getElementById("restaurantUrl");
+    const restaurantPriceRangeInput = document.getElementById("restaurantPriceRange");
+    const restaurantNotesInput = document.getElementById("restaurantNotes");
+
+    function openRestaurantModal(dayIndex, restaurantIndex) {
+      editingRestaurant.dayIndex = dayIndex;
+      editingRestaurant.restaurantIndex = restaurantIndex;
+      editingRestaurant.isNew = restaurantIndex === null;
+
+      const day = tripData.days[dayIndex];
+      let restaurant;
+      if (restaurantIndex === null) {
+        restaurant = {
+          name: "",
+          location: day.area || "",
+          cuisine: "",
+          url: "",
+          priceRange: "",
+          notes: ""
+        };
+        restaurantModalTitle.textContent = "Add restaurant";
+      } else {
+        restaurant = day.restaurants[restaurantIndex];
+        restaurantModalTitle.textContent = "Edit restaurant";
+      }
+
+      restaurantNameInput.value = restaurant.name || "";
+      restaurantLocationInput.value = restaurant.location || "";
+      restaurantCuisineInput.value = restaurant.cuisine || "";
+      restaurantUrlInput.value = restaurant.url || "";
+      restaurantPriceRangeInput.value = restaurant.priceRange || "";
+      restaurantNotesInput.value = restaurant.notes || "";
+
+      restaurantModalBackdrop.style.display = "flex";
+    }
+
+    function closeRestaurantModal() {
+      restaurantModalBackdrop.style.display = "none";
+    }
+
+    restaurantModalClose.addEventListener("click", closeRestaurantModal);
+    restaurantModalCancel.addEventListener("click", closeRestaurantModal);
+    restaurantModalBackdrop.addEventListener("click", (e) => {
+      if (e.target === restaurantModalBackdrop) closeRestaurantModal();
+    });
+
+    restaurantModalSave.addEventListener("click", () => {
+      const day = tripData.days[editingRestaurant.dayIndex];
+      const updated = {
+        id:
+          editingRestaurant.isNew || !day.restaurants[editingRestaurant.restaurantIndex]
+            ? `r${day.id}-${Date.now()}`
+            : day.restaurants[editingRestaurant.restaurantIndex].id,
+        name: restaurantNameInput.value.trim() || "New restaurant",
+        location: restaurantLocationInput.value.trim() || day.area || "",
+        cuisine: restaurantCuisineInput.value.trim(),
+        url: restaurantUrlInput.value.trim(),
+        priceRange: restaurantPriceRangeInput.value.trim(),
+        notes: restaurantNotesInput.value.trim()
+      };
+
+      if (editingRestaurant.isNew) {
+        day.restaurants.push(updated);
+      } else {
+        day.restaurants[editingRestaurant.restaurantIndex] = updated;
+      }
+
+      saveTripData();
+      renderRestaurants();
+      closeRestaurantModal();
+    });
+
+    function deleteRestaurant(dayIndex, restaurantIndex) {
+      const day = tripData.days[dayIndex];
+      const restaurant = day.restaurants[restaurantIndex];
+      if (!confirm(`Remove restaurant “${restaurant.name}”?`)) return;
+      day.restaurants.splice(restaurantIndex, 1);
+      saveTripData();
+      renderRestaurants();
+    }
+
+    // ---------- History modal logic ----------
+
+    const historyModalBackdrop = document.getElementById("historyModalBackdrop");
+    const historyModalClose = document.getElementById("historyModalClose");
+
+    function openHistoryModal() {
+      renderHistory();
+      historyModalBackdrop.style.display = "flex";
+    }
+
+    function closeHistoryModal() {
+      historyModalBackdrop.style.display = "none";
+    }
+
+    historyModalClose.addEventListener("click", closeHistoryModal);
+    historyModalBackdrop.addEventListener("click", (e) => {
+      if (e.target === historyModalBackdrop) closeHistoryModal();
+    });
+
+    // ---------- Top bar actions ----------
+
+    document.getElementById("btnAddActivity").addEventListener("click", () =>
+      openActivityModal(selectedDayIndex, null)
+    );
+    document.getElementById("btnAddActivityFab").addEventListener("click", () =>
+      openActivityModal(selectedDayIndex, null)
+    );
+    document.getElementById("btnAddRestaurant").addEventListener("click", () =>
+      openRestaurantModal(selectedDayIndex, null)
+    );
+    document.getElementById("btnAddRestaurantFab").addEventListener("click", () =>
+      openRestaurantModal(selectedDayIndex, null)
+    );
+
+    document.getElementById("btnMapToday").addEventListener("click", () => {
+      const day = tripData.days[selectedDayIndex];
+      focusMapOn(day.area || day.mapQuery);
+    });
+    document.getElementById("btnMapFocus").addEventListener("click", () => {
+      const day = tripData.days[selectedDayIndex];
+      focusMapOn(day.area || day.mapQuery);
+    });
+
+    document.getElementById("btnHistory").addEventListener("click", openHistoryModal);
+
+    document.getElementById("btnReset").addEventListener("click", () => {
+      if (
+        !confirm(
+          "Reset to the original default plan? All your edits and snapshots will remain in history, but the current view will go back to default."
+        )
+      )
+        return;
+      tripData = structuredClone(defaultTripData);
+      saveTripData();
+      selectedDayIndex = 0;
+      renderAll();
+    });
+
+    document.getElementById("btnSaveSnapshot").addEventListener("click", () => {
+      const label = prompt(
+        "Snapshot label (e.g. ‘After booking canoe’). Leave empty for a generic label."
+      );
+      const snapshot = {
+        timestamp: Date.now(),
+        label: label && label.trim() ? label.trim() : "Snapshot",
+        data: structuredClone(tripData)
+      };
+      historyData.push(snapshot);
+      saveHistory();
+      alert("Snapshot saved in this browser.");
+    });
+
+    document.getElementById("btnSoftDay").addEventListener("click", () => {
+      const day = tripData.days[selectedDayIndex];
+      day.description =
+        "Keep this day soft and kid-led: you can always drop one activity, stretch out pool time, or swap in a simple village stroll if everyone is tired.";
+      saveTripData();
+      renderDayOverview();
+    });
+
+    // ---------- Init ----------
+
+    renderAll();
   </script>
 </body>
 </html>
