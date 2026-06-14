@@ -2,47 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dordogne Trip Planner</title>
+  <title>Dordogne Trip Planner · Material You · Green Forest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg: #020617;
-      --bg-soft: #0f172a;
-      --card: #0b1220;
-      --accent: #22c55e;
-      --accent-soft: rgba(34,197,94,0.12);
-      --accent-strong: rgba(34,197,94,0.25);
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --border: #1f2937;
-      --danger: #ef4444;
-      --danger-soft: rgba(239,68,68,0.12);
+      --md-primary: #2e7d32;
+      --md-primary-container: #a5d6a7;
+      --md-on-primary: #ffffff;
+      --md-surface: #0f1a12;
+      --md-surface-variant: #1b2a20;
+      --md-on-surface: #e8f5e9;
+      --md-on-surface-muted: #b0c4b4;
+      --md-outline: #3b4a3f;
+      --md-error: #ff5252;
+      --md-error-container: #7f1d1d;
+      --md-shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.45);
+      --radius-large: 24px;
+      --radius-medium: 18px;
+      --radius-chip: 999px;
+      --fab-size: 56px;
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.25s ease-out;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
-      color: var(--text);
+      background: radial-gradient(circle at top, #1b2a20 0, #020403 55%, #000 100%);
+      color: var(--md-on-surface);
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 20px 10px;
+      padding: 16px 10px 24px;
     }
 
     .app-shell {
       width: 100%;
       max-width: 1100px;
-      background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(2,6,23,0.98));
+      background: linear-gradient(145deg, rgba(15, 26, 18, 0.98), rgba(5, 10, 7, 0.98));
       border-radius: 28px;
-      border: 1px solid rgba(148,163,184,0.18);
-      box-shadow: 0 18px 45px rgba(0,0,0,0.65);
-      padding: 18px 16px 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      border: 1px solid rgba(165, 214, 167, 0.25);
+      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.7);
+      padding: 16px 14px 18px;
       position: relative;
       overflow: hidden;
     }
@@ -52,8 +59,8 @@
       position: absolute;
       inset: -40%;
       background:
-        radial-gradient(circle at 0% 0%, rgba(56,189,248,0.08) 0, transparent 55%),
-        radial-gradient(circle at 100% 0%, rgba(34,197,94,0.09) 0, transparent 55%);
+        radial-gradient(circle at 0% 0%, rgba(165, 214, 167, 0.18) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(56, 142, 60, 0.18) 0, transparent 55%);
       opacity: 0.9;
       pointer-events: none;
       z-index: -1;
@@ -62,93 +69,140 @@
     header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
-    .title-block { display: flex; flex-direction: column; gap: 4px; }
-
-    .title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-
-    h1 { font-size: 1.4rem; letter-spacing: 0.03em; display: flex; align-items: center; gap: 8px; }
+    h1 {
+      font-size: 1.35rem;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
     .pill {
-      font-size: 0.7rem;
-      padding: 3px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.35);
-      color: var(--muted);
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-chip);
+      border: 1px solid rgba(176, 196, 180, 0.5);
+      color: var(--md-on-surface-muted);
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: radial-gradient(circle at top left, rgba(148,163,184,0.18), transparent 55%);
+      background: rgba(15, 26, 18, 0.9);
     }
 
     .pill span.dot {
       width: 7px;
       height: 7px;
       border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
+      background: var(--md-primary);
+      box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.35);
     }
 
-    .subtitle { font-size: 0.8rem; color: var(--muted); }
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--md-on-surface-muted);
+    }
 
-    .top-actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
 
-    button { border: none; cursor: pointer; font: inherit; }
+    button {
+      border: none;
+      cursor: pointer;
+      font: inherit;
+    }
 
     .btn {
       padding: 7px 12px;
-      border-radius: 999px;
+      border-radius: var(--radius-chip);
       font-size: 0.78rem;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      border: 1px solid rgba(148,163,184,0.35);
-      background: rgba(15,23,42,0.9);
-      color: var(--text);
-      transition: all 0.18s ease;
+      border: 1px solid rgba(176, 196, 180, 0.5);
+      background: rgba(15, 26, 18, 0.9);
+      color: var(--md-on-surface);
+      transition: all var(--transition-fast);
     }
 
     .btn:hover {
-      border-color: rgba(148,163,184,0.7);
-      background: rgba(15,23,42,1);
+      border-color: rgba(214, 234, 216, 0.9);
+      background: rgba(15, 26, 18, 1);
       transform: translateY(-0.5px);
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #22c55e, #4ade80);
-      color: #022c22;
+      background: linear-gradient(135deg, var(--md-primary), #4caf50);
+      color: var(--md-on-primary);
       border-color: transparent;
-      box-shadow: 0 0 0 1px rgba(34,197,94,0.4), 0 10px 25px rgba(22,163,74,0.45);
+      box-shadow: 0 0 0 1px rgba(165, 214, 167, 0.6), 0 10px 25px rgba(46, 125, 50, 0.55);
     }
 
-    .btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
+    .btn-primary:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    .btn-tonal {
+      background: rgba(165, 214, 167, 0.12);
+      border-color: rgba(165, 214, 167, 0.5);
+      color: var(--md-on-surface);
+    }
+
+    .btn-tonal:hover {
+      background: rgba(165, 214, 167, 0.18);
+    }
 
     .btn-danger {
-      background: var(--danger-soft);
-      color: #fecaca;
-      border-color: rgba(248,113,113,0.6);
+      background: rgba(239, 83, 80, 0.12);
+      color: #ffcdd2;
+      border-color: rgba(239, 83, 80, 0.7);
     }
 
-    .btn-danger:hover { background: rgba(248,113,113,0.18); }
+    .btn-danger:hover {
+      background: rgba(239, 83, 80, 0.18);
+    }
 
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      grid-template-columns: minmax(0, 1.9fr) minmax(0, 1.2fr);
       gap: 14px;
     }
 
-    @media (max-width: 880px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+    @media (max-width: 880px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
 
     .card {
-      background: #020617;
-      border-radius: 22px;
-      border: 1px solid rgba(31,41,55,0.9);
-      box-shadow: 0 14px 35px rgba(0,0,0,0.7);
-      padding: 12px 12px 12px;
+      background: var(--md-surface);
+      border-radius: var(--radius-large);
+      border: 1px solid var(--md-outline);
+      box-shadow: var(--md-shadow-soft);
+      padding: 12px 12px 14px;
       position: relative;
       overflow: hidden;
     }
@@ -163,9 +217,9 @@
 
     .card-title {
       font-size: 0.95rem;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #e5e7eb;
+      color: var(--md-on-surface);
       display: flex;
       align-items: center;
       gap: 8px;
@@ -174,17 +228,20 @@
     .card-title span.badge {
       font-size: 0.65rem;
       padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(148,163,184,0.4);
-      color: var(--muted);
+      border-radius: var(--radius-chip);
+      background: rgba(27, 42, 32, 0.9);
+      border: 1px solid rgba(176, 196, 180, 0.5);
+      color: var(--md-on-surface-muted);
     }
 
-    .card-subtitle { font-size: 0.75rem; color: var(--muted); }
+    .card-subtitle {
+      font-size: 0.75rem;
+      color: var(--md-on-surface-muted);
+    }
 
-    /* Day selector */
+    /* Day chips */
 
-    .day-tabs {
+    .day-chips {
       display: flex;
       gap: 8px;
       overflow-x: auto;
@@ -192,36 +249,60 @@
       margin-bottom: 10px;
     }
 
-    .day-tab {
-      padding: 10px 16px;
-      border-radius: 14px;
-      background: #1e293b;
-      color: #e2e8f0;
-      font-size: 0.9rem;
+    .day-chip {
+      padding: 8px 14px;
+      border-radius: 18px;
+      background: var(--md-surface-variant);
+      color: var(--md-on-surface);
+      font-size: 0.85rem;
       white-space: nowrap;
       cursor: pointer;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
-      border: 1px solid #334155;
+      border: 1px solid var(--md-outline);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 90px;
     }
 
-    .day-tab.active {
-      background: #22c55e;
-      color: #022c22;
+    .day-chip-label {
       font-weight: 600;
-      border-color: #16a34a;
+    }
+
+    .day-chip-date {
+      font-size: 0.7rem;
+      color: var(--md-on-surface-muted);
+    }
+
+    .day-chip.active {
+      background: var(--md-primary-container);
+      color: #0b2610;
+      border-color: rgba(46, 125, 50, 0.9);
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.55);
+    }
+
+    .day-chip.active .day-chip-date {
+      color: #1b5e20;
     }
 
     .day-meta {
       margin-bottom: 10px;
       padding: 10px 12px;
-      border-radius: 16px;
-      background: #0b1220;
-      border: 1px solid #1f2937;
+      border-radius: var(--radius-medium);
+      background: rgba(27, 42, 32, 0.9);
+      border: 1px solid var(--md-outline);
     }
 
-    .day-meta-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .day-meta-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
 
-    .day-meta-notes { font-size: 0.8rem; color: var(--muted); }
+    .day-meta-notes {
+      font-size: 0.8rem;
+      color: var(--md-on-surface-muted);
+    }
 
     .chips {
       display: flex;
@@ -231,39 +312,43 @@
     }
 
     .chip {
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(55,65,81,0.9);
+      padding: 4px 9px;
+      border-radius: var(--radius-chip);
+      border: 1px solid var(--md-outline);
       font-size: 0.7rem;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(15,23,42,0.9);
-      color: var(--muted);
+      background: rgba(15, 26, 18, 0.9);
+      color: var(--md-on-surface-muted);
     }
 
     .chip .dot {
       width: 6px;
       height: 6px;
       border-radius: 999px;
-      background: rgba(148,163,184,0.9);
+      background: rgba(176, 196, 180, 0.9);
     }
 
     .chip.accent {
-      border-color: rgba(34,197,94,0.7);
-      background: var(--accent-soft);
-      color: #bbf7d0;
+      border-color: rgba(165, 214, 167, 0.9);
+      background: rgba(165, 214, 167, 0.12);
+      color: #e8f5e9;
     }
 
-    .chip.accent .dot { background: #22c55e; }
+    .chip.accent .dot {
+      background: var(--md-primary);
+    }
 
-    .section { margin-top: 10px; }
+    .section {
+      margin-top: 10px;
+    }
 
     .section-title {
       font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: #9ca3af;
+      color: var(--md-on-surface-muted);
       margin-bottom: 6px;
       display: flex;
       align-items: center;
@@ -273,19 +358,23 @@
     .section-title span.bar {
       flex: 1;
       height: 1px;
-      background: linear-gradient(to right, rgba(55,65,81,0.9), transparent);
+      background: linear-gradient(to right, rgba(176, 196, 180, 0.7), transparent);
     }
 
-    .small-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; }
+    .small-label {
+      font-size: 0.75rem;
+      color: var(--md-on-surface-muted);
+      margin-bottom: 4px;
+    }
 
     /* Activity cards */
 
     .activity-card {
-      background: #0b1220;
-      border-radius: 18px;
+      background: rgba(27, 42, 32, 0.98);
+      border-radius: var(--radius-large);
       padding: 10px 12px;
-      border: 1px solid #1f2937;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+      border: 1px solid var(--md-outline);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
       margin-bottom: 10px;
       display: grid;
       grid-template-columns: auto 1fr auto;
@@ -294,14 +383,15 @@
     }
 
     .activity-icon {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 999px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      background: #1e293b;
+      font-size: 1.3rem;
+      background: rgba(165, 214, 167, 0.18);
+      color: var(--md-primary-container);
     }
 
     .activity-main {
@@ -315,19 +405,35 @@
       font-weight: 600;
     }
 
-    .activity-time {
-      font-size: 0.8rem;
-      color: #cbd5e1;
+    .activity-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.75rem;
+    }
+
+    .badge {
+      padding: 3px 8px;
+      border-radius: var(--radius-chip);
+      font-size: 0.7rem;
+      border: 1px solid rgba(176, 196, 180, 0.5);
+      background: rgba(15, 26, 18, 0.9);
+      color: var(--md-on-surface-muted);
+    }
+
+    .badge.time {
+      background: rgba(165, 214, 167, 0.16);
+      border-color: rgba(165, 214, 167, 0.7);
+      color: #e8f5e9;
+    }
+
+    .badge.type {
+      background: rgba(27, 42, 32, 0.9);
     }
 
     .activity-details {
       font-size: 0.8rem;
-      color: #94a3b8;
-    }
-
-    .activity-type {
-      font-size: 0.75rem;
-      color: #a5b4fc;
+      color: var(--md-on-surface-muted);
     }
 
     .activity-actions {
@@ -339,10 +445,10 @@
 
     .btn-icon {
       padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(55,65,81,0.9);
-      background: rgba(15,23,42,0.9);
-      color: var(--muted);
+      border-radius: var(--radius-chip);
+      border: 1px solid var(--md-outline);
+      background: rgba(15, 26, 18, 0.9);
+      color: var(--md-on-surface-muted);
       font-size: 0.75rem;
       display: inline-flex;
       align-items: center;
@@ -350,12 +456,130 @@
     }
 
     .btn-icon.danger {
-      border-color: rgba(239,68,68,0.7);
-      color: #fecaca;
-      background: var(--danger-soft);
+      border-color: rgba(239, 83, 80, 0.7);
+      color: #ffcdd2;
+      background: rgba(239, 83, 80, 0.12);
     }
 
-    /* Add forms */
+    /* Restaurant cards */
+
+    .rest-card {
+      background: rgba(27, 42, 32, 0.98);
+      border-radius: var(--radius-large);
+      overflow: hidden;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+      margin-bottom: 14px;
+      border: 1px solid var(--md-outline);
+    }
+
+    .rest-photo-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rest-photo {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+      transition: transform var(--transition-med);
+    }
+
+    .rest-card:hover .rest-photo {
+      transform: scale(1.03);
+    }
+
+    .rest-photo-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent 55%);
+    }
+
+    .rest-photo-top {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .rest-rating-pill {
+      padding: 4px 9px;
+      border-radius: var(--radius-chip);
+      background: rgba(0, 0, 0, 0.6);
+      color: #e8f5e9;
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .rest-rating-pill span.star {
+      color: #ffeb3b;
+    }
+
+    .rest-photo-bottom {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      right: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .rest-photo-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #e8f5e9;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .rest-photo-town {
+      font-size: 0.8rem;
+      color: #c8e6c9;
+    }
+
+    .rest-photo-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .rest-photo-btn {
+      padding: 4px 8px;
+      border-radius: var(--radius-chip);
+      border: none;
+      font-size: 0.75rem;
+      background: rgba(0, 0, 0, 0.6);
+      color: #e8f5e9;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .rest-body {
+      padding: 10px 12px 12px;
+    }
+
+    .rest-info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--md-on-surface-muted);
+      margin-bottom: 6px;
+    }
+
+    .rest-notes {
+      font-size: 0.8rem;
+      color: var(--md-on-surface-muted);
+      margin-top: 2px;
+    }
+
+    /* Forms */
 
     .form-inline {
       margin-top: 6px;
@@ -366,94 +590,89 @@
     }
 
     @media (min-width: 720px) {
-      .form-inline { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .form-inline {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
     }
 
     .form-inline input,
     .form-inline select {
       width: 100%;
       padding: 7px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(55,65,81,0.9);
-      background: rgba(15,23,42,0.9);
-      color: var(--text);
+      border-radius: var(--radius-chip);
+      border: 1px solid var(--md-outline);
+      background: rgba(15, 26, 18, 0.9);
+      color: var(--md-on-surface);
       font-size: 0.8rem;
     }
 
-    .form-inline input::placeholder { color: #6b7280; }
-
-    /* Restaurant cards */
-
-    .rest-card {
-      background: #1e293b;
-      border-radius: 18px;
-      overflow: hidden;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-      margin-bottom: 14px;
+    .form-inline input::placeholder {
+      color: var(--md-on-surface-muted);
     }
 
-    .rest-photo {
+    /* History bottom sheet */
+
+    .bottom-sheet-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-med);
+    }
+
+    .bottom-sheet-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .bottom-sheet {
       width: 100%;
-      height: 160px;
-      object-fit: cover;
+      max-width: 900px;
+      background: #0f1a12;
+      border-radius: 24px 24px 0 0;
+      border-top: 1px solid var(--md-outline);
+      box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.7);
+      padding: 12px 14px 16px;
+      transform: translateY(100%);
+      transition: transform var(--transition-med);
     }
 
-    .rest-body {
-      padding: 12px 14px;
+    .bottom-sheet-overlay.visible .bottom-sheet {
+      transform: translateY(0);
     }
 
-    .rest-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    .rest-town {
-      font-size: 0.85rem;
-      color: #94a3b8;
-      margin-bottom: 8px;
-    }
-
-    .rest-info {
+    .bottom-sheet-header {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      font-size: 0.8rem;
-      color: #cbd5e1;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 8px;
-    }
-
-    .rest-notes {
-      font-size: 0.8rem;
-      color: #94a3b8;
-      margin-top: 4px;
-    }
-
-    .rest-actions {
-      display: flex;
-      flex-direction: column;
       gap: 8px;
-      padding: 10px 14px 12px;
-      background: #0f172a;
     }
 
-    .rest-btn {
-      padding: 8px 12px;
-      border-radius: 10px;
-      background: #334155;
-      color: #e2e8f0;
-      border: none;
-      font-size: 0.85rem;
-      text-align: center;
+    .bottom-sheet-title {
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--md-on-surface);
     }
 
-    .rest-btn:hover { background: #475569; }
+    .bottom-sheet-subtitle {
+      font-size: 0.75rem;
+      color: var(--md-on-surface-muted);
+    }
 
-    .rest-btn.danger { background: #7f1d1d; }
-
-    .rest-btn.danger:hover { background: #991b1b; }
-
-    /* History */
+    .bottom-sheet-handle {
+      width: 40px;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(176, 196, 180, 0.5);
+      margin: 0 auto 8px;
+    }
 
     .version-list {
       display: flex;
@@ -466,9 +685,9 @@
     }
 
     .version-item {
-      border-radius: 14px;
-      border: 1px solid rgba(31,41,55,0.9);
-      background: #0b1220;
+      border-radius: 16px;
+      border: 1px solid var(--md-outline);
+      background: rgba(27, 42, 32, 0.98);
       padding: 7px 8px;
       display: flex;
       justify-content: space-between;
@@ -476,9 +695,15 @@
       align-items: center;
     }
 
-    .version-meta { display: flex; flex-direction: column; gap: 2px; }
+    .version-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
-    .version-meta span.label { color: var(--muted); }
+    .version-meta span.label {
+      color: var(--md-on-surface-muted);
+    }
 
     .version-actions {
       display: flex;
@@ -487,88 +712,261 @@
       align-items: flex-end;
     }
 
-    .status-bar {
+    /* Bottom sheet editor */
+
+    .editor-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-med);
+    }
+
+    .editor-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .editor-sheet {
+      width: 100%;
+      max-width: 900px;
+      background: #0f1a12;
+      border-radius: 24px 24px 0 0;
+      border-top: 1px solid var(--md-outline);
+      box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.7);
+      padding: 14px 14px 16px;
+      transform: translateY(100%);
+      transition: transform var(--transition-med);
+    }
+
+    .editor-overlay.visible .editor-sheet {
+      transform: translateY(0);
+    }
+
+    .editor-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.7rem;
-      color: var(--muted);
-      margin-top: 4px;
+      margin-bottom: 8px;
       gap: 8px;
-      flex-wrap: wrap;
     }
 
-    .status-pill {
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(55,65,81,0.9);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(15,23,42,0.9);
+    .editor-title {
+      font-size: 0.95rem;
+      font-weight: 600;
     }
 
-    .status-pill .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-    }
-
-    .status-pill.warn .dot { background: #f97316; }
-
-    /* Modal */
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .modal-overlay.hidden { display: none; }
-
-    .modal {
-      background: #111827;
-      padding: 20px;
-      border-radius: 16px;
-      width: 90%;
-      max-width: 420px;
-      border: 1px solid #374151;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    }
-
-    .modal h2 { margin-bottom: 10px; font-size: 1rem; }
-
-    .modal-actions {
-      display: flex;
-      justify-content: flex-end;
+    .editor-content {
+      margin-top: 6px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
       gap: 10px;
-      margin-top: 16px;
     }
 
-    .modal label { display: block; margin-bottom: 8px; }
+    @media (max-width: 720px) {
+      .editor-content {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
 
-    .modal input,
-    .modal textarea {
+    .editor-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .editor-field label {
+      font-size: 0.78rem;
+      color: var(--md-on-surface-muted);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .editor-field input,
+    .editor-field textarea {
       width: 100%;
-      padding: 8px;
-      border-radius: 8px;
-      border: 1px solid #374151;
-      background: #1f2937;
-      color: #e5e7eb;
+      padding: 8px 9px;
+      border-radius: 12px;
+      border: 1px solid var(--md-outline);
+      background: rgba(15, 26, 18, 0.95);
+      color: var(--md-on-surface);
       font-size: 0.8rem;
     }
 
-    .modal textarea { min-height: 70px; resize: vertical; }
+    .editor-field textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
 
-    .scroll-soft { scrollbar-width: thin; scrollbar-color: rgba(75,85,99,0.9) transparent; }
-    .scroll-soft::-webkit-scrollbar { width: 6px; }
-    .scroll-soft::-webkit-scrollbar-track { background: transparent; }
-    .scroll-soft::-webkit-scrollbar-thumb { background: rgba(75,85,99,0.9); border-radius: 999px; }
+    .editor-photo-preview {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--md-outline);
+      background: rgba(15, 26, 18, 0.95);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 6px;
+    }
+
+    .editor-photo-preview img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .editor-photo-caption {
+      font-size: 0.75rem;
+      color: var(--md-on-surface-muted);
+    }
+
+    .editor-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    /* FAB */
+
+    .fab-container {
+      position: fixed;
+      right: 18px;
+      bottom: 22px;
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .fab-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transform: translateY(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all var(--transition-med);
+    }
+
+    .fab-menu.visible {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .fab-menu-item {
+      padding: 6px 10px;
+      border-radius: var(--radius-chip);
+      background: rgba(15, 26, 18, 0.95);
+      border: 1px solid var(--md-outline);
+      color: var(--md-on-surface);
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .fab {
+      width: var(--fab-size);
+      height: var(--fab-size);
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--md-primary), #4caf50);
+      color: var(--md-on-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(46, 125, 50, 0.7);
+      font-size: 1.4rem;
+      border: none;
+      cursor: pointer;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .fab:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 36px rgba(46, 125, 50, 0.8);
+    }
+
+    .fab-icon-rotated {
+      transform: rotate(45deg);
+    }
+
+    /* Map sheet */
+
+    .map-sheet {
+      width: 100%;
+      max-width: 900px;
+      background: #0f1a12;
+      border-radius: 24px 24px 0 0;
+      border-top: 1px solid var(--md-outline);
+      box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.7);
+      padding: 14px 14px 16px;
+      transform: translateY(100%);
+      transition: transform var(--transition-med);
+    }
+
+    .map-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      z-index: 950;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-med);
+    }
+
+    .map-overlay.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .map-overlay.visible .map-sheet {
+      transform: translateY(0);
+    }
+
+    .map-placeholder {
+      border-radius: 18px;
+      border: 1px dashed var(--md-outline);
+      background: rgba(15, 26, 18, 0.95);
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--md-on-surface-muted);
+      text-align: center;
+      padding: 10px;
+    }
+
+    .scroll-soft {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(75, 85, 79, 0.9) transparent;
+    }
+
+    .scroll-soft::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .scroll-soft::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .scroll-soft::-webkit-scrollbar-thumb {
+      background: rgba(75, 85, 79, 0.9);
+      border-radius: 999px;
+    }
   </style>
 </head>
 <body>
@@ -576,20 +974,18 @@
     <header>
       <div class="title-block">
         <div class="title-row">
-          <h1>📍 Dordogne Trip Planner</h1>
+          <h1>🌿 Dordogne Trip Planner</h1>
           <div class="pill">
             <span class="dot"></span>
-            <span>Family · 23–29 June · Saint‑Julien‑de‑Lampon</span>
+            <span>Family · 23–29 June 2026 · Saint‑Julien‑de‑Lampon</span>
           </div>
         </div>
         <div class="subtitle">
-          Beautiful, editable overview of days, activities, and restaurants—with history, reset, and local persistence.
+          A calm, modern, Material‑You view of your days, activities, and restaurants—with editing, history, and local persistence.
         </div>
       </div>
       <div class="top-actions">
-        <button class="btn btn-primary" id="btnMapToday">🗺 Map today’s restaurants</button>
-        <button class="btn" id="btnSaveSnapshot">💾 Save snapshot</button>
-        <button class="btn btn-danger" id="btnReset">♻️ Reset to default</button>
+        <button class="btn-tonal btn" id="btnMapToday">🗺 Map today’s restaurants</button>
       </div>
     </header>
 
@@ -600,86 +996,134 @@
           <div>
             <div class="card-title">
               Itinerary
-              <span class="badge">App‑like view</span>
+              <span class="badge">Material You · Green Forest</span>
             </div>
             <div class="card-subtitle">
-              Tap a day, edit activities and restaurants, and keep everything simple and visual.
+              Tap a day, see activities and restaurants as modern cards, and edit via bottom sheets.
             </div>
           </div>
         </div>
 
-        <div class="day-tabs" id="dayTabs"></div>
+        <div class="day-chips" id="dayChips"></div>
         <div id="dayContent"></div>
       </div>
 
-      <!-- RIGHT: History & persistence -->
+      <!-- RIGHT: Info / Tips -->
       <div class="card">
         <div class="card-header">
           <div>
             <div class="card-title">
-              Version history
-              <span class="badge">Local only</span>
+              Trip context
+              <span class="badge">Local & GitHub‑ready</span>
             </div>
             <div class="card-subtitle">
-              Snapshots are stored in your browser (localStorage). Perfect for GitHub‑hosted static pages.
+              Data is stored in your browser (localStorage). Perfect for a static GitHub Pages app.
             </div>
           </div>
         </div>
 
         <div class="section">
           <div class="section-title">
-            Snapshots
+            Persistence
             <span class="bar"></span>
           </div>
-          <div class="version-list scroll-soft" id="versionList"></div>
-        </div>
-
-        <div class="section">
-          <div class="section-title">
-            Storage & sync
-            <span class="bar"></span>
-          </div>
-          <div class="status-bar">
-            <div>
-              <div class="small-label">Persistence</div>
-              <div class="status-pill">
-                <span class="dot"></span>
-                <span>localStorage · survives refresh</span>
-              </div>
-            </div>
-            <div>
-              <div class="small-label">GitHub Pages</div>
-              <div class="status-pill warn">
-                <span class="dot"></span>
-                <span>Per‑device only (no cloud sync)</span>
-              </div>
-            </div>
+          <div style="font-size:0.78rem;color:var(--md-on-surface-muted);display:flex;flex-direction:column;gap:4px;">
+            <div>• <strong>Local only:</strong> All edits stay on this device (localStorage).</div>
+            <div>• <strong>GitHub Pages:</strong> Just commit this file and enable Pages—no backend needed.</div>
+            <div>• <strong>Snapshots:</strong> Use the FAB menu to save and restore versions when you want.</div>
           </div>
         </div>
 
         <div class="section">
           <div class="section-title">
-            Tips
+            How to use
             <span class="bar"></span>
           </div>
-          <ul style="font-size:0.72rem;color:var(--muted);padding-left:16px;display:flex;flex-direction:column;gap:3px;">
-            <li><strong>GitHub‑ready:</strong> Commit this file and enable GitHub Pages.</li>
-            <li><strong>Private:</strong> All edits and snapshots stay in each browser.</li>
-            <li><strong>Reset:</strong> Use “Reset to default” if things get messy.</li>
+          <ul style="font-size:0.78rem;color:var(--md-on-surface-muted);padding-left:16px;display:flex;flex-direction:column;gap:3px;">
+            <li><strong>1.</strong> Pick a day from the chips at the top.</li>
+            <li><strong>2.</strong> Tap “✏️ Edit” on an activity or restaurant to open the bottom sheet editor.</li>
+            <li><strong>3.</strong> Use the “+” FAB to add items, save snapshots, or reset to default.</li>
+            <li><strong>4.</strong> Use “Map today’s restaurants” to open Google Maps with today’s picks.</li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal -->
-  <div id="modalOverlay" class="modal-overlay hidden">
-    <div id="modal" class="modal">
-      <h2 id="modalTitle"></h2>
-      <div id="modalContent"></div>
-      <div class="modal-actions">
-        <button id="modalCancel" class="btn">Cancel</button>
-        <button id="modalSave" class="btn btn-primary">Save</button>
+  <!-- FAB -->
+  <div class="fab-container">
+    <div class="fab-menu" id="fabMenu">
+      <div class="fab-menu-item" id="fabAddActivity">➕ Add activity</div>
+      <div class="fab-menu-item" id="fabAddRestaurant">➕ Add restaurant</div>
+      <div class="fab-menu-item" id="fabHistory">🕒 Version history</div>
+      <div class="fab-menu-item" id="fabReset">♻️ Reset to default</div>
+    </div>
+    <button class="fab" id="fabMain">
+      <span id="fabIcon">＋</span>
+    </button>
+  </div>
+
+  <!-- History bottom sheet -->
+  <div id="historyOverlay" class="bottom-sheet-overlay">
+    <div class="bottom-sheet">
+      <div class="bottom-sheet-handle"></div>
+      <div class="bottom-sheet-header">
+        <div>
+          <div class="bottom-sheet-title">Version history</div>
+          <div class="bottom-sheet-subtitle">
+            Snapshots are stored locally. Restore or delete them here.
+          </div>
+        </div>
+        <button class="btn" id="historyClose">Close</button>
+      </div>
+      <div class="version-list scroll-soft" id="versionList"></div>
+    </div>
+  </div>
+
+  <!-- Editor bottom sheet -->
+  <div id="editorOverlay" class="editor-overlay">
+    <div class="editor-sheet">
+      <div class="bottom-sheet-handle"></div>
+      <div class="editor-header">
+        <div class="editor-title" id="editorTitle"></div>
+        <button class="btn" id="editorClose">Close</button>
+      </div>
+      <div class="editor-content">
+        <div class="editor-fields" id="editorFields"></div>
+        <div class="editor-photo-preview" id="editorPhotoPreview" style="display:none;">
+          <img id="editorPhotoImg" src="" alt="Preview" />
+          <div class="editor-photo-caption">
+            Photo preview. Paste a new URL to change the image.
+          </div>
+        </div>
+      </div>
+      <div class="editor-actions">
+        <button class="btn" id="editorCancel">Cancel</button>
+        <button class="btn-primary btn" id="editorSave">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map bottom sheet -->
+  <div id="mapOverlay" class="map-overlay">
+    <div class="map-sheet">
+      <div class="bottom-sheet-handle"></div>
+      <div class="bottom-sheet-header">
+        <div>
+          <div class="bottom-sheet-title">Map today’s restaurants</div>
+          <div class="bottom-sheet-subtitle">
+            Open all of today’s restaurants in Google Maps or copy the search query.
+          </div>
+        </div>
+        <button class="btn" id="mapClose">Close</button>
+      </div>
+      <div class="map-placeholder" id="mapPlaceholder">
+        Map embedding is optional. For now, we’ll open Google Maps with a search query containing all restaurants for the selected day.
+      </div>
+      <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
+        <button class="btn-primary btn" id="mapOpenExternal">Open in Google Maps</button>
+        <button class="btn-tonal btn" id="mapCopyQuery">Copy search query</button>
+        <div style="font-size:0.75rem;color:var(--md-on-surface-muted);" id="mapQueryText"></div>
       </div>
     </div>
   </div>
@@ -691,6 +1135,7 @@
         {
           id: "2026-06-23",
           label: "Day 1",
+          dateLabel: "23 Jun",
           title: "Arrival & settling in",
           notes: "Easy day. Pool, groceries, short walk nearby.",
           tags: ["Soft landing", "Pool", "Groceries"],
@@ -721,7 +1166,7 @@
               price: "Menu €13.50–16.50",
               reviewScore: "4.5",
               reviewCount: "120",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
               notes: "Friendly local bistrot; good for arrival evening."
             }
           ]
@@ -729,6 +1174,7 @@
         {
           id: "2026-06-24",
           label: "Day 2",
+          dateLabel: "24 Jun",
           title: "Beynac & river views",
           notes: "Castle + village + easy food options.",
           tags: ["Castle", "Village", "Views"],
@@ -759,7 +1205,7 @@
               price: "Menu €19.50–46",
               reviewScore: "4.6",
               reviewCount: "500",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
               notes: "Cozy, very good food; reservation advised."
             },
             {
@@ -772,7 +1218,7 @@
               price: "Menu €12.50–16 · Child €9",
               reviewScore: "4.3",
               reviewCount: "250",
-              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
               notes: "Simple, good with kids right by the castle entrance."
             },
             {
@@ -785,7 +1231,7 @@
               price: "",
               reviewScore: "",
               reviewCount: "",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
               notes: "Terrace at the foot of the château; relaxed, good with kids."
             }
           ]
@@ -793,6 +1239,7 @@
         {
           id: "2026-06-25",
           label: "Day 3",
+          dateLabel: "25 Jun",
           title: "La Roque‑Gageac & river",
           notes: "Village + possible boat/canoe.",
           tags: ["Village", "River"],
@@ -823,7 +1270,7 @@
               price: "Menu ~€31",
               reviewScore: "4.7",
               reviewCount: "400",
-              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
               notes: "Book weeks ahead in summer; more grown‑up, great view."
             },
             {
@@ -836,7 +1283,7 @@
               price: "",
               reviewScore: "",
               reviewCount: "",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
               notes: "Casual, good with kids after a boat ride."
             }
           ]
@@ -844,6 +1291,7 @@
         {
           id: "2026-06-26",
           label: "Day 4",
+          dateLabel: "26 Jun",
           title: "Domme & viewpoints",
           notes: "Hilltop village + views + easy food.",
           tags: ["Village", "Viewpoint"],
@@ -874,7 +1322,7 @@
               price: "Menu €26–32",
               reviewScore: "4.6",
               reviewCount: "300",
-              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
               notes: "Well‑reviewed; book ahead if you want a proper sit‑down meal."
             },
             {
@@ -887,7 +1335,7 @@
               price: "~€30/person",
               reviewScore: "4.4",
               reviewCount: "200",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
               notes: "Book ahead for high season; nice terrace and local dishes."
             },
             {
@@ -900,7 +1348,7 @@
               price: "Menu €18.50",
               reviewScore: "4.0",
               reviewCount: "350",
-              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
               notes: "Big cliff view; food reviews mixed but setting is great."
             }
           ]
@@ -908,6 +1356,7 @@
         {
           id: "2026-06-27",
           label: "Day 5",
+          dateLabel: "27 Jun",
           title: "Trémolat & river loop",
           notes: "Cingle de Trémolat + relaxed lunch.",
           tags: ["Scenic drive", "River"],
@@ -931,7 +1380,7 @@
               price: "Menu €19–36",
               reviewScore: "4.5",
               reviewCount: "220",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
               notes: "Classic Périgord dishes; good for a proper lunch."
             }
           ]
@@ -939,6 +1388,7 @@
         {
           id: "2026-06-28",
           label: "Day 6",
+          dateLabel: "28 Jun",
           title: "Free / pool / repeats",
           notes: "Keep it open—repeat favourites or just stay by the pool.",
           tags: ["Flexible", "Pool"],
@@ -962,7 +1412,7 @@
               price: "",
               reviewScore: "",
               reviewCount: "",
-              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
               notes: "Decide based on what you loved most earlier in the week."
             }
           ]
@@ -970,6 +1420,7 @@
         {
           id: "2026-06-29",
           label: "Day 7",
+          dateLabel: "29 Jun",
           title: "Departure",
           notes: "Pack, last swim, easy drive out.",
           tags: ["Departure"],
@@ -993,7 +1444,7 @@
               price: "",
               reviewScore: "",
               reviewCount: "",
-              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=800&q=80",
+              photo: "https://images.unsplash.com/photo-1521017432531-1c4f2c0b0a42?auto=format&fit=crop&w=900&q=80",
               notes: "No pressure—just keep it easy."
             }
           ]
@@ -1001,8 +1452,8 @@
       ]
     };
 
-    const STORAGE_KEY_DATA = "dordogne_trip_data_v3";
-    const STORAGE_KEY_HISTORY = "dordogne_trip_history_v3";
+    const STORAGE_KEY_DATA = "dordogne_trip_data_material_green_v1";
+    const STORAGE_KEY_HISTORY = "dordogne_trip_history_material_green_v1";
 
     let state = {
       days: [],
@@ -1010,6 +1461,7 @@
     };
 
     let history = [];
+    let editorContext = null;
 
     // ---------- STORAGE ----------
     function loadFromStorage() {
@@ -1086,39 +1538,6 @@
       renderHistory();
     }
 
-    // ---------- MODAL ----------
-    function openModal(title, fields, onSave) {
-      const overlay = document.getElementById("modalOverlay");
-      const modalTitle = document.getElementById("modalTitle");
-      const modalContent = document.getElementById("modalContent");
-      const btnSave = document.getElementById("modalSave");
-      const btnCancel = document.getElementById("modalCancel");
-
-      modalTitle.textContent = title;
-
-      modalContent.innerHTML = fields.map(f => `
-        <label>
-          <div style="font-size:0.8rem;color:#9ca3af;">${f.label}</div>
-          ${f.type === "textarea"
-            ? `<textarea data-field="${f.key}">${f.value || ""}</textarea>`
-            : `<input type="${f.type}" data-field="${f.key}" value="${f.value || ""}">`
-          }
-        </label>
-      `).join("");
-
-      overlay.classList.remove("hidden");
-
-      btnCancel.onclick = () => overlay.classList.add("hidden");
-
-      btnSave.onclick = () => {
-        const inputs = modalContent.querySelectorAll("[data-field]");
-        const result = {};
-        inputs.forEach(inp => result[inp.dataset.field] = inp.value.trim());
-        overlay.classList.add("hidden");
-        onSave(result);
-      };
-    }
-
     // ---------- ICONS ----------
     function activityIcon(type) {
       switch ((type || "").toLowerCase()) {
@@ -1134,20 +1553,23 @@
     }
 
     // ---------- RENDER ----------
-    function renderTabs() {
-      const tabsEl = document.getElementById("dayTabs");
-      tabsEl.innerHTML = "";
+    function renderDayChips() {
+      const chipsEl = document.getElementById("dayChips");
+      chipsEl.innerHTML = "";
       state.days.forEach(day => {
         const btn = document.createElement("button");
-        btn.className = "day-tab" + (day.id === state.activeDayId ? " active" : "");
-        btn.textContent = `${day.label}`;
+        btn.className = "day-chip" + (day.id === state.activeDayId ? " active" : "");
+        btn.innerHTML = `
+          <div class="day-chip-label">${day.label}</div>
+          <div class="day-chip-date">${day.dateLabel || ""}</div>
+        `;
         btn.onclick = () => {
           state.activeDayId = day.id;
           saveToStorage();
-          renderTabs();
+          renderDayChips();
           renderDayContent();
         };
-        tabsEl.appendChild(btn);
+        chipsEl.appendChild(btn);
       });
     }
 
@@ -1155,7 +1577,7 @@
       const container = document.getElementById("dayContent");
       const day = state.days.find(d => d.id === state.activeDayId) || state.days[0];
       if (!day) {
-        container.innerHTML = "<p style='font-size:0.8rem;color:var(--muted);'>No day selected.</p>";
+        container.innerHTML = "<p style='font-size:0.8rem;color:var(--md-on-surface-muted);'>No day selected.</p>";
         return;
       }
 
@@ -1176,24 +1598,6 @@
             <span class="bar"></span>
           </div>
           <div id="activityList"></div>
-
-          <div class="small-label" style="margin-top:6px;">Add activity</div>
-          <div class="form-inline" id="activityForm">
-            <input type="text" placeholder="Time (e.g. Morning)" data-field="time" />
-            <input type="text" placeholder="Title" data-field="title" />
-            <input type="text" placeholder="Details" data-field="details" />
-            <select data-field="type">
-              <option value="">Type</option>
-              <option>Relax</option>
-              <option>Practical</option>
-              <option>Castle</option>
-              <option>Walk</option>
-              <option>River</option>
-              <option>View</option>
-              <option>Cave</option>
-            </select>
-            <button class="btn btn-primary" type="button" id="btnAddActivity">+ Add</button>
-          </div>
         </div>
 
         <div class="section">
@@ -1202,26 +1606,11 @@
             <span class="bar"></span>
           </div>
           <div id="restaurantList"></div>
-
-          <div class="small-label" style="margin-top:6px;">Add restaurant</div>
-          <div class="form-inline" id="restaurantForm">
-            <input type="text" placeholder="Name" data-field="name" />
-            <input type="text" placeholder="Town" data-field="town" />
-            <input type="text" placeholder="Style" data-field="style" />
-            <input type="text" placeholder="URL" data-field="url" />
-            <input type="text" placeholder="Phone" data-field="phone" />
-            <input type="text" placeholder="Price range" data-field="price" />
-            <input type="number" placeholder="Review score" data-field="reviewScore" />
-            <input type="number" placeholder="Review count" data-field="reviewCount" />
-            <input type="text" placeholder="Photo URL" data-field="photo" />
-            <button class="btn btn-primary" type="button" id="btnAddRestaurant">+ Add</button>
-          </div>
         </div>
       `;
 
       renderActivities(day);
       renderRestaurants(day);
-      wireDayForms(day);
     }
 
     function renderActivities(day) {
@@ -1234,9 +1623,11 @@
           <div class="activity-icon">${activityIcon(act.type)}</div>
           <div class="activity-main">
             <div class="activity-title">${act.title}</div>
-            <div class="activity-time">${act.time || "Anytime"}</div>
+            <div class="activity-meta-row">
+              <span class="badge time">${act.time || "Anytime"}</span>
+              ${act.type ? `<span class="badge type">${act.type}</span>` : ""}
+            </div>
             <div class="activity-details">${act.details || ""}</div>
-            <div class="activity-type">${act.type || ""}</div>
           </div>
           <div class="activity-actions">
             <button class="btn-icon" data-edit-act="${act.id}">✏️ Edit</button>
@@ -1260,21 +1651,7 @@
           const id = btn.dataset.editAct;
           const act = day.activities.find(a => a.id === id);
           if (!act) return;
-
-          openModal(
-            "Edit Activity",
-            [
-              { label: "Time", key: "time", type: "text", value: act.time },
-              { label: "Title", key: "title", type: "text", value: act.title },
-              { label: "Details", key: "details", type: "textarea", value: act.details },
-              { label: "Type", key: "type", type: "text", value: act.type }
-            ],
-            updated => {
-              Object.assign(act, updated);
-              saveToStorage();
-              renderActivities(day);
-            }
-          );
+          openEditor("Edit activity", "activity", day, act);
         };
       });
     }
@@ -1286,22 +1663,45 @@
         const item = document.createElement("div");
         item.className = "rest-card";
         item.innerHTML = `
-          <img class="rest-photo" src="${r.photo || 'https://via.placeholder.com/300'}" alt="${r.name}">
+          <div class="rest-photo-wrap">
+            <img class="rest-photo" src="${r.photo || 'https://via.placeholder.com/900x400'}" alt="${r.name}">
+            <div class="rest-photo-gradient"></div>
+            <div class="rest-photo-top">
+              ${
+                r.reviewScore
+                  ? `<div class="rest-rating-pill">
+                       <span class="star">★</span>
+                       <span>${r.reviewScore} (${r.reviewCount || 0})</span>
+                     </div>`
+                  : ""
+              }
+            </div>
+            <div class="rest-photo-bottom">
+              <div>
+                <div class="rest-photo-title">${r.name}</div>
+                <div class="rest-photo-town">${r.town || ""}</div>
+              </div>
+              <div class="rest-photo-actions">
+                ${
+                  r.url
+                    ? `<button class="rest-photo-btn" data-open-url="${r.id}">🌐 Website</button>`
+                    : ""
+                }
+                <button class="rest-photo-btn" data-open-map="${r.id}">📍 Map</button>
+              </div>
+            </div>
+          </div>
           <div class="rest-body">
-            <div class="rest-title">${r.name}</div>
-            <div class="rest-town">${r.town || "—"}</div>
-            <div class="rest-info">
+            <div class="rest-info-row">
               ${r.style ? `<span>${r.style}</span>` : ""}
               ${r.price ? `<span>💶 ${r.price}</span>` : ""}
               ${r.phone ? `<span>📞 ${r.phone}</span>` : ""}
-              ${r.reviewScore ? `<span>⭐ ${r.reviewScore} (${r.reviewCount})</span>` : ""}
             </div>
             ${r.notes ? `<div class="rest-notes">${r.notes}</div>` : ""}
-          </div>
-          <div class="rest-actions">
-            ${r.url ? `<button class="rest-btn" onclick="window.open('${r.url}', '_blank')">🌐 Website</button>` : ""}
-            <button class="rest-btn" data-edit="${r.id}">✏️ Edit</button>
-            <button class="rest-btn danger" data-id="${r.id}" data-kind="restaurant">🗑 Remove</button>
+            <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
+              <button class="btn-icon" data-edit-rest="${r.id}">✏️ Edit</button>
+              <button class="btn-icon danger" data-id="${r.id}" data-kind="restaurant">🗑 Remove</button>
+            </div>
           </div>
         `;
         listEl.appendChild(item);
@@ -1316,88 +1716,33 @@
         };
       });
 
-      listEl.querySelectorAll("[data-edit]").forEach(btn => {
+      listEl.querySelectorAll("[data-edit-rest]").forEach(btn => {
         btn.onclick = () => {
-          const id = btn.dataset.edit;
+          const id = btn.dataset.editRest;
           const rest = day.restaurants.find(r => r.id === id);
           if (!rest) return;
-
-          openModal(
-            "Edit Restaurant",
-            [
-              { label: "Name", key: "name", type: "text", value: rest.name },
-              { label: "Town", key: "town", type: "text", value: rest.town },
-              { label: "Style", key: "style", type: "text", value: rest.style },
-              { label: "URL", key: "url", type: "text", value: rest.url },
-              { label: "Phone", key: "phone", type: "text", value: rest.phone },
-              { label: "Price range", key: "price", type: "text", value: rest.price },
-              { label: "Review score", key: "reviewScore", type: "number", value: rest.reviewScore },
-              { label: "Review count", key: "reviewCount", type: "number", value: rest.reviewCount },
-              { label: "Photo URL", key: "photo", type: "text", value: rest.photo },
-              { label: "Notes", key: "notes", type: "textarea", value: rest.notes }
-            ],
-            updated => {
-              Object.assign(rest, updated);
-              saveToStorage();
-              renderRestaurants(day);
-            }
-          );
+          openEditor("Edit restaurant", "restaurant", day, rest);
         };
       });
-    }
 
-    function wireDayForms(day) {
-      const actForm = document.getElementById("activityForm");
-      const restForm = document.getElementById("restaurantForm");
-
-      const actInputs = actForm.querySelectorAll("[data-field]");
-      const restInputs = restForm.querySelectorAll("[data-field]");
-
-      document.getElementById("btnAddActivity").onclick = () => {
-        const payload = {};
-        actInputs.forEach(inp => {
-          payload[inp.getAttribute("data-field")] = inp.value.trim();
-        });
-        if (!payload.title) return;
-        const newAct = {
-          id: "a_" + Date.now() + "_" + Math.random().toString(16).slice(2),
-          time: payload.time || "Anytime",
-          title: payload.title,
-          details: payload.details || "",
-          type: payload.type || ""
+      listEl.querySelectorAll("[data-open-url]").forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute("data-open-url");
+          const rest = day.restaurants.find(r => r.id === id);
+          if (rest && rest.url) window.open(rest.url, "_blank");
         };
-        day.activities = day.activities || [];
-        day.activities.push(newAct);
-        actInputs.forEach(inp => (inp.value = ""));
-        saveToStorage();
-        renderActivities(day);
-      };
+      });
 
-      document.getElementById("btnAddRestaurant").onclick = () => {
-        const payload = {};
-        restInputs.forEach(inp => {
-          payload[inp.getAttribute("data-field")] = inp.value.trim();
-        });
-        if (!payload.name) return;
-        const newRest = {
-          id: "r_" + Date.now() + "_" + Math.random().toString(16).slice(2),
-          name: payload.name,
-          town: payload.town || "",
-          style: payload.style || "",
-          url: payload.url || "",
-          phone: payload.phone || "",
-          price: payload.price || "",
-          reviewScore: payload.reviewScore || "",
-          reviewCount: payload.reviewCount || "",
-          photo: payload.photo || "",
-          notes: ""
+      listEl.querySelectorAll("[data-open-map]").forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute("data-open-map");
+          const rest = day.restaurants.find(r => r.id === id);
+          if (!rest) return;
+          const query = `${rest.name} ${rest.town || ""}`;
+          const url = "https://www.google.com/maps/search/" + encodeURIComponent(query);
+          window.open(url, "_blank");
         };
-        day.restaurants = day.restaurants || [];
-        day.restaurants.push(newRest);
-        restInputs.forEach(inp => (inp.value = ""));
-        saveToStorage();
-        renderRestaurants(day);
-      };
+      });
     }
 
     function renderHistory() {
@@ -1405,7 +1750,7 @@
       listEl.innerHTML = "";
       if (!history.length) {
         listEl.innerHTML =
-          "<p style='font-size:0.75rem;color:var(--muted);'>No snapshots yet. Use “Save snapshot” after you tweak things.</p>";
+          "<p style='font-size:0.75rem;color:var(--md-on-surface-muted);'>No snapshots yet. Use the FAB menu → “🕒 Version history” → “Save snapshot” to create one.</p>";
         return;
       }
 
@@ -1439,34 +1784,272 @@
     }
 
     function renderAll() {
-      renderTabs();
+      renderDayChips();
       renderDayContent();
       renderHistory();
     }
 
-    // ---------- MAP VIEW ----------
-    function openMapForToday() {
+    // ---------- EDITOR (bottom sheet) ----------
+    function openEditor(title, kind, day, item) {
+      editorContext = { kind, dayId: day.id, itemId: item.id };
+      const overlay = document.getElementById("editorOverlay");
+      const titleEl = document.getElementById("editorTitle");
+      const fieldsEl = document.getElementById("editorFields");
+      const photoWrap = document.getElementById("editorPhotoPreview");
+      const photoImg = document.getElementById("editorPhotoImg");
+
+      titleEl.textContent = title;
+      fieldsEl.innerHTML = "";
+
+      if (kind === "activity") {
+        fieldsEl.innerHTML = `
+          <div class="editor-field">
+            <label>Time</label>
+            <input type="text" data-field="time" value="${item.time || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Title</label>
+            <input type="text" data-field="title" value="${item.title || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Details</label>
+            <textarea data-field="details">${item.details || ""}</textarea>
+          </div>
+          <div class="editor-field">
+            <label>Type</label>
+            <input type="text" data-field="type" value="${item.type || ""}">
+          </div>
+        `;
+        photoWrap.style.display = "none";
+      } else if (kind === "restaurant") {
+        fieldsEl.innerHTML = `
+          <div class="editor-field">
+            <label>Name</label>
+            <input type="text" data-field="name" value="${item.name || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Town</label>
+            <input type="text" data-field="town" value="${item.town || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Style</label>
+            <input type="text" data-field="style" value="${item.style || ""}">
+          </div>
+          <div class="editor-field">
+            <label>URL</label>
+            <input type="text" data-field="url" value="${item.url || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Phone</label>
+            <input type="text" data-field="phone" value="${item.phone || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Price range</label>
+            <input type="text" data-field="price" value="${item.price || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Review score</label>
+            <input type="number" step="0.1" data-field="reviewScore" value="${item.reviewScore || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Review count</label>
+            <input type="number" data-field="reviewCount" value="${item.reviewCount || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Photo URL</label>
+            <input type="text" data-field="photo" value="${item.photo || ""}">
+          </div>
+          <div class="editor-field">
+            <label>Notes</label>
+            <textarea data-field="notes">${item.notes || ""}</textarea>
+          </div>
+        `;
+        if (item.photo) {
+          photoImg.src = item.photo;
+          photoWrap.style.display = "flex";
+        } else {
+          photoWrap.style.display = "none";
+        }
+      }
+
+      overlay.classList.add("visible");
+
+      document.getElementById("editorCancel").onclick =
+        document.getElementById("editorClose").onclick =
+          () => overlay.classList.remove("visible");
+
+      document.getElementById("editorSave").onclick = () => {
+        const inputs = fieldsEl.querySelectorAll("[data-field]");
+        const updated = {};
+        inputs.forEach(inp => {
+          updated[inp.dataset.field] = inp.value.trim();
+        });
+
+        const d = state.days.find(x => x.id === day.id);
+        if (!d) return;
+
+        if (kind === "activity") {
+          const act = d.activities.find(a => a.id === item.id);
+          if (!act) return;
+          Object.assign(act, updated);
+        } else if (kind === "restaurant") {
+          const rest = d.restaurants.find(r => r.id === item.id);
+          if (!rest) return;
+          Object.assign(rest, updated);
+        }
+
+        saveToStorage();
+        renderDayContent();
+        overlay.classList.remove("visible");
+      };
+    }
+
+    function openEditorForNew(kind) {
       const day = state.days.find(d => d.id === state.activeDayId) || state.days[0];
-      if (!day || !day.restaurants || !day.restaurants.length) return;
-      const query = day.restaurants
-        .map(r => `${r.name} ${r.town || ""}`)
-        .join(";");
-      const url = "https://www.google.com/maps/search/" + encodeURIComponent(query);
-      window.open(url, "_blank");
+      if (!day) return;
+
+      const newItem =
+        kind === "activity"
+          ? {
+              id: "a_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+              time: "",
+              title: "",
+              details: "",
+              type: ""
+            }
+          : {
+              id: "r_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+              name: "",
+              town: "",
+              style: "",
+              url: "",
+              phone: "",
+              price: "",
+              reviewScore: "",
+              reviewCount: "",
+              photo: "",
+              notes: ""
+            };
+
+      if (kind === "activity") {
+        day.activities = day.activities || [];
+        day.activities.push(newItem);
+      } else {
+        day.restaurants = day.restaurants || [];
+        day.restaurants.push(newItem);
+      }
+
+      saveToStorage();
+      renderDayContent();
+      openEditor(kind === "activity" ? "Add activity" : "Add restaurant", kind, day, newItem);
+    }
+
+    // ---------- FAB ----------
+    function setupFab() {
+      const fab = document.getElementById("fabMain");
+      const fabIcon = document.getElementById("fabIcon");
+      const menu = document.getElementById("fabMenu");
+
+      let open = false;
+
+      fab.onclick = () => {
+        open = !open;
+        if (open) {
+          menu.classList.add("visible");
+          fabIcon.classList.add("fab-icon-rotated");
+        } else {
+          menu.classList.remove("visible");
+          fabIcon.classList.remove("fab-icon-rotated");
+        }
+      };
+
+      document.getElementById("fabAddActivity").onclick = () => {
+        openEditorForNew("activity");
+      };
+
+      document.getElementById("fabAddRestaurant").onclick = () => {
+        openEditorForNew("restaurant");
+      };
+
+      document.getElementById("fabHistory").onclick = () => {
+        document.getElementById("historyOverlay").classList.add("visible");
+      };
+
+      document.getElementById("fabReset").onclick = () => {
+        resetToDefault();
+      };
+    }
+
+    // ---------- HISTORY SHEET ----------
+    function setupHistorySheet() {
+      const overlay = document.getElementById("historyOverlay");
+      document.getElementById("historyClose").onclick = () => {
+        overlay.classList.remove("visible");
+      };
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay) overlay.classList.remove("visible");
+      });
+    }
+
+    // ---------- MAP SHEET ----------
+    function openMapSheet() {
+      const overlay = document.getElementById("mapOverlay");
+      const queryTextEl = document.getElementById("mapQueryText");
+      const day = state.days.find(d => d.id === state.activeDayId) || state.days[0];
+      if (!day || !day.restaurants || !day.restaurants.length) {
+        queryTextEl.textContent = "No restaurants for this day yet.";
+      } else {
+        const query = day.restaurants
+          .map(r => `${r.name} ${r.town || ""}`)
+          .join("; ");
+        queryTextEl.textContent = query;
+      }
+      overlay.classList.add("visible");
+    }
+
+    function setupMapSheet() {
+      const overlay = document.getElementById("mapOverlay");
+      const btnClose = document.getElementById("mapClose");
+      const btnOpen = document.getElementById("mapOpenExternal");
+      const btnCopy = document.getElementById("mapCopyQuery");
+      const queryTextEl = document.getElementById("mapQueryText");
+
+      btnClose.onclick = () => overlay.classList.remove("visible");
+      overlay.addEventListener("click", e => {
+        if (e.target === overlay) overlay.classList.remove("visible");
+      });
+
+      btnOpen.onclick = () => {
+        const day = state.days.find(d => d.id === state.activeDayId) || state.days[0];
+        if (!day || !day.restaurants || !day.restaurants.length) return;
+        const query = day.restaurants
+          .map(r => `${r.name} ${r.town || ""}`)
+          .join("; ");
+        const url = "https://www.google.com/maps/search/" + encodeURIComponent(query);
+        window.open(url, "_blank");
+      };
+
+      btnCopy.onclick = async () => {
+        const text = queryTextEl.textContent || "";
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          alert("Search query copied to clipboard.");
+        } catch {
+          alert("Could not copy to clipboard, but you can select and copy manually.");
+        }
+      };
     }
 
     // ---------- INIT ----------
     document.addEventListener("DOMContentLoaded", () => {
       loadFromStorage();
       renderAll();
+      setupFab();
+      setupHistorySheet();
+      setupMapSheet();
 
-      document.getElementById("btnSaveSnapshot").onclick = () => {
-        const label = prompt("Snapshot label (optional):", "Manual snapshot");
-        saveHistorySnapshot(label || "Manual snapshot");
-      };
-
-      document.getElementById("btnReset").onclick = resetToDefault;
-      document.getElementById("btnMapToday").onclick = openMapForToday;
+      document.getElementById("btnMapToday").onclick = openMapSheet;
     });
   </script>
 </body>
