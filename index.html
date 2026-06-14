@@ -1,1186 +1,1287 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8" />
+  <title>Dordogne Trip Planner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --card: #020617;
+      --accent: #22c55e;
+      --accent-soft: rgba(34,197,94,0.12);
+      --accent-strong: rgba(34,197,94,0.25);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --danger: #f97373;
+      --danger-soft: rgba(248,113,113,0.12);
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.65);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+    }
 
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Dordogne Trip Planner</title>
-
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px 12px;
+    }
 
-        font-family: Arial, sans-serif;
+    .app-shell {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(2,6,23,0.98));
+      border-radius: 28px;
+      border: 1px solid rgba(148,163,184,0.18);
+      box-shadow: var(--shadow-soft);
+      padding: 20px 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
 
-        margin: 0;
-
-        background: #f5f5f5;
-
+    .app-shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56,189,248,0.08) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(34,197,94,0.09) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: -1;
     }
 
     header {
-
-        background: #2c3e50;
-
-        color: white;
-
-        padding: 20px;
-
-        text-align: center;
-
-        font-size: 22px;
-
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
     }
 
-    #days-container {
-
-        padding-bottom: 20px;
-
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
-    .day-card {
-
-        background: white;
-
-        margin: 12px;
-
-        padding: 15px;
-
-        border-radius: 12px;
-
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-
-        cursor: grab;
-
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .day-card h2 {
-
-        margin: 0 0 10px 0;
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 10px;
-
-        font-size: 18px;
-
+    h1 {
+      font-size: 1.4rem;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .activity {
-
-        margin: 10px 0;
-
-        padding: 12px;
-
-        background: #eef2f3;
-
-        border-radius: 8px;
-
+    .pill {
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.35);
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: radial-gradient(circle at top left, rgba(148,163,184,0.18), transparent 55%);
     }
 
-    .activity-header {
-
-        display: flex;
-
-        align-items: center;
-
-        gap: 8px;
-
-        margin-bottom: 4px;
-
+    .pill span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
     }
 
-    .icon {
-
-        font-size: 22px;
-
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
     }
 
-    .activity img {
-
-        width: 100%;
-
-        border-radius: 8px;
-
-        margin-top: 8px;
-
-        max-height: 200px;
-
-        object-fit: cover;
-
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
     }
 
-    a {
-
-        color: #2980b9;
-
-        text-decoration: none;
-
+    button {
+      border: none;
+      cursor: pointer;
+      font: inherit;
     }
 
-</style>
+    .btn {
+      padding: 7px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.9);
+      color: var(--text);
+      transition: all 0.18s ease;
+    }
 
+    .btn:hover {
+      border-color: rgba(148,163,184,0.7);
+      background: rgba(15,23,42,1);
+      transform: translateY(-0.5px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #022c22;
+      border-color: transparent;
+      box-shadow: 0 0 0 1px rgba(34,197,94,0.4), 0 10px 25px rgba(22,163,74,0.45);
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    .btn-danger {
+      background: var(--danger-soft);
+      color: #fecaca;
+      border-color: rgba(248,113,113,0.6);
+    }
+
+    .btn-danger:hover {
+      background: rgba(248,113,113,0.18);
+    }
+
+    .btn-ghost {
+      background: rgba(15,23,42,0.7);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.9), rgba(15,23,42,0.98));
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(31,41,55,0.9);
+      box-shadow: 0 14px 35px rgba(0,0,0,0.7);
+      padding: 12px 12px 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title span.badge {
+      font-size: 0.65rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.4);
+      color: var(--muted);
+    }
+
+    .card-subtitle {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 10px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .tab {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: rgba(15,23,42,0.9);
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .tab span.day-label {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .tab.active {
+      background: radial-gradient(circle at top left, rgba(34,197,94,0.18), rgba(15,23,42,0.98));
+      border-color: rgba(34,197,94,0.7);
+      color: #bbf7d0;
+      box-shadow: 0 0 0 1px rgba(34,197,94,0.35);
+    }
+
+    .tab.active span.day-label {
+      color: #bbf7d0;
+    }
+
+    .tab .date {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .day-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15,23,42,0.9);
+      color: var(--muted);
+    }
+
+    .chip .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(148,163,184,0.9);
+    }
+
+    .chip.accent {
+      border-color: rgba(34,197,94,0.7);
+      background: var(--accent-soft);
+      color: #bbf7d0;
+    }
+
+    .chip.accent .dot {
+      background: #22c55e;
+    }
+
+    .section {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(55,65,81,0.9);
+    }
+
+    .section-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-title span.bar {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, rgba(55,65,81,0.9), transparent);
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .item {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(31,41,55,0.9);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,0.99));
+      padding: 7px 8px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .item-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .item-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .item-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .item-meta {
+      font-size: 0.72rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .item-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .item-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    .link {
+      font-size: 0.72rem;
+      color: #a5b4fc;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    .btn-icon {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.9);
+      color: var(--muted);
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .btn-icon.danger {
+      border-color: rgba(248,113,113,0.7);
+      color: #fecaca;
+      background: var(--danger-soft);
+    }
+
+    .form-inline {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+      gap: 6px;
+      align-items: center;
+    }
+
+    @media (max-width: 720px) {
+      .form-inline {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .form-inline input,
+    .form-inline select {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.9);
+      color: var(--text);
+      font-size: 0.75rem;
+    }
+
+    .form-inline input::placeholder {
+      color: #6b7280;
+    }
+
+    .form-inline button {
+      font-size: 0.75rem;
+      padding: 6px 10px;
+    }
+
+    .small-label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .version-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .version-item {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(31,41,55,0.9);
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.96), rgba(15,23,42,0.99));
+      padding: 7px 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      align-items: center;
+      font-size: 0.75rem;
+    }
+
+    .version-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .version-meta span.label {
+      color: var(--muted);
+    }
+
+    .version-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-end;
+    }
+
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 4px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .status-pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15,23,42,0.9);
+    }
+
+    .status-pill .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .status-pill.warn .dot {
+      background: #f97316;
+    }
+
+    .status-pill.danger .dot {
+      background: #ef4444;
+    }
+
+    .scroll-soft {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(75,85,99,0.9) transparent;
+    }
+
+    .scroll-soft::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .scroll-soft::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .scroll-soft::-webkit-scrollbar-thumb {
+      background: rgba(75,85,99,0.9);
+      border-radius: 999px;
+    }
+  </style>
 </head>
-
-
-
 <body>
-
-
-
-<header>Dordogne Trip Planner – 23–29 June</header>
-
-    <button onclick="autoOptimizeItinerary()" 
-style="
-    margin: 10px;
-    padding: 10px 14px;
-    border-radius: 8px;
-    border: none;
-    background: #2c3e50;
-    color: white;
-    cursor: pointer;
-">
-🧠 Auto-Optimize Trip
-</button>
-
-<div id="map" style="height: 400px; margin: 10px; border-radius: 12px;"></div>
-
-  <h2 style="padding:12px 12px 0;">Where to eat</h2>
-<div id="restaurants-container"></div>
-
-<div id="days-container"></div>
-
-
-
-<script>
-
-    // -----------------------------
-// TRIP INTELLIGENCE ENGINE
-// -----------------------------
-
-function getExperienceScore(id) {
-    const a = activities[id];
-
-    let scenic = 3;
-    let kid = a.kidEnergy === "high" ? 5 : a.kidEnergy === "medium" ? 7 : 9;
-    let effort = a.type === "outdoor" ? 6 : 8;
-
-    // default assumptions (can refine later per activity)
-    let crowd = 6;
-    let heatRisk = a.type === "outdoor" ? 7 : 3;
-
-    return {
-        scenic,
-        kid,
-        effort,
-        crowd,
-        heatRisk
-    };
-}
-
-    function scoreDay(day) {
-    let scenic = 0;
-    let kid = 0;
-    let effort = 0;
-    let crowd = 0;
-    let heat = 0;
-
-    day.activities.forEach(id => {
-        const s = getExperienceScore(id);
-
-        scenic += s.scenic;
-        kid += s.kid;
-        effort += s.effort;
-        crowd += s.crowd;
-        heat += s.heatRisk;
-    });
-
-    const drivingKm = calculateRouteDistance(day.activities);
-
-    const drivingPenalty = drivingKm * 0.4;
-
-    const totalScore =
-        (scenic * 1.5) +
-        (kid * 1.2) -
-        (effort * 0.8) -
-        (crowd * 0.3) -
-        (heat * 0.4) -
-        drivingPenalty;
-
-    return {
-        scenic,
-        kid,
-        effort,
-        crowd,
-        heat,
-        drivingKm,
-        totalScore: Math.round(totalScore)
-    };
-}
-    
-    // -----------------------------
-// DISTANCE ENGINE (Haversine)
-// -----------------------------
-
-function getDistanceKm(a, b) {
-    const R = 6371;
-
-    const dLat = (b.lat - a.lat) * Math.PI / 180;
-    const dLon = (b.lng - a.lng) * Math.PI / 180;
-
-    const lat1 = a.lat * Math.PI / 180;
-    const lat2 = b.lat * Math.PI / 180;
-
-    const x =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.sin(dLon / 2) *
-        Math.cos(lat1) *
-        Math.cos(lat2);
-
-    const y = 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
-
-    return R * y;
-}
-
-  const restaurants = {
-  "le_saint_jus": {
-    name: "Le Saint Jus",
-    village: "Saint-Julien-de-Lampon",
-    type: "Bistrot / Brasserie",
-    priceRange: "€13.50 day menu • €16.50 with dessert",
-    phone: "05 53 29 47 41",
-    booking: "Booking advised",
-    reviewScore: 4.5,
-    reviewCount: 120,
-    photo: "images/le_saint_jus.jpg",
-    notes: "Casual, kid-friendly, good for arrival day or simple dinners."
-  },
-  "la_gabarre": {
-    name: "La Gabarre",
-    village: "Saint-Julien-de-Lampon",
-    type: "Traditional French",
-    priceRange: "Mid-range",
-    phone: "05 53 29 61 43",
-    booking: "Call to reserve",
-    reviewScore: 4.7,
-    reviewCount: 95,
-    photo: "images/la_gabarre.jpg",
-    notes: "Lovely riverside setting, great after a day on the river."
-  },
-  "la_halle_paysanne": {
-    name: "La Halle Paysanne",
-    village: "Near Saint-Julien-de-Lampon",
-    type: "Regional / Local products",
-    priceRange: "Not specified",
-    phone: "",
-    booking: "Walk-in",
-    reviewScore: 4.4,
-    reviewCount: 60,
-    photo: "images/la_halle_paysanne.jpg",
-    notes: "Rustic, local, great for lunch after a morning activity."
-  },
-  "domaine_saint_julien": {
-    name: "Domaine Saint Julien",
-    village: "Saint-Julien-de-Lampon",
-    type: "Bistronomic",
-    priceRange: "Not specified",
-    phone: "",
-    booking: "Check website",
-    reviewScore: 4.6,
-    reviewCount: 80,
-    photo: "images/domaine_saint_julien.jpg",
-    notes: "More refined; good for an adults’ evening."
-  },
-  "la_petite_tonnelle": {
-    name: "La Petite Tonnelle",
-    village: "Beynac-et-Cazenac",
-    type: "Traditional French",
-    priceRange: "€19.50–€46 (avg ~€39)",
-    phone: "05 53 29 95 18",
-    booking: "Reservation advised",
-    reviewScore: 4.6,
-    reviewCount: 400,
-    photo: "images/la_petite_tonnelle.jpg",
-    notes: "Excellent food, cozy, perfect after visiting Beynac Castle."
-  },
-  "le_donjon": {
-    name: "Le Donjon",
-    village: "Beynac-et-Cazenac",
-    type: "Family restaurant",
-    priceRange: "Menu €12.50–€16 • Kids €9",
-    phone: "05 53 29 28 49",
-    booking: "Usually easy, but call in high season",
-    reviewScore: 4.3,
-    reviewCount: 250,
-    photo: "images/le_donjon.jpg",
-    notes: "Right near the castle entrance; great for families."
-  },
-  "la_taverne_des_remparts": {
-    name: "La Taverne des Remparts",
-    village: "Beynac-et-Cazenac",
-    type: "Bistro",
-    priceRange: "Not specified",
-    phone: "",
-    booking: "Book for terrace view",
-    reviewScore: 4.2,
-    reviewCount: 180,
-    photo: "images/la_taverne_des_remparts.jpg",
-    notes: "Amazing panorama over the Dordogne valley."
-  },
-  "la_belle_etoile": {
-    name: "La Belle Étoile",
-    village: "La Roque-Gageac",
-    type: "Gastronomic",
-    priceRange: "Menu ~€31 • Entrée €15 • Plat €25 • Dessert €12",
-    phone: "05 53 29 51 44",
-    booking: "Book weeks ahead in summer",
-    reviewScore: 4.7,
-    reviewCount: 350,
-    photo: "images/la_belle_etoile.jpg",
-    notes: "One of the best terraces in Dordogne, right on the river."
-  },
-  "le_medieval": {
-    name: "Le Medieval",
-    village: "La Roque-Gageac",
-    type: "Brasserie",
-    priceRange: "Not specified",
-    phone: "",
-    booking: "Reserve for terrace",
-    reviewScore: 4.1,
-    reviewCount: 210,
-    photo: "images/le_medieval.jpg",
-    notes: "Casual, great for families after a gabare boat ride."
-  },
-  "bistrot_de_la_place": {
-    name: "Bistrot de la Place",
-    village: "Trémolat",
-    type: "Bistrot",
-    priceRange: "Menu €28 • Formule €19/€25 • Kids €14",
-    phone: "05 53 22 80 69",
-    booking: "Recommended",
-    reviewScore: 4.5,
-    reviewCount: 220,
-    photo: "images/bistrot_de_la_place.jpg",
-    notes: "Classic Dordogne bistrot, great stop on a driving day."
-  },
-  "cabanoix_et_chataigne": {
-    name: "Cabanoix et Châtaigne",
-    village: "Domme",
-    type: "Traditional French",
-    priceRange: "€26–€32 (range €15–€35)",
-    phone: "05 53 31 00 00",
-    booking: "Recommended; closed Tuesday",
-    reviewScore: 4.6,
-    reviewCount: 280,
-    photo: "images/cabanoix_et_chataigne.jpg",
-    notes: "Very good food, charming interior."
-  },
-  "auberge_de_la_rode": {
-    name: "Auberge de la Rode",
-    village: "Domme",
-    type: "Auberge",
-    priceRange: "~€30/person",
-    phone: "05 53 28 36 97",
-    booking: "Book ahead in high season",
-    reviewScore: 4.4,
-    reviewCount: 190,
-    photo: "images/auberge_de_la_rode.jpg",
-    notes: "Traditional, hearty, great value."
-  },
-  "le_belvedere": {
-    name: "Le Belvédère",
-    village: "Domme",
-    type: "Restaurant with view",
-    priceRange: "Menu €18.50 • ~€30 for 2 plats + water",
-    phone: "05 53 31 12 01",
-    booking: "Reserve for cliff-view terrace",
-    reviewScore: 4.3,
-    reviewCount: 260,
-    photo: "images/le_belvedere.jpg",
-    notes: "One of the best views in the region."
-  }
-};
-
-
-// -----------------------------
-// ENHANCED ACTIVITIES (DORDOGNE-OPTIMIZED)
-// -----------------------------
-
-const activities = {
-    beynac_castle: {
-        name: "Château de Beynac",
-        icon: "🏰",
-        lat: 44.8447,
-        lng: 1.1459,
-        photo: "images/beynac.jpg",
-        price: "€11 adult / €7 child",
-        booking: "https://www.beynac.com",
-        map: "https://maps.app.goo.gl/",
-        notes: "Very steep medieval castle. Go early morning to avoid heat.",
-        duration: "1.5–2h",
-        type: "outdoor",
-        kidEnergy: "medium",
-        bestTime: "morning"
-    },
-
-    castelnaud_castle: {
-        name: "Château de Castelnaud",
-        icon: "🛡️",
-        lat: 44.8206,
-        lng: 1.1451,
-        photo: "images/castelnaud.jpg",
-        price: "€12 adult / €7.50 child",
-        booking: "https://castelnaud.com",
-        map: "https://maps.app.goo.gl/",
-        notes: "Best castle for kids: catapults, armor, live demos.",
-        duration: "2–3h",
-        type: "outdoor",
-        kidEnergy: "high",
-        bestTime: "morning"
-    },
-
-    lascaux_iv: {
-        name: "Lascaux IV – Cave Art Centre",
-        icon: "🕳️",
-        lat: 45.0626,
-        lng: 1.1661,
-        photo: "images/lascaux.jpg",
-        price: "€22 adult / €14 child",
-        booking: "https://lascaux.fr",
-        map: "https://maps.app.goo.gl/",
-        notes: "Indoor, cool temperature, perfect midday escape.",
-        duration: "2h",
-        type: "indoor",
-        kidEnergy: "low",
-        bestTime: "afternoon"
-    },
-
-    gabare_boat: {
-        name: "Gabare Boat Ride – La Roque-Gageac",
-        icon: "⛵",
-        lat: 44.8239,
-        lng: 1.1864,
-        photo: "images/gabare.jpg",
-        price: "€11 adult / €8 child",
-        booking: "https://gabare-norbert.com",
-        map: "https://maps.app.goo.gl/",
-        notes: "Relaxing river cruise, great break from walking.",
-        duration: "1h",
-        type: "outdoor",
-        kidEnergy: "low",
-        bestTime: "afternoon"
-    },
-
-    canoe_dordogne: {
-        name: "Canoe Dordogne – Family Route",
-        icon: "🛶",
-        lat: 44.8320,
-        lng: 1.2010,
-        photo: "images/canoe.jpg",
-        price: "€20–25 per person",
-        booking: "https://canoe-dordogne.com",
-        map: "https://maps.app.goo.gl/",
-        notes: "Gentle downstream float. Kids 6+ OK. Bring water + hats.",
-        duration: "2–3h",
-        type: "outdoor",
-        kidEnergy: "high",
-        bestTime: "morning"
-    },
-
-    marqueyssac: {
-        name: "Jardins de Marqueyssac",
-        icon: "🌿",
-        lat: 44.8335,
-        lng: 1.1872,
-        photo: "images/marqueyssac.jpg",
-        price: "€11 adult / €5 child",
-        booking: "https://marqueyssac.com",
-        map: "https://maps.app.goo.gl/",
-        notes: "Shaded paths, viewpoints, playground — perfect late afternoon.",
-        duration: "2h",
-        type: "outdoor",
-        kidEnergy: "medium",
-        bestTime: "late afternoon"
-    },
-
-    balloon: {
-        name: "Hot Air Balloon – Dordogne Valley",
-        icon: "🎈",
-        photo: "images/balloon.jpg",
-        price: "€200–250 per person",
-        booking: "https://montgolfiere-dordogne.com",
-        map: "https://maps.app.goo.gl/",
-        notes: "Weather dependent sunrise experience.",
-        duration: "3h total",
-        type: "outdoor",
-        kidEnergy: "medium",
-        bestTime: "early morning"
-    },
-
-    market_sarlat: {
-        name: "Sarlat Market",
-        icon: "🛍️",
-        lat: 44.8890,
-        lng: 1.2160,
-        photo: "images/market_sarlat.jpg",
-        price: "Free",
-        booking: "None",
-        map: "https://maps.app.goo.gl/",
-        notes: "Best early morning before crowds.",
-        duration: "2h",
-        type: "outdoor",
-        kidEnergy: "low",
-        bestTime: "morning"
-    },
-
-    night_market: {
-        name: "Night Food Market – Sarlat Region",
-        icon: "🍽️",
-        photo: "images/night_market.jpg",
-        price: "€10–15 per meal",
-        booking: "None",
-        map: "https://maps.app.goo.gl/",
-        notes: "Casual dining, music, safe for kids.",
-        duration: "2h+",
-        type: "outdoor",
-        kidEnergy: "low",
-        bestTime: "evening"
-    }
-};
-
-
-
-// -----------------------------
-
-// DAY PLANS
-
-// -----------------------------
-
-// -----------------------------
-// ENHANCED DORDOGNE ITINERARY (KID-OPTIMIZED)
-// -----------------------------
-let days = [
-    {
-        date: "23 June",
-        title: "Arrival & Relax",
-        activities: ["market_sarlat"],
-        notes: "Arrival day. Keep it light, groceries, pool, recovery from travel."
-    },
-
-    {
-        date: "24 June",
-        title: "Sarlat Morning + Easy Afternoon",
-        activities: ["market_sarlat", "marqueyssac"],
-        notes: "Slow start, explore town, shaded gardens in afternoon."
-    },
-
-    {
-        date: "25 June",
-        title: "Castles Day (Beynac & Castelnaud)",
-        activities: ["castelnaud_castle", "beynac_castle", "gabare_boat"],
-        notes: "Clustered medieval valley day. Short drives only."
-    },
-
-    {
-        date: "26 June",
-        title: "Caves & Cool Indoor Escape",
-        activities: ["lascaux_iv"],
-        notes: "Indoor day to avoid heat. Very kid-friendly."
-    },
-
-    {
-        date: "27 June",
-        title: "River Adventure Day",
-        activities: ["canoe_dordogne"],
-        notes: "Active water day. Bring snacks, hats, sunscreen."
-    },
-
-    {
-        date: "28 June",
-        title: "Balloon or Backup Adventure + Gardens",
-        activities: ["balloon", "marqueyssac"],
-        notes: "Weather-dependent day. Swap balloon if wind/rain."
-    },
-
-    {
-        date: "29 June",
-        title: "Food & Local Experience",
-        activities: ["night_market"],
-        notes: "Relaxed final day with food market and walking."
-    }
-];
-
-
-
-// -----------------------------
-// DORDOGNE PLANNING ENGINE V2
-// -----------------------------
-
-const zoneMap = {
-    beynac_castle: "river_west",
-    castelnaud_castle: "river_west",
-    gabare_boat: "river_west",
-    marqueyssac: "river_west",
-    canoe_dordogne: "river_core",
-    lascaux_iv: "north_inland",
-    market_sarlat: "sarlat",
-    night_market: "sarlat",
-    balloon: "regional_air"
-};
-
-function getActivityScore(activityId) {
-    const a = activities[activityId];
-
-    let energy = 1;
-    if (a.kidEnergy === "low") energy = 1;
-    if (a.kidEnergy === "medium") energy = 2;
-    if (a.kidEnergy === "high") energy = 3;
-
-    let travelWeight = 1;
-    if (a.type === "outdoor") travelWeight += 1;
-    if (a.type === "indoor") travelWeight -= 0.5;
-
-    return {
-        energy,
-        travelWeight,
-        zone: zoneMap[activityId] || "unknown"
-    };
-}
-
-    function analyzeDay(day) {
-    let totalEnergy = 0;
-    let zones = new Set();
-    let travelLoad = 0;
-
-    (day.activities || []).forEach(id => {
-        if (!activities[id]) return;
-
-        const score = getActivityScore(id);
-        totalEnergy += score.energy;
-        travelLoad += score.travelWeight;
-        zones.add(score.zone);
-    });
-
-    return {
-        totalEnergy,
-        travelLoad,
-        zoneSpread: zones.size,
-        risk:
-            totalEnergy >= 5 || zones.size >= 3
-                ? "high"
-                : totalEnergy >= 3
-                ? "medium"
-                : "low"
-    };
-}
-
-    function getRiskBadge(risk) {
-    if (risk === "high") return "⚠️ Too intense for kids";
-    if (risk === "medium") return "🟡 Moderate day";
-    return "🟢 Relaxed day";
-}
-
-    // -----------------------------
-// AUTO ITINERARY OPTIMIZER V1
-// -----------------------------
-
-function calculateDayEnergy(activityList) {
-    return activityList.reduce((sum, id) => {
-        const a = activities[id];
-
-        let energy = 1;
-        if (a.kidEnergy === "medium") energy = 2;
-        if (a.kidEnergy === "high") energy = 3;
-
-        return sum + energy;
-    }, 0);
-}
-
-function groupByZone(activityIds) {
-    const zones = {};
-    activityIds.forEach(id => {
-        const z = zoneMap[id] || "unknown";
-        if (!zones[z]) zones[z] = [];
-        zones[z].push(id);
-    });
-    return zones;
-}
-
-    function buildOptimizedDays(allActivities) {
-    const zones = groupByZone(allActivities);
-
-    const days = [];
-
-    const zoneOrder = [
-        "sarlat",
-        "river_west",
-        "river_core",
-        "north_inland",
-        "regional_air"
-    ];
-
-    zoneOrder.forEach(zone => {
-        const zoneActivities = zones[zone];
-        if (!zoneActivities || zoneActivities.length === 0) return;
-
-        let currentDay = [];
-        let currentEnergy = 0;
-
-        zoneActivities.forEach(id => {
-            const energy = activities[id].kidEnergy === "high" ? 3 :
-                           activities[id].kidEnergy === "medium" ? 2 : 1;
-
-            // cap per day (prevents overload)
-            if (currentEnergy + energy > 4) {
-                days.push({
-                    date: null,
-                    title: zone + " day",
-                    activities: currentDay
-                });
-
-                currentDay = [];
-                currentEnergy = 0;
-            }
-
-            currentDay.push(id);
-            currentEnergy += energy;
-        });
-
-        if (currentDay.length > 0) {
-            days.push({
-                date: null,
-                title: zone + " day",
-                activities: currentDay
-            });
-        }
-    });
-
-    return days;
-}
-
-    // -----------------------------
-// MAIN AUTO-OPTIMIZER
-// -----------------------------
-
-function autoOptimizeItinerary() {
-    const all = Object.keys(activities);
-
-    const clusters = clusterByProximity(all);
-
-    const daysOptimized = clusters.map((cluster, i) => ({
-        date: "",
-        title: "Optimized Day " + (i + 1),
-        activities: cluster
-    }));
-
-    const startDate = new Date("2026-06-23");
-
-    daysOptimized.forEach((day, i) => {
-        const d = new Date(startDate);
-        d.setDate(startDate.getDate() + i);
-
-        day.date = d.toLocaleDateString("en-GB", {
-            day: "numeric",
-            month: "long"
-        });
-    });
-
-    days = daysOptimized;
-    renderDays();
-}
-
-    let map;
-let markersLayer;
-let routeLayer;
-
-function initMap() {
-    map = L.map('map').setView([44.85, 1.25], 10);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    markersLayer = L.layerGroup().addTo(map);
-    routeLayer = L.layerGroup().addTo(map);
-}
-
-
-
-    function renderMap(dayIndex = 0) {
-    markersLayer.clearLayers();
-    routeLayer.clearLayers();
-
-    const day = days[dayIndex];
-    if (!day) return;
-
-    const coords = [];
-
-    day.activities.forEach(id => {
-        const a = activities[id];
-        if (!a || !a.lat || !a.lng) return;
-
-        const marker = L.marker([a.lat, a.lng])
-            .bindPopup(`<b>${a.name}</b><br>${a.notes}`);
-
-        markersLayer.addLayer(marker);
-
-        coords.push([a.lat, a.lng]);
-    });
-
-    // draw route line
-    if (coords.length > 1) {
-        const polyline = L.polyline(coords, {
-            color: '#2c3e50',
-            weight: 4
-        });
-
-        routeLayer.addLayer(polyline);
-
-        map.fitBounds(polyline.getBounds(), {
-            padding: [30, 30]
-        });
-    } else if (coords.length === 1) {
-        map.setView(coords[0], 11);
-    }
-}
-
-  function suggestImprovements(day) {
-    const suggestions = [];
-    const stats = analyzeDay(day);
-
-    if (stats.travelLoad > 6) {
-        suggestions.push("High driving load: try clustering activities closer together.");
-    }
-
-    if (stats.totalEnergy >= 5) {
-        suggestions.push("Busy day for kids: consider adding rest break or removing one activity.");
-    }
-
-    if (stats.zoneSpread >= 3) {
-        suggestions.push("Too geographically spread: may involve long driving between stops.");
-    }
-
-    return suggestions;
-}
-
-// -----------------------------
-
-// RENDER DAYS
-
-// -----------------------------
-
-function renderDays() {
-    const container = document.getElementById("days-container");
-    container.innerHTML = "";
-
-    days.forEach((day, index) => {
-        const card = document.createElement("div");
-        card.className = "day-card";
-        card.draggable = true;
-        card.dataset.index = index;
-
-        const analysis = analyzeDay(day);
-        const suggestions = suggestImprovements(day);
-
-        let badge = "🟢 Great Day";
-        if (analysis.totalEnergy >= 5) badge = "⚠️ Intense Day";
-        if (analysis.travelLoad > 6) badge = "🚗 Driving Heavy";
-        if (analysis.zoneSpread >= 3) badge = "🧭 Spread Out";
-
-        card.innerHTML = `
-            <h2>📅 ${day.date || ""} – ${day.title}</h2>
-
-            <div style="margin-bottom:8px;">
-                ${badge}
-                <small style="margin-left:10px; color:#666;">
-                    Energy: ${analysis.totalEnergy} |
-                    Zones: ${analysis.zoneSpread} |
-                    Travel load: ${analysis.travelLoad.toFixed(1)}
-                </small>
-            </div>
-
-            <div>
-                ${day.activities.map(id => {
-                    const a = activities[id];
-                    if (!a) return "";
-                    return `
-                        <div class="activity">
-                            <div class="activity-header">
-                                <span class="icon">${a.icon}</span>
-                                <strong>${a.name}</strong>
-                            </div>
-
-                            <div><strong>Duration:</strong> ${a.duration}</div>
-                            <div><strong>Best time:</strong> ${a.bestTime}</div>
-                            <div><strong>Price:</strong> ${a.price}</div>
-
-                            <div>
-                                Booking:
-                                ${a.booking === "None"
-                                    ? "No booking needed"
-                                    : `<a href="${a.booking}" target="_blank">Link</a>`
-                                }
-                            </div>
-
-                            <div>
-                                Map:
-                                <a href="${a.map}" target="_blank">Open map</a>
-                            </div>
-
-                            <em>${a.notes}</em>
-
-                            ${a.photo ? `<img src="${a.photo}" alt="${a.name}">` : ""}
-                        </div>
-                    `;
-                }).join("")}
-
-                ${day.activities.length === 0
-                    ? "<em>Arrival, groceries, pool time.</em>"
-                    : ""
-                }
-            </div>
-
-            ${
-                suggestions.length > 0
-                ? `
-                <div style="margin-top:10px; padding:8px; background:#fff3cd; border-radius:8px;">
-                    <strong>💡 Suggestions:</strong>
-                    <ul>
-                        ${suggestions.map(s => `<li>${s}</li>`).join("")}
-                    </ul>
-                </div>
-                `
-                : ""
-            }
-        `;
-
-        card.addEventListener("dragstart", dragStart);
-        card.addEventListener("dragover", dragOver);
-        card.addEventListener("drop", drop);
-
-                container.appendChild(card);
-
-        card.addEventListener("click", () => {
-            renderMap(index);
-        });
-    });
-}
-
-
-
-let draggedIndex = null;
-
-
-
-function dragStart(e) {
-
-    draggedIndex = e.target.closest(".day-card")?.dataset.index;
-
-}
-
-
-
-function dragOver(e) {
-
-    e.preventDefault();
-
-}
-
-
-
-function drop(e) {
-    const targetCard = e.target.closest(".day-card");
-    if (!targetCard) return;
-
-    const targetIndex = Number(targetCard.dataset.index);
-    const dragged = Number(draggedIndex);
-
-    if (dragged === targetIndex) return;
-
-    const newDays = [...days];
-
-    [newDays[dragged], newDays[targetIndex]] =
-    [newDays[targetIndex], newDays[dragged]];
-
-    days = newDays;
-    renderDays();
-}
-
-  function renderRestaurants() {
-  const container = document.getElementById("restaurants-container");
-  container.innerHTML = "";
-
-  Object.keys(restaurants).forEach(key => {
-    const r = restaurants[key];
-    const card = document.createElement("div");
-    card.className = "day-card"; // reuse styling
-
-    card.innerHTML = `
-      <h2>🍽️ ${r.name} – ${r.village}</h2>
-      <div class="activity">
-        <strong>${r.type}</strong><br>
-        Price: ${r.priceRange}<br>
-        Phone: ${r.phone ? `<a href="tel:${r.phone.replace(/\\s+/g,'')}">${r.phone}</a>` : "Not available"}<br>
-        Booking: ${r.booking}<br>
-        Reviews: ⭐ ${r.reviewScore} (${r.reviewCount} reviews)<br>
-        <em>${r.notes}</em>
-        ${r.photo ? `<img src="${r.photo}" alt="${r.name}">` : ""}
+  <div class="app-shell">
+    <header>
+      <div class="title-block">
+        <div class="title-row">
+          <h1>📍 Dordogne Trip Planner</h1>
+          <div class="pill">
+            <span class="dot"></span>
+            <span>Family · 23–29 June · Saint‑Julien</span>
+          </div>
+        </div>
+        <div class="subtitle">
+          Quick, editable overview of days, activities, and restaurants—with history, reset, and local persistence.
+        </div>
       </div>
-    `;
+      <div class="top-actions">
+        <button class="btn btn-ghost" id="btnSaveSnapshot">
+          💾 Save snapshot
+        </button>
+        <button class="btn btn-danger" id="btnReset">
+          ♻️ Reset to default
+        </button>
+      </div>
+    </header>
 
-    container.appendChild(card);
-  });
-}
+    <div class="layout">
+      <!-- LEFT: Days / Activities / Restaurants -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              Itinerary
+              <span class="badge">Editable</span>
+            </div>
+            <div class="card-subtitle">
+              Tap a day, tweak activities and restaurants, and keep it lightweight on the go.
+            </div>
+          </div>
+        </div>
 
-renderDays();
-renderRestaurants();
+        <div class="tabs" id="dayTabs"></div>
 
+        <div id="dayContent"></div>
+      </div>
 
-    // -----------------------------
-// MAP CLUSTERING ENGINE
-// -----------------------------
+      <!-- RIGHT: Version history + persistence -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              Version history
+              <span class="badge">Local only</span>
+            </div>
+            <div class="card-subtitle">
+              Snapshots are stored in your browser (localStorage). Great for GitHub‑hosted static pages too.
+            </div>
+          </div>
+        </div>
 
-function clusterByProximity(activityIds) {
-    const clusters = [];
+        <div class="section">
+          <div class="section-title">
+            Snapshots
+            <span class="bar"></span>
+          </div>
+          <div class="version-list scroll-soft" id="versionList"></div>
+        </div>
 
-    const remaining = [...activityIds];
+        <div class="section">
+          <div class="section-title">
+            Storage & sync
+            <span class="bar"></span>
+          </div>
+          <div class="status-bar">
+            <div>
+              <div class="small-label">Persistence</div>
+              <div class="status-pill">
+                <span class="dot"></span>
+                <span>localStorage · survives refresh</span>
+              </div>
+            </div>
+            <div>
+              <div class="small-label">GitHub Pages</div>
+              <div class="status-pill warn">
+                <span class="dot"></span>
+                <span>Per‑device only (no cloud sync)</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    while (remaining.length > 0) {
-        const seed = remaining.shift();
-        const seedPos = activities[seed];
+        <div class="section">
+          <div class="section-title">
+            Tips
+            <span class="bar"></span>
+          </div>
+          <ul style="font-size:0.72rem;color:var(--muted);padding-left:16px;display:flex;flex-direction:column;gap:3px;">
+            <li><strong>GitHub‑ready:</strong> Just commit this file and serve via GitHub Pages.</li>
+            <li><strong>Private:</strong> All edits and snapshots stay in your browser.</li>
+            <li><strong>Reset:</strong> Use “Reset to default” if things get messy.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        const cluster = [seed];
-
-        for (let i = remaining.length - 1; i >= 0; i--) {
-            const id = remaining[i];
-            const pos = activities[id];
-
-            const dist = getDistanceKm(seedPos, pos);
-
-            // 25km radius = same “day cluster”
-            if (dist <= 25) {
-                cluster.push(id);
-                remaining.splice(i, 1);
+  <script>
+    // ---------- DEFAULT DATA (with corrected restaurant URLs) ----------
+    const defaultData = {
+      days: [
+        {
+          id: "2026-06-23",
+          label: "Day 1",
+          title: "Arrival & settling in",
+          notes: "Easy day. Pool, groceries, short walk nearby.",
+          tags: ["Soft landing", "Pool", "Groceries"],
+          activities: [
+            {
+              id: "a1",
+              time: "Afternoon",
+              title: "Arrive at house & explore",
+              details: "Unpack, kids in the pool, quick tour of the house and garden.",
+              type: "Relax"
+            },
+            {
+              id: "a2",
+              time: "Late afternoon",
+              title: "Groceries in nearby town",
+              details: "Stock up for breakfast, snacks, and easy dinners.",
+              type: "Practical"
             }
+          ],
+          restaurants: [
+            {
+              id: "r1",
+              name: "Simple dinner at home",
+              town: "Saint‑Julien area",
+              style: "Casual · kid‑friendly",
+              url: "",
+              notes: "Use groceries; keep it flexible depending on arrival energy."
+            }
+          ]
+        },
+        {
+          id: "2026-06-24",
+          label: "Day 2",
+          title: "Beynac & river views",
+          notes: "Castle + village + easy food options.",
+          tags: ["Castle", "Village", "Views"],
+          activities: [
+            {
+              id: "a3",
+              time: "Morning",
+              title: "Château de Beynac",
+              details: "Explore the castle, views over the Dordogne. Good for kids who like knights.",
+              type: "Castle"
+            },
+            {
+              id: "a4",
+              time: "Afternoon",
+              title: "Stroll through Beynac village",
+              details: "Ice cream, short wander, maybe a quick drink with a view.",
+              type: "Walk"
+            }
+          ],
+          restaurants: [
+            {
+              id: "r2",
+              name: "La Taverne des Remparts",
+              town: "Beynac‑et‑Cazenac",
+              style: "Brasserie · burgers · salads",
+              url: "https://www.facebook.com/La-Taverne-Des-Remparts-872323016195681/",
+              notes: "Terrace at the foot of the château; relaxed, good with kids."
+            }
+          ]
+        },
+        {
+          id: "2026-06-25",
+          label: "Day 3",
+          title: "La Roque‑Gageac & river",
+          notes: "Village + possible boat/canoe.",
+          tags: ["Village", "River"],
+          activities: [
+            {
+              id: "a5",
+              time: "Morning",
+              title: "La Roque‑Gageac walk",
+              details: "Stroll the village, maybe the exotic garden if energy allows.",
+              type: "Walk"
+            },
+            {
+              id: "a6",
+              time: "Afternoon",
+              title: "Boat or canoe (optional)",
+              details: "Short gabare cruise or easy canoe stretch if kids are up for it.",
+              type: "River"
+            }
+          ],
+          restaurants: [
+            {
+              id: "r3",
+              name: "La Belle Étoile",
+              town: "La Roque‑Gageac",
+              style: "Refined · terrace by the river",
+              url: "https://belleetoile24.fr/",
+              notes: "More grown‑up; maybe lunch with a view if timing works."
+            },
+            {
+              id: "r4",
+              name: "Le Médiéval",
+              town: "Sarlat‑la‑Canéda",
+              style: "French · bistro",
+              url: "https://www.thefork.com/restaurant/le-medieval-r5978",
+              notes: "Option if you swing by Sarlat instead."
+            }
+          ]
+        },
+        {
+          id: "2026-06-26",
+          label: "Day 4",
+          title: "Domme & viewpoints",
+          notes: "Hilltop village + views + easy food.",
+          tags: ["Village", "Viewpoint"],
+          activities: [
+            {
+              id: "a7",
+              time: "Morning",
+              title: "Domme viewpoint & village",
+              details: "Panoramic views over the Dordogne; wander the bastide streets.",
+              type: "View"
+            },
+            {
+              id: "a8",
+              time: "Optional",
+              title: "Domme caves",
+              details: "Short underground visit if kids are curious and not too tired.",
+              type: "Cave"
+            }
+          ],
+          restaurants: [
+            {
+              id: "r5",
+              name: "Cabanoix et Châtaigne",
+              town: "Domme",
+              style: "French · seasonal",
+              url: "https://www.tripadvisor.com/Restaurant_Review-g580128-d1527325-Reviews-Cabanoix_Chataigne_Cie-Domme_Dordogne_Nouvelle_Aquitaine.html",
+              notes: "Well‑reviewed; book ahead if you want a proper sit‑down meal."
+            },
+            {
+              id: "r6",
+              name: "Auberge de la Rode",
+              town: "Domme",
+              style: "French · terrace",
+              url: "https://www.tripadvisor.com/Restaurant_Review-g580128-d1527324-Reviews-Auberge_de_la_Rode-Domme_Dordogne_Nouvelle_Aquitaine.html",
+              notes: "Nice terrace; good local dishes."
+            },
+            {
+              id: "r7",
+              name: "Le Belvédère",
+              town: "Domme",
+              style: "View restaurant · simple food",
+              url: "https://www.tripadvisor.com/Restaurant_Review-g580128-d1527326-Reviews-Le_Belvedere-Domme_Dordogne_Nouvelle_Aquitaine.html",
+              notes: "Big view; food reviews mixed but setting is great."
+            }
+          ]
+        },
+        {
+          id: "2026-06-27",
+          label: "Day 5",
+          title: "Trémolat & river loop",
+          notes: "Cingle de Trémolat + relaxed lunch.",
+          tags: ["Scenic drive", "River"],
+          activities: [
+            {
+              id: "a9",
+              time: "Late morning",
+              title: "Cingle de Trémolat viewpoint",
+              details: "Scenic bend in the river; short stop, photos.",
+              type: "View"
+            }
+          ],
+          restaurants: [
+            {
+              id: "r8",
+              name: "Le Bistrot de la Place",
+              town: "Trémolat",
+              style: "Bistro · regional",
+              url: "https://www.vieux-logis.com/en/restaurant/bistrot-de-la-place/",
+              notes: "Classic Périgord dishes; good for a proper lunch."
+            }
+          ]
+        },
+        {
+          id: "2026-06-28",
+          label: "Day 6",
+          title: "Free / pool / repeats",
+          notes: "Keep it open—repeat favourites or just stay by the pool.",
+          tags: ["Flexible", "Pool"],
+          activities: [
+            {
+              id: "a10",
+              time: "Flexible",
+              title: "Pool day & games",
+              details: "Let the kids choose; maybe a short outing if everyone feels like it.",
+              type: "Relax"
+            }
+          ],
+          restaurants: [
+            {
+              id: "r9",
+              name: "Pick a favourite to repeat",
+              town: "Open",
+              style: "Your choice",
+              url: "",
+              notes: "Decide based on what you loved most earlier in the week."
+            }
+          ]
+        },
+        {
+          id: "2026-06-29",
+          label: "Day 7",
+          title: "Departure",
+          notes: "Pack, last swim, easy drive out.",
+          tags: ["Departure"],
+          activities: [
+            {
+              id: "a11",
+              time: "Morning",
+              title: "Pack & quick swim",
+              details: "Final dip in the pool if timing allows.",
+              type: "Practical"
+            }
+          ],
+          restaurants: [
+            {
+              id: "r10",
+              name: "Leftovers / simple stop on the road",
+              town: "En route",
+              style: "Very flexible",
+              url: "",
+              notes: "No pressure—just keep it easy."
+            }
+          ]
         }
+      ]
+    };
 
-        clusters.push(cluster);
+    const STORAGE_KEY_DATA = "dordogne_trip_data_v1";
+    const STORAGE_KEY_HISTORY = "dordogne_trip_history_v1";
+
+    let state = {
+      days: [],
+      activeDayId: "2026-06-24"
+    };
+
+    let history = [];
+
+    // ---------- STORAGE ----------
+    function loadFromStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_DATA);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && Array.isArray(parsed.days)) {
+            state.days = parsed.days;
+            state.activeDayId = parsed.activeDayId || parsed.days[0]?.id || defaultData.days[0].id;
+          } else {
+            state.days = structuredClone(defaultData.days);
+            state.activeDayId = "2026-06-24";
+          }
+        } else {
+          state.days = structuredClone(defaultData.days);
+          state.activeDayId = "2026-06-24";
+        }
+      } catch {
+        state.days = structuredClone(defaultData.days);
+        state.activeDayId = "2026-06-24";
+      }
+
+      try {
+        const rawHist = localStorage.getItem(STORAGE_KEY_HISTORY);
+        history = rawHist ? JSON.parse(rawHist) : [];
+        if (!Array.isArray(history)) history = [];
+      } catch {
+        history = [];
+      }
     }
 
-    return clusters;
-}
-
-    function calculateRouteDistance(activityList) {
-    if (activityList.length <= 1) return 0;
-
-    let total = 0;
-
-    for (let i = 0; i < activityList.length - 1; i++) {
-        const a = activities[activityList[i]];
-        const b = activities[activityList[i + 1]];
-
-        total += getDistanceKm(a, b);
+    function saveToStorage() {
+      const payload = {
+        days: state.days,
+        activeDayId: state.activeDayId
+      };
+      localStorage.setItem(STORAGE_KEY_DATA, JSON.stringify(payload));
     }
 
-    return total;
-}
+    function saveHistorySnapshot(label = "Manual snapshot") {
+      const snapshot = {
+        id: "v_" + Date.now(),
+        label,
+        timestamp: new Date().toISOString(),
+        data: structuredClone(state)
+      };
+      history.unshift(snapshot);
+      // keep last 20
+      history = history.slice(0, 20);
+      localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(history));
+      renderHistory();
+    }
 
-    function buildMapOptimizedDays(activityIds) {
-    const clusters = clusterByProximity(activityIds);
+    function resetToDefault() {
+      if (!confirm("Reset to default itinerary? This keeps your snapshots but overwrites the current view.")) return;
+      state.days = structuredClone(defaultData.days);
+      state.activeDayId = "2026-06-24";
+      saveToStorage();
+      renderAll();
+    }
 
-    const days = [];
+    function restoreFromSnapshot(id) {
+      const snap = history.find(h => h.id === id);
+      if (!snap) return;
+      if (!confirm("Restore this snapshot as the current itinerary?")) return;
+      state = structuredClone(snap.data);
+      saveToStorage();
+      renderAll();
+    }
 
-    clusters.forEach(cluster => {
-        // sort cluster to minimize travel path (simple greedy)
-        const sorted = [];
+    function deleteSnapshot(id) {
+      history = history.filter(h => h.id !== id);
+      localStorage.setItem(STORAGE_KEY_HISTORY, JSON.stringify(history));
+      renderHistory();
+    }
 
-        let current = cluster[0];
-        sorted.push(current);
-        cluster.splice(0, 1);
+    // ---------- RENDER ----------
+    function renderTabs() {
+      const tabsEl = document.getElementById("dayTabs");
+      tabsEl.innerHTML = "";
+      state.days.forEach(day => {
+        const btn = document.createElement("button");
+        btn.className = "tab" + (day.id === state.activeDayId ? " active" : "");
+        btn.innerHTML = `
+          <span class="day-label">${day.label}</span>
+          <span class="date">${day.id}</span>
+        `;
+        btn.onclick = () => {
+          state.activeDayId = day.id;
+          saveToStorage();
+          renderTabs();
+          renderDayContent();
+        };
+        tabsEl.appendChild(btn);
+      });
+    }
 
-        while (cluster.length > 0) {
-            let bestIndex = 0;
-            let bestDist = Infinity;
+    function renderDayContent() {
+      const container = document.getElementById("dayContent");
+      const day = state.days.find(d => d.id === state.activeDayId) || state.days[0];
+      if (!day) {
+        container.innerHTML = "<p style='font-size:0.8rem;color:var(--muted);'>No day selected.</p>";
+        return;
+      }
 
-            cluster.forEach((id, i) => {
-                const d = getDistanceKm(
-                    activities[current],
-                    activities[id]
-                );
+      const tagsHtml = (day.tags || [])
+        .map(t => `<span class="chip"><span class="dot"></span>${t}</span>`)
+        .join("");
 
-                if (d < bestDist) {
-                    bestDist = d;
-                    bestIndex = i;
-                }
-            });
+      container.innerHTML = `
+        <div class="day-meta">
+          <div>
+            <div class="small-label">Focus</div>
+            <div style="font-size:0.8rem;">${day.title}</div>
+          </div>
+          <div>
+            <div class="small-label">Vibe</div>
+            <div class="chips">${tagsHtml}</div>
+          </div>
+        </div>
+        <div style="font-size:0.78rem;color:var(--muted);margin-bottom:6px;">
+          ${day.notes || ""}
+        </div>
 
-            current = cluster[bestIndex];
-            sorted.push(current);
-            cluster.splice(bestIndex, 1);
-        }
+        <div class="section">
+          <div class="section-title">
+            Activities
+            <span class="bar"></span>
+          </div>
+          <div class="list" id="activityList"></div>
 
-        days.push({
-            date: null,
-            title: "Optimized route day",
-            activities: sorted
+          <div class="small-label" style="margin-top:6px;">Add activity</div>
+          <div class="form-inline" id="activityForm">
+            <input type="text" placeholder="Time (e.g. Morning)" data-field="time" />
+            <input type="text" placeholder="Title" data-field="title" />
+            <input type="text" placeholder="Details" data-field="details" />
+            <select data-field="type">
+              <option value="">Type</option>
+              <option>Relax</option>
+              <option>Practical</option>
+              <option>Castle</option>
+              <option>Walk</option>
+              <option>River</option>
+              <option>View</option>
+              <option>Cave</option>
+            </select>
+            <button class="btn btn-primary" type="button" id="btnAddActivity">+ Add</button>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title">
+            Restaurants
+            <span class="bar"></span>
+          </div>
+          <div class="list" id="restaurantList"></div>
+
+          <div class="small-label" style="margin-top:6px;">Add restaurant</div>
+          <div class="form-inline" id="restaurantForm">
+            <input type="text" placeholder="Name" data-field="name" />
+            <input type="text" placeholder="Town" data-field="town" />
+            <input type="text" placeholder="Style" data-field="style" />
+            <input type="text" placeholder="URL (optional)" data-field="url" />
+            <button class="btn btn-primary" type="button" id="btnAddRestaurant">+ Add</button>
+          </div>
+        </div>
+      `;
+
+      renderActivities(day);
+      renderRestaurants(day);
+      wireDayForms(day);
+    }
+
+    function renderActivities(day) {
+      const listEl = document.getElementById("activityList");
+      listEl.innerHTML = "";
+      (day.activities || []).forEach(act => {
+        const item = document.createElement("div");
+        item.className = "item";
+        item.innerHTML = `
+          <div class="item-main">
+            <div class="item-title-row">
+              <div class="chip accent">
+                <span class="dot"></span>${act.time || "Anytime"}
+              </div>
+              <div class="item-title">${act.title}</div>
+            </div>
+            <div class="item-meta">
+              <span><strong style="font-weight:500;">Type:</strong> ${act.type || "—"}</span>
+              <span>${act.details || ""}</span>
+            </div>
+          </div>
+          <div class="item-actions">
+            <button class="btn-icon danger" data-id="${act.id}" data-kind="activity">
+              ✕ Remove
+            </button>
+          </div>
+        `;
+        listEl.appendChild(item);
+      });
+
+      listEl.querySelectorAll(".btn-icon.danger").forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute("data-id");
+          day.activities = (day.activities || []).filter(a => a.id !== id);
+          saveToStorage();
+          renderActivities(day);
+        };
+      });
+    }
+
+    function renderRestaurants(day) {
+      const listEl = document.getElementById("restaurantList");
+      listEl.innerHTML = "";
+      (day.restaurants || []).forEach(r => {
+        const item = document.createElement("div");
+        item.className = "item";
+        const linkHtml = r.url
+          ? `<a class="link" href="${r.url}" target="_blank" rel="noopener noreferrer">
+               🔗 Website
+             </a>`
+          : `<span style="font-size:0.7rem;color:var(--muted);">No link</span>`;
+        item.innerHTML = `
+          <div class="item-main">
+            <div class="item-title-row">
+              <div class="item-title">${r.name}</div>
+              <span class="chip">
+                <span class="dot"></span>${r.town || "—"}
+              </span>
+            </div>
+            <div class="item-meta">
+              <span><strong style="font-weight:500;">Style:</strong> ${r.style || "—"}</span>
+              <span>${r.notes || ""}</span>
+            </div>
+          </div>
+          <div class="item-actions">
+            ${linkHtml}
+            <button class="btn-icon danger" data-id="${r.id}" data-kind="restaurant">
+              ✕ Remove
+            </button>
+          </div>
+        `;
+        listEl.appendChild(item);
+      });
+
+      listEl.querySelectorAll(".btn-icon.danger").forEach(btn => {
+        btn.onclick = () => {
+          const id = btn.getAttribute("data-id");
+          day.restaurants = (day.restaurants || []).filter(r => r.id !== id);
+          saveToStorage();
+          renderRestaurants(day);
+        };
+      });
+    }
+
+    function wireDayForms(day) {
+      const actForm = document.getElementById("activityForm");
+      const restForm = document.getElementById("restaurantForm");
+
+      const actInputs = actForm.querySelectorAll("[data-field]");
+      const restInputs = restForm.querySelectorAll("[data-field]");
+
+      document.getElementById("btnAddActivity").onclick = () => {
+        const payload = {};
+        actInputs.forEach(inp => {
+          payload[inp.getAttribute("data-field")] = inp.value.trim();
         });
+        if (!payload.title) return;
+        const newAct = {
+          id: "a_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+          time: payload.time || "Anytime",
+          title: payload.title,
+          details: payload.details || "",
+          type: payload.type || ""
+        };
+        day.activities = day.activities || [];
+        day.activities.push(newAct);
+        actInputs.forEach(inp => (inp.value = ""));
+        saveToStorage();
+        renderActivities(day);
+      };
+
+      document.getElementById("btnAddRestaurant").onclick = () => {
+        const payload = {};
+        restInputs.forEach(inp => {
+          payload[inp.getAttribute("data-field")] = inp.value.trim();
+        });
+        if (!payload.name) return;
+        const newRest = {
+          id: "r_" + Date.now() + "_" + Math.random().toString(16).slice(2),
+          name: payload.name,
+          town: payload.town || "",
+          style: payload.style || "",
+          url: payload.url || "",
+          notes: ""
+        };
+        day.restaurants = day.restaurants || [];
+        day.restaurants.push(newRest);
+        restInputs.forEach(inp => (inp.value = ""));
+        saveToStorage();
+        renderRestaurants(day);
+      };
+    }
+
+    function renderHistory() {
+      const listEl = document.getElementById("versionList");
+      listEl.innerHTML = "";
+      if (!history.length) {
+        listEl.innerHTML =
+          "<p style='font-size:0.75rem;color:var(--muted);'>No snapshots yet. Use “Save snapshot” after you tweak things.</p>";
+        return;
+      }
+
+      history.forEach((h, idx) => {
+        const d = new Date(h.timestamp);
+        const label =
+          h.label ||
+          `Snapshot ${idx + 1}`;
+        const item = document.createElement("div");
+        item.className = "version-item";
+        item.innerHTML = `
+          <div class="version-meta">
+            <span><strong style="font-weight:500;">${label}</strong></span>
+            <span class="label">${d.toLocaleString()}</span>
+          </div>
+          <div class="version-actions">
+            <button class="btn-icon" data-id="${h.id}" data-action="restore">↩ Restore</button>
+            <button class="btn-icon danger" data-id="${h.id}" data-action="delete">✕ Delete</button>
+          </div>
+        `;
+        listEl.appendChild(item);
+      });
+
+      listEl.querySelectorAll("button").forEach(btn => {
+        const id = btn.getAttribute("data-id");
+        const action = btn.getAttribute("data-action");
+        if (action === "restore") {
+          btn.onclick = () => restoreFromSnapshot(id);
+        } else if (action === "delete") {
+          btn.onclick = () => deleteSnapshot(id);
+        }
+      });
+    }
+
+    function renderAll() {
+      renderTabs();
+      renderDayContent();
+      renderHistory();
+    }
+
+    // ---------- INIT ----------
+    document.addEventListener("DOMContentLoaded", () => {
+      loadFromStorage();
+      renderAll();
+
+      document.getElementById("btnSaveSnapshot").onclick = () => {
+        const label = prompt("Snapshot label (optional):", "Manual snapshot");
+        saveHistorySnapshot(label || "Manual snapshot");
+      };
+
+      document.getElementById("btnReset").onclick = resetToDefault;
     });
-
-    return days;
-}
-
-  function saveDB() {
-  localStorage.setItem("restaurants", JSON.stringify(restaurants));
-  localStorage.setItem("activities", JSON.stringify(activities));
-  localStorage.setItem("days", JSON.stringify(days));
-}
-
-function loadDB() {
-  const r = localStorage.getItem("restaurants");
-  const a = localStorage.getItem("activities");
-  const d = localStorage.getItem("days");
-
-  if (r) Object.assign(restaurants, JSON.parse(r));
-  if (a) Object.assign(activities, JSON.parse(a));
-  if (d) days.splice(0, days.length, ...JSON.parse(d));
-}
-
-  function saveVersion() {
-  const history = JSON.parse(localStorage.getItem("history") || "[]");
-  history.push({
-    timestamp: new Date().toISOString(),
-    restaurants,
-    activities,
-    days
-  });
-  localStorage.setItem("history", JSON.stringify(history));
-}
-
-
-loadDB();
-
-initMap();
-renderDays();
-renderRestaurants();
-renderMap(0);
-
-</script>
-
-
-
+  </script>
 </body>
-
 </html>
