@@ -2,25 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Dordogne Trip Planner · Material You · Green Forest</title>
+  <title>Dordogne Trip Planner · Green Forest</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --md-primary: #2e7d32;
-      --md-primary-container: #a5d6a7;
-      --md-on-primary: #ffffff;
-      --md-surface: #0f1a12;
-      --md-surface-variant: #1b2a20;
-      --md-on-surface: #e8f5e9;
-      --md-on-surface-muted: #b0c4b4;
-      --md-outline: #3b4a3f;
-      --md-error: #ff5252;
-      --md-error-container: #7f1d1d;
-      --md-shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.45);
-      --radius-large: 24px;
-      --radius-medium: 18px;
-      --radius-chip: 999px;
-      --fab-size: 56px;
+      --primary: #2e7d32;
+      --primary-soft: #e8f5e9;
+      --primary-soft-strong: #c8e6c9;
+      --primary-dark: #1b5e20;
+      --accent: #ffb74d;
+      --bg: #f5f7f5;
+      --surface: #ffffff;
+      --surface-soft: #f0f3f0;
+      --border-soft: #dde4dd;
+      --text-main: #1f2933;
+      --text-muted: #6b7280;
+      --danger: #e53935;
+      --shadow-soft: 0 14px 40px rgba(15, 23, 42, 0.12);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
       --transition-fast: 0.18s ease-out;
       --transition-med: 0.25s ease-out;
     }
@@ -34,8 +36,8 @@
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #1b2a20 0, #020403 55%, #000 100%);
-      color: var(--md-on-surface);
+      background: radial-gradient(circle at top, #e8f5e9 0, #f5f7f5 40%, #edf1ed 100%);
+      color: var(--text-main);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -44,12 +46,12 @@
 
     .app-shell {
       width: 100%;
-      max-width: 1100px;
-      background: linear-gradient(145deg, rgba(15, 26, 18, 0.98), rgba(5, 10, 7, 0.98));
-      border-radius: 28px;
-      border: 1px solid rgba(165, 214, 167, 0.25);
-      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.7);
-      padding: 16px 14px 18px;
+      max-width: 1120px;
+      background: linear-gradient(135deg, #ffffff, #f7faf7);
+      border-radius: 32px;
+      border: 1px solid rgba(209, 223, 210, 0.9);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 20px;
       position: relative;
       overflow: hidden;
     }
@@ -59,9 +61,9 @@
       position: absolute;
       inset: -40%;
       background:
-        radial-gradient(circle at 0% 0%, rgba(165, 214, 167, 0.18) 0, transparent 55%),
-        radial-gradient(circle at 100% 0%, rgba(56, 142, 60, 0.18) 0, transparent 55%);
-      opacity: 0.9;
+        radial-gradient(circle at 0% 0%, rgba(200, 230, 201, 0.5) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(129, 199, 132, 0.35) 0, transparent 55%);
+      opacity: 0.7;
       pointer-events: none;
       z-index: -1;
     }
@@ -72,53 +74,53 @@
       align-items: flex-start;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
     .title-block {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
 
     .title-row {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
     h1 {
-      font-size: 1.35rem;
+      font-size: 1.5rem;
       letter-spacing: 0.03em;
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
-    .pill {
-      font-size: 0.72rem;
-      padding: 4px 10px;
-      border-radius: var(--radius-chip);
-      border: 1px solid rgba(176, 196, 180, 0.5);
-      color: var(--md-on-surface-muted);
+    .trip-pill {
+      font-size: 0.78rem;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(46, 125, 50, 0.25);
+      color: var(--primary-dark);
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      background: rgba(15, 26, 18, 0.9);
+      gap: 8px;
+      background: rgba(232, 245, 233, 0.9);
     }
 
-    .pill span.dot {
-      width: 7px;
-      height: 7px;
+    .trip-pill span.dot {
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
-      background: var(--md-primary);
-      box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.35);
+      background: var(--primary);
+      box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.2);
     }
 
     .subtitle {
-      font-size: 0.8rem;
-      color: var(--md-on-surface-muted);
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
     .top-actions {
@@ -136,28 +138,28 @@
 
     .btn {
       padding: 7px 12px;
-      border-radius: var(--radius-chip);
-      font-size: 0.78rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      border: 1px solid rgba(176, 196, 180, 0.5);
-      background: rgba(15, 26, 18, 0.9);
-      color: var(--md-on-surface);
+      border: 1px solid rgba(209, 223, 210, 0.9);
+      background: #ffffff;
+      color: var(--text-main);
       transition: all var(--transition-fast);
     }
 
     .btn:hover {
-      border-color: rgba(214, 234, 216, 0.9);
-      background: rgba(15, 26, 18, 1);
+      border-color: rgba(46, 125, 50, 0.35);
+      background: #f9fbf9;
       transform: translateY(-0.5px);
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--md-primary), #4caf50);
-      color: var(--md-on-primary);
+      background: linear-gradient(135deg, var(--primary), #4caf50);
+      color: #ffffff;
       border-color: transparent;
-      box-shadow: 0 0 0 1px rgba(165, 214, 167, 0.6), 0 10px 25px rgba(46, 125, 50, 0.55);
+      box-shadow: 0 10px 24px rgba(46, 125, 50, 0.4);
     }
 
     .btn-primary:hover {
@@ -166,29 +168,21 @@
     }
 
     .btn-tonal {
-      background: rgba(165, 214, 167, 0.12);
-      border-color: rgba(165, 214, 167, 0.5);
-      color: var(--md-on-surface);
-    }
-
-    .btn-tonal:hover {
-      background: rgba(165, 214, 167, 0.18);
+      background: #f1f8f2;
+      border-color: rgba(46, 125, 50, 0.25);
+      color: var(--primary-dark);
     }
 
     .btn-danger {
-      background: rgba(239, 83, 80, 0.12);
-      color: #ffcdd2;
-      border-color: rgba(239, 83, 80, 0.7);
-    }
-
-    .btn-danger:hover {
-      background: rgba(239, 83, 80, 0.18);
+      background: #ffebee;
+      color: var(--danger);
+      border-color: rgba(229, 57, 53, 0.4);
     }
 
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.9fr) minmax(0, 1.2fr);
-      gap: 14px;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.1fr);
+      gap: 16px;
     }
 
     @media (max-width: 880px) {
@@ -198,11 +192,11 @@
     }
 
     .card {
-      background: var(--md-surface);
-      border-radius: var(--radius-large);
-      border: 1px solid var(--md-outline);
-      box-shadow: var(--md-shadow-soft);
-      padding: 12px 12px 14px;
+      background: var(--surface);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+      padding: 14px 14px 16px;
       position: relative;
       overflow: hidden;
     }
@@ -219,24 +213,24 @@
       font-size: 0.95rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--md-on-surface);
+      color: var(--text-muted);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
     .card-title span.badge {
-      font-size: 0.65rem;
-      padding: 2px 7px;
-      border-radius: var(--radius-chip);
-      background: rgba(27, 42, 32, 0.9);
-      border: 1px solid rgba(176, 196, 180, 0.5);
-      color: var(--md-on-surface-muted);
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: #f1f8f2;
+      border: 1px solid rgba(46, 125, 50, 0.2);
+      color: var(--primary-dark);
     }
 
     .card-subtitle {
-      font-size: 0.75rem;
-      color: var(--md-on-surface-muted);
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
 
     /* Day chips */
@@ -246,23 +240,24 @@
       gap: 8px;
       overflow-x: auto;
       padding-bottom: 4px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .day-chip {
       padding: 8px 14px;
       border-radius: 18px;
-      background: var(--md-surface-variant);
-      color: var(--md-on-surface);
+      background: var(--surface-soft);
+      color: var(--text-main);
       font-size: 0.85rem;
       white-space: nowrap;
       cursor: pointer;
-      border: 1px solid var(--md-outline);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 3px 8px rgba(15, 23, 42, 0.06);
       display: inline-flex;
       flex-direction: column;
       gap: 2px;
       min-width: 90px;
+      transition: all var(--transition-fast);
     }
 
     .day-chip-label {
@@ -271,37 +266,47 @@
 
     .day-chip-date {
       font-size: 0.7rem;
-      color: var(--md-on-surface-muted);
+      color: var(--text-muted);
     }
 
     .day-chip.active {
-      background: var(--md-primary-container);
-      color: #0b2610;
-      border-color: rgba(46, 125, 50, 0.9);
-      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.55);
+      background: #e8f5e9;
+      color: var(--primary-dark);
+      border-color: rgba(46, 125, 50, 0.5);
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.25);
+      transform: translateY(-1px);
     }
 
     .day-chip.active .day-chip-date {
-      color: #1b5e20;
+      color: var(--primary);
     }
 
     .day-meta {
-      margin-bottom: 10px;
-      padding: 10px 12px;
-      border-radius: var(--radius-medium);
-      background: rgba(27, 42, 32, 0.9);
-      border: 1px solid var(--md-outline);
+      margin-bottom: 12px;
+      padding: 12px 12px;
+      border-radius: var(--radius-lg);
+      background: #f9fbf9;
+      border: 1px solid var(--border-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr);
+      gap: 10px;
     }
 
-    .day-meta-title {
-      font-size: 0.95rem;
+    @media (max-width: 720px) {
+      .day-meta {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .day-meta-main-title {
+      font-size: 1rem;
       font-weight: 600;
       margin-bottom: 4px;
     }
 
     .day-meta-notes {
-      font-size: 0.8rem;
-      color: var(--md-on-surface-muted);
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
     .chips {
@@ -313,31 +318,44 @@
 
     .chip {
       padding: 4px 9px;
-      border-radius: var(--radius-chip);
-      border: 1px solid var(--md-outline);
-      font-size: 0.7rem;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      font-size: 0.75rem;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(15, 26, 18, 0.9);
-      color: var(--md-on-surface-muted);
+      background: #ffffff;
+      color: var(--text-muted);
     }
 
     .chip .dot {
       width: 6px;
       height: 6px;
       border-radius: 999px;
-      background: rgba(176, 196, 180, 0.9);
+      background: rgba(156, 163, 175, 0.9);
     }
 
     .chip.accent {
-      border-color: rgba(165, 214, 167, 0.9);
-      background: rgba(165, 214, 167, 0.12);
-      color: #e8f5e9;
+      border-color: rgba(46, 125, 50, 0.3);
+      background: #e8f5e9;
+      color: var(--primary-dark);
     }
 
     .chip.accent .dot {
-      background: var(--md-primary);
+      background: var(--primary);
+    }
+
+    .day-meta-side {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .day-meta-side-label {
+      font-weight: 600;
+      color: var(--primary-dark);
     }
 
     .section {
@@ -348,7 +366,7 @@
       font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: var(--md-on-surface-muted);
+      color: var(--text-muted);
       margin-bottom: 6px;
       display: flex;
       align-items: center;
@@ -358,23 +376,17 @@
     .section-title span.bar {
       flex: 1;
       height: 1px;
-      background: linear-gradient(to right, rgba(176, 196, 180, 0.7), transparent);
-    }
-
-    .small-label {
-      font-size: 0.75rem;
-      color: var(--md-on-surface-muted);
-      margin-bottom: 4px;
+      background: linear-gradient(to right, rgba(209, 223, 210, 0.9), transparent);
     }
 
     /* Activity cards */
 
     .activity-card {
-      background: rgba(27, 42, 32, 0.98);
-      border-radius: var(--radius-large);
+      background: #ffffff;
+      border-radius: var(--radius-xl);
       padding: 10px 12px;
-      border: 1px solid var(--md-outline);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
       margin-bottom: 10px;
       display: grid;
       grid-template-columns: auto 1fr auto;
@@ -383,15 +395,15 @@
     }
 
     .activity-icon {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: 999px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1.3rem;
-      background: rgba(165, 214, 167, 0.18);
-      color: var(--md-primary-container);
+      background: #e8f5e9;
+      color: var(--primary-dark);
     }
 
     .activity-main {
@@ -414,26 +426,26 @@
 
     .badge {
       padding: 3px 8px;
-      border-radius: var(--radius-chip);
+      border-radius: var(--radius-pill);
       font-size: 0.7rem;
-      border: 1px solid rgba(176, 196, 180, 0.5);
-      background: rgba(15, 26, 18, 0.9);
-      color: var(--md-on-surface-muted);
+      border: 1px solid var(--border-soft);
+      background: #f9fbf9;
+      color: var(--text-muted);
     }
 
     .badge.time {
-      background: rgba(165, 214, 167, 0.16);
-      border-color: rgba(165, 214, 167, 0.7);
-      color: #e8f5e9;
+      background: #e8f5e9;
+      border-color: rgba(46, 125, 50, 0.3);
+      color: var(--primary-dark);
     }
 
     .badge.type {
-      background: rgba(27, 42, 32, 0.9);
+      background: #f3f4f6;
     }
 
     .activity-details {
       font-size: 0.8rem;
-      color: var(--md-on-surface-muted);
+      color: var(--text-muted);
     }
 
     .activity-actions {
@@ -445,31 +457,38 @@
 
     .btn-icon {
       padding: 4px 8px;
-      border-radius: var(--radius-chip);
-      border: 1px solid var(--md-outline);
-      background: rgba(15, 26, 18, 0.9);
-      color: var(--md-on-surface-muted);
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      background: #ffffff;
+      color: var(--text-muted);
       font-size: 0.75rem;
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-icon:hover {
+      background: #f9fbf9;
+      border-color: rgba(46, 125, 50, 0.25);
+      color: var(--primary-dark);
     }
 
     .btn-icon.danger {
-      border-color: rgba(239, 83, 80, 0.7);
-      color: #ffcdd2;
-      background: rgba(239, 83, 80, 0.12);
+      border-color: rgba(229, 57, 53, 0.4);
+      color: var(--danger);
+      background: #ffebee;
     }
 
     /* Restaurant cards */
 
     .rest-card {
-      background: rgba(27, 42, 32, 0.98);
-      border-radius: var(--radius-large);
+      background: #ffffff;
+      border-radius: var(--radius-xl);
       overflow: hidden;
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
       margin-bottom: 14px;
-      border: 1px solid var(--md-outline);
+      border: 1px solid var(--border-soft);
     }
 
     .rest-photo-wrap {
@@ -479,7 +498,7 @@
 
     .rest-photo {
       width: 100%;
-      height: 170px;
+      height: 180px;
       object-fit: cover;
       display: block;
       transition: transform var(--transition-med);
@@ -492,7 +511,7 @@
     .rest-photo-gradient {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent 55%);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.45), transparent 55%);
     }
 
     .rest-photo-top {
@@ -506,7 +525,7 @@
 
     .rest-rating-pill {
       padding: 4px 9px;
-      border-radius: var(--radius-chip);
+      border-radius: var(--radius-pill);
       background: rgba(0, 0, 0, 0.6);
       color: #e8f5e9;
       font-size: 0.75rem;
@@ -531,15 +550,15 @@
     }
 
     .rest-photo-title {
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 600;
-      color: #e8f5e9;
+      color: #ffffff;
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
     }
 
     .rest-photo-town {
       font-size: 0.8rem;
-      color: #c8e6c9;
+      color: #e8f5e9;
     }
 
     .rest-photo-actions {
@@ -550,7 +569,7 @@
 
     .rest-photo-btn {
       padding: 4px 8px;
-      border-radius: var(--radius-chip);
+      border-radius: var(--radius-pill);
       border: none;
       font-size: 0.75rem;
       background: rgba(0, 0, 0, 0.6);
@@ -569,53 +588,58 @@
       flex-wrap: wrap;
       gap: 8px;
       font-size: 0.8rem;
-      color: var(--md-on-surface-muted);
+      color: var(--text-muted);
       margin-bottom: 6px;
     }
 
     .rest-notes {
       font-size: 0.8rem;
-      color: var(--md-on-surface-muted);
+      color: var(--text-muted);
       margin-top: 2px;
     }
 
-    /* Forms */
+    /* Right column */
 
-    .form-inline {
-      margin-top: 6px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .info-section {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: var(--radius-lg);
+      background: #f9fbf9;
+      border: 1px solid var(--border-soft);
+      display: flex;
+      flex-direction: column;
       gap: 6px;
-      align-items: center;
-    }
-
-    @media (min-width: 720px) {
-      .form-inline {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-    }
-
-    .form-inline input,
-    .form-inline select {
-      width: 100%;
-      padding: 7px 9px;
-      border-radius: var(--radius-chip);
-      border: 1px solid var(--md-outline);
-      background: rgba(15, 26, 18, 0.9);
-      color: var(--md-on-surface);
       font-size: 0.8rem;
+      color: var(--text-muted);
     }
 
-    .form-inline input::placeholder {
-      color: var(--md-on-surface-muted);
+    .info-section-title {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    /* History bottom sheet */
+    .info-section-title span.icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: #e8f5e9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--primary-dark);
+    }
 
-    .bottom-sheet-overlay {
+    /* Bottom sheet (history & editor & map) */
+
+    .overlay-base {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.55);
+      background: rgba(15, 23, 42, 0.35);
       display: flex;
       justify-content: center;
       align-items: flex-end;
@@ -625,28 +649,36 @@
       transition: opacity var(--transition-med);
     }
 
-    .bottom-sheet-overlay.visible {
+    .overlay-base.visible {
       opacity: 1;
       pointer-events: auto;
     }
 
-    .bottom-sheet {
+    .sheet-base {
       width: 100%;
       max-width: 900px;
-      background: #0f1a12;
+      background: #ffffff;
       border-radius: 24px 24px 0 0;
-      border-top: 1px solid var(--md-outline);
-      box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.7);
-      padding: 12px 14px 16px;
+      border-top: 1px solid var(--border-soft);
+      box-shadow: 0 -12px 30px rgba(15, 23, 42, 0.18);
+      padding: 14px 14px 16px;
       transform: translateY(100%);
       transition: transform var(--transition-med);
     }
 
-    .bottom-sheet-overlay.visible .bottom-sheet {
+    .overlay-base.visible .sheet-base {
       transform: translateY(0);
     }
 
-    .bottom-sheet-header {
+    .sheet-handle {
+      width: 40px;
+      height: 4px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      margin: 0 auto 8px;
+    }
+
+    .sheet-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -654,24 +686,16 @@
       gap: 8px;
     }
 
-    .bottom-sheet-title {
+    .sheet-title {
       font-size: 0.9rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--md-on-surface);
+      color: var(--text-muted);
     }
 
-    .bottom-sheet-subtitle {
-      font-size: 0.75rem;
-      color: var(--md-on-surface-muted);
-    }
-
-    .bottom-sheet-handle {
-      width: 40px;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(176, 196, 180, 0.5);
-      margin: 0 auto 8px;
+    .sheet-subtitle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
     }
 
     .version-list {
@@ -686,8 +710,8 @@
 
     .version-item {
       border-radius: 16px;
-      border: 1px solid var(--md-outline);
-      background: rgba(27, 42, 32, 0.98);
+      border: 1px solid var(--border-soft);
+      background: #f9fbf9;
       padding: 7px 8px;
       display: flex;
       justify-content: space-between;
@@ -702,7 +726,7 @@
     }
 
     .version-meta span.label {
-      color: var(--md-on-surface-muted);
+      color: var(--text-muted);
     }
 
     .version-actions {
@@ -710,55 +734,6 @@
       flex-direction: column;
       gap: 4px;
       align-items: flex-end;
-    }
-
-    /* Bottom sheet editor */
-
-    .editor-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity var(--transition-med);
-    }
-
-    .editor-overlay.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .editor-sheet {
-      width: 100%;
-      max-width: 900px;
-      background: #0f1a12;
-      border-radius: 24px 24px 0 0;
-      border-top: 1px solid var(--md-outline);
-      box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.7);
-      padding: 14px 14px 16px;
-      transform: translateY(100%);
-      transition: transform var(--transition-med);
-    }
-
-    .editor-overlay.visible .editor-sheet {
-      transform: translateY(0);
-    }
-
-    .editor-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      gap: 8px;
-    }
-
-    .editor-title {
-      font-size: 0.95rem;
-      font-weight: 600;
     }
 
     .editor-content {
@@ -782,7 +757,7 @@
 
     .editor-field label {
       font-size: 0.78rem;
-      color: var(--md-on-surface-muted);
+      color: var(--text-muted);
       display: block;
       margin-bottom: 2px;
     }
@@ -791,10 +766,10 @@
     .editor-field textarea {
       width: 100%;
       padding: 8px 9px;
-      border-radius: 12px;
-      border: 1px solid var(--md-outline);
-      background: rgba(15, 26, 18, 0.95);
-      color: var(--md-on-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      background: #f9fbf9;
+      color: var(--text-main);
       font-size: 0.8rem;
     }
 
@@ -806,8 +781,8 @@
     .editor-photo-preview {
       border-radius: 16px;
       overflow: hidden;
-      border: 1px solid var(--md-outline);
-      background: rgba(15, 26, 18, 0.95);
+      border: 1px solid var(--border-soft);
+      background: #f9fbf9;
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -823,7 +798,7 @@
 
     .editor-photo-caption {
       font-size: 0.75rem;
-      color: var(--md-on-surface-muted);
+      color: var(--text-muted);
     }
 
     .editor-actions {
@@ -864,27 +839,28 @@
 
     .fab-menu-item {
       padding: 6px 10px;
-      border-radius: var(--radius-chip);
-      background: rgba(15, 26, 18, 0.95);
-      border: 1px solid var(--md-outline);
-      color: var(--md-on-surface);
+      border-radius: var(--radius-pill);
+      background: #ffffff;
+      border: 1px solid var(--border-soft);
+      color: var(--text-main);
       font-size: 0.78rem;
       display: inline-flex;
       align-items: center;
       gap: 6px;
       cursor: pointer;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
     }
 
     .fab {
-      width: var(--fab-size);
-      height: var(--fab-size);
+      width: 56px;
+      height: 56px;
       border-radius: 999px;
-      background: linear-gradient(135deg, var(--md-primary), #4caf50);
-      color: var(--md-on-primary);
+      background: linear-gradient(135deg, var(--primary), #4caf50);
+      color: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 12px 30px rgba(46, 125, 50, 0.7);
+      box-shadow: 0 14px 32px rgba(46, 125, 50, 0.5);
       font-size: 1.4rem;
       border: none;
       cursor: pointer;
@@ -893,7 +869,7 @@
 
     .fab:hover {
       transform: translateY(-1px);
-      box-shadow: 0 16px 36px rgba(46, 125, 50, 0.8);
+      box-shadow: 0 18px 40px rgba(46, 125, 50, 0.6);
     }
 
     .fab-icon-rotated {
@@ -902,57 +878,23 @@
 
     /* Map sheet */
 
-    .map-sheet {
-      width: 100%;
-      max-width: 900px;
-      background: #0f1a12;
-      border-radius: 24px 24px 0 0;
-      border-top: 1px solid var(--md-outline);
-      box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.7);
-      padding: 14px 14px 16px;
-      transform: translateY(100%);
-      transition: transform var(--transition-med);
-    }
-
-    .map-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      z-index: 950;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity var(--transition-med);
-    }
-
-    .map-overlay.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .map-overlay.visible .map-sheet {
-      transform: translateY(0);
-    }
-
     .map-placeholder {
       border-radius: 18px;
-      border: 1px dashed var(--md-outline);
-      background: rgba(15, 26, 18, 0.95);
+      border: 1px dashed var(--border-soft);
+      background: #f9fbf9;
       height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.8rem;
-      color: var(--md-on-surface-muted);
+      color: var(--text-muted);
       text-align: center;
       padding: 10px;
     }
 
     .scroll-soft {
       scrollbar-width: thin;
-      scrollbar-color: rgba(75, 85, 79, 0.9) transparent;
+      scrollbar-color: rgba(209, 223, 210, 0.9) transparent;
     }
 
     .scroll-soft::-webkit-scrollbar {
@@ -964,7 +906,7 @@
     }
 
     .scroll-soft::-webkit-scrollbar-thumb {
-      background: rgba(75, 85, 79, 0.9);
+      background: rgba(209, 223, 210, 0.9);
       border-radius: 999px;
     }
   </style>
@@ -975,13 +917,13 @@
       <div class="title-block">
         <div class="title-row">
           <h1>🌿 Dordogne Trip Planner</h1>
-          <div class="pill">
+          <div class="trip-pill">
             <span class="dot"></span>
             <span>Family · 23–29 June 2026 · Saint‑Julien‑de‑Lampon</span>
           </div>
         </div>
         <div class="subtitle">
-          A calm, modern, Material‑You view of your days, activities, and restaurants—with editing, history, and local persistence.
+          A calm, visual overview of your days, activities, and restaurants—designed to feel like a real app, not a dev tool.
         </div>
       </div>
       <div class="top-actions">
@@ -996,10 +938,10 @@
           <div>
             <div class="card-title">
               Itinerary
-              <span class="badge">Material You · Green Forest</span>
+              <span class="badge">Green Forest · App‑like</span>
             </div>
             <div class="card-subtitle">
-              Tap a day, see activities and restaurants as modern cards, and edit via bottom sheets.
+              Tap a day, see its cards, and edit with friendly bottom sheets.
             </div>
           </div>
         </div>
@@ -1013,38 +955,44 @@
         <div class="card-header">
           <div>
             <div class="card-title">
-              Trip context
+              Trip info
               <span class="badge">Local & GitHub‑ready</span>
             </div>
             <div class="card-subtitle">
-              Data is stored in your browser (localStorage). Perfect for a static GitHub Pages app.
+              Everything you change stays on this device. Perfect for a simple GitHub Pages app.
             </div>
           </div>
         </div>
 
-        <div class="section">
-          <div class="section-title">
+        <div class="info-section">
+          <div class="info-section-title">
+            <span class="icon">💾</span>
             Persistence
-            <span class="bar"></span>
           </div>
-          <div style="font-size:0.78rem;color:var(--md-on-surface-muted);display:flex;flex-direction:column;gap:4px;">
-            <div>• <strong>Local only:</strong> All edits stay on this device (localStorage).</div>
-            <div>• <strong>GitHub Pages:</strong> Just commit this file and enable Pages—no backend needed.</div>
-            <div>• <strong>Snapshots:</strong> Use the FAB menu to save and restore versions when you want.</div>
-          </div>
+          <div>• <strong>Local only:</strong> All edits are stored in your browser (localStorage).</div>
+          <div>• <strong>GitHub Pages:</strong> Commit this file and enable Pages—no backend needed.</div>
+          <div>• <strong>Snapshots:</strong> Use the floating “+” menu to save and restore versions.</div>
         </div>
 
-        <div class="section">
-          <div class="section-title">
+        <div class="info-section">
+          <div class="info-section-title">
+            <span class="icon">✨</span>
             How to use
-            <span class="bar"></span>
           </div>
-          <ul style="font-size:0.78rem;color:var(--md-on-surface-muted);padding-left:16px;display:flex;flex-direction:column;gap:3px;">
-            <li><strong>1.</strong> Pick a day from the chips at the top.</li>
-            <li><strong>2.</strong> Tap “✏️ Edit” on an activity or restaurant to open the bottom sheet editor.</li>
-            <li><strong>3.</strong> Use the “+” FAB to add items, save snapshots, or reset to default.</li>
-            <li><strong>4.</strong> Use “Map today’s restaurants” to open Google Maps with today’s picks.</li>
-          </ul>
+          <div>1. Pick a day from the row of day cards.</div>
+          <div>2. Tap “✏️ Edit” on an activity or restaurant to adjust details.</div>
+          <div>3. Use the “+” button (bottom‑right) to add items, see history, or reset.</div>
+          <div>4. Use “Map today’s restaurants” to open Google Maps with today’s picks.</div>
+        </div>
+
+        <div class="info-section">
+          <div class="info-section-title">
+            <span class="icon">💡</span>
+            Tips
+          </div>
+          <div>• Keep it light: you don’t need to fill every field.</div>
+          <div>• Use snapshots before big changes, so you can roll back easily.</div>
+          <div>• Treat this like a personal travel app—simple, visual, and forgiving.</div>
         </div>
       </div>
     </div>
@@ -1064,13 +1012,13 @@
   </div>
 
   <!-- History bottom sheet -->
-  <div id="historyOverlay" class="bottom-sheet-overlay">
-    <div class="bottom-sheet">
-      <div class="bottom-sheet-handle"></div>
-      <div class="bottom-sheet-header">
+  <div id="historyOverlay" class="overlay-base">
+    <div class="sheet-base">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
         <div>
-          <div class="bottom-sheet-title">Version history</div>
-          <div class="bottom-sheet-subtitle">
+          <div class="sheet-title">Version history</div>
+          <div class="sheet-subtitle">
             Snapshots are stored locally. Restore or delete them here.
           </div>
         </div>
@@ -1081,11 +1029,11 @@
   </div>
 
   <!-- Editor bottom sheet -->
-  <div id="editorOverlay" class="editor-overlay">
-    <div class="editor-sheet">
-      <div class="bottom-sheet-handle"></div>
-      <div class="editor-header">
-        <div class="editor-title" id="editorTitle"></div>
+  <div id="editorOverlay" class="overlay-base">
+    <div class="sheet-base">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <div class="sheet-title" id="editorTitle"></div>
         <button class="btn" id="editorClose">Close</button>
       </div>
       <div class="editor-content">
@@ -1105,13 +1053,13 @@
   </div>
 
   <!-- Map bottom sheet -->
-  <div id="mapOverlay" class="map-overlay">
-    <div class="map-sheet">
-      <div class="bottom-sheet-handle"></div>
-      <div class="bottom-sheet-header">
+  <div id="mapOverlay" class="overlay-base">
+    <div class="sheet-base">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
         <div>
-          <div class="bottom-sheet-title">Map today’s restaurants</div>
-          <div class="bottom-sheet-subtitle">
+          <div class="sheet-title">Map today’s restaurants</div>
+          <div class="sheet-subtitle">
             Open all of today’s restaurants in Google Maps or copy the search query.
           </div>
         </div>
@@ -1123,7 +1071,7 @@
       <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
         <button class="btn-primary btn" id="mapOpenExternal">Open in Google Maps</button>
         <button class="btn-tonal btn" id="mapCopyQuery">Copy search query</button>
-        <div style="font-size:0.75rem;color:var(--md-on-surface-muted);" id="mapQueryText"></div>
+        <div style="font-size:0.75rem;color:var(--text-muted);" id="mapQueryText"></div>
       </div>
     </div>
   </div>
@@ -1452,8 +1400,8 @@
       ]
     };
 
-    const STORAGE_KEY_DATA = "dordogne_trip_data_material_green_v1";
-    const STORAGE_KEY_HISTORY = "dordogne_trip_history_material_green_v1";
+    const STORAGE_KEY_DATA = "dordogne_trip_data_green_ui_v2";
+    const STORAGE_KEY_HISTORY = "dordogne_trip_history_green_ui_v2";
 
     let state = {
       days: [],
@@ -1577,7 +1525,7 @@
       const container = document.getElementById("dayContent");
       const day = state.days.find(d => d.id === state.activeDayId) || state.days[0];
       if (!day) {
-        container.innerHTML = "<p style='font-size:0.8rem;color:var(--md-on-surface-muted);'>No day selected.</p>";
+        container.innerHTML = "<p style='font-size:0.8rem;color:var(--text-muted);'>No day selected.</p>";
         return;
       }
 
@@ -1587,9 +1535,16 @@
 
       container.innerHTML = `
         <div class="day-meta">
-          <div class="day-meta-title">${day.title}</div>
-          <div class="day-meta-notes">${day.notes || ""}</div>
-          <div class="chips">${tagsHtml}</div>
+          <div>
+            <div class="day-meta-main-title">${day.title}</div>
+            <div class="day-meta-notes">${day.notes || ""}</div>
+            <div class="chips">${tagsHtml}</div>
+          </div>
+          <div class="day-meta-side">
+            <div class="day-meta-side-label">Today’s feel</div>
+            <div>${day.tags && day.tags.length ? day.tags.join(" · ") : "Flexible"}</div>
+            <div style="margin-top:4px;">Use the cards below to tweak activities and restaurants.</div>
+          </div>
         </div>
 
         <div class="section">
@@ -1750,7 +1705,7 @@
       listEl.innerHTML = "";
       if (!history.length) {
         listEl.innerHTML =
-          "<p style='font-size:0.75rem;color:var(--md-on-surface-muted);'>No snapshots yet. Use the FAB menu → “🕒 Version history” → “Save snapshot” to create one.</p>";
+          "<p style='font-size:0.75rem;color:var(--text-muted);'>No snapshots yet. Use the floating “+” menu → “🕒 Version history” → “Save snapshot” to create one.</p>";
         return;
       }
 
@@ -1789,7 +1744,7 @@
       renderHistory();
     }
 
-    // ---------- EDITOR (bottom sheet) ----------
+    // ---------- EDITOR ----------
     function openEditor(title, kind, day, item) {
       editorContext = { kind, dayId: day.id, itemId: item.id };
       const overlay = document.getElementById("editorOverlay");
